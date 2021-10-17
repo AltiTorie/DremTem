@@ -1,50 +1,31 @@
-//void doMeasurement() {
-//  if(ledOn){
-//    digitalWrite(13, LOW);
-//    ledOn = false;
-//  }
-//  else{
-//    digitalWrite(13, HIGH);
-//    ledOn = true;
-//  }
-//  lastMeasurementTime = millis();
-//}
-//
-//bool shouldMeasure() {
-//  if (millis() - lastMeasurementTime > readingInterval) {
-//    return true;
-//  }
-//  return false;
-//}
-
-
 const byte tempSensor = A1;
 const byte lightSensor = A2;
 
 bool shouldMeasureTemp() {
-  if (millis() - tempLastMeasurementTime > tempReadingInterval) {
+  if ((millis() - tempLastMeasurementTime > tempReadingInterval) && tempSensorOn) {
     return true;
   }
   return false;
 }
 
-void doMeasurementTemp() {
+void measureTemp() {
+  float celsiusTemp = analogRead(tempSensor) / 2.048;
   Serial.print("Temp: ");
-  Serial.println(analogRead(tempSensor));
-  
+  Serial.println(celsiusTemp);
+
   tempLastMeasurementTime = millis();
 }
 
 bool shouldMeasureLight() {
-  if (millis() - lightLastMeasurementTime > lightReadingInterval) {
+  if ((millis() - lightLastMeasurementTime > lightReadingInterval) && lightSensorOn) {
     return true;
   }
   return false;
 }
 
-void doMeasurementLight() {
+void measureLight() {
   Serial.print("Light: ");
   Serial.println(analogRead(lightSensor));
-  
+
   lightLastMeasurementTime = millis();
 }
