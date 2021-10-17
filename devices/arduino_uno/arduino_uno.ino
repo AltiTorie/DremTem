@@ -1,25 +1,30 @@
-char END_OF_THE_CMD_INDICATOR = '#';
-char character;
-String cmd;
-unsigned long readingInterval;
-unsigned long lastMeasurementTime;
+unsigned long tempReadingInterval;
+unsigned long tempLastMeasurementTime;
+
+unsigned long lightReadingInterval;
+unsigned long lightLastMeasurementTime;
+
 bool ledOn;
 
 void setup() {
+  // TODO: read reading intervals from config file
+  
   Serial.begin(9600);
-  lastMeasurementTime = millis();
-  readingInterval = 2000;
-  ledOn = false;
-  pinMode(13, OUTPUT);
+
+  tempLastMeasurementTime = millis();
+  tempReadingInterval = 10000;
+  
+  lightLastMeasurementTime = millis();
+  lightReadingInterval = 5000;
 }
 
 void loop() {
   readBluetooth();
   
-  if (shouldMeasure()) {
-    doMeasurement();
-    lastMeasurementTime = millis();
+  if (shouldMeasureTemp()) {
+    doMeasurementTemp();
   }
-  
-  delay(200);
+  if (shouldMeasureLight()) {
+    doMeasurementLight();
+  }
 }
