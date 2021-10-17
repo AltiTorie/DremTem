@@ -12,7 +12,7 @@ void setup() {
   Serial.begin(9600);
 
   tempLastMeasurementTime = millis();
-  tempReadingInterval = 10000;
+  tempReadingInterval = 2000;
   tempSensorOn = true;
 
   lightLastMeasurementTime = millis();
