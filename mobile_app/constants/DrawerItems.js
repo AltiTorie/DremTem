@@ -1,0 +1,22 @@
+// export default [
+//     {
+//         name:'Home',
+//         iconType:'Material',
+//         iconName:'face-profile'
+//     },
+//     {
+//         name:'Devices',
+//         iconType:'Feather',
+//         iconName:'settings'
+//     },
+//     {
+//         name:'profile',
+//         iconType:'Material',
+//         iconName:'bookmark-check-outline'
+//     },
+//     {
+//         name:'Settings',
+//         iconType:'FontAwesome5',
+//         iconName:'settings'
+//     }
+// ]
