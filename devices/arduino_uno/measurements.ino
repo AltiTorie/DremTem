@@ -2,7 +2,7 @@ const byte tempSensor = A1;
 const byte lightSensor = A2;
 
 bool shouldMeasureTemp() {
-  if ((millis() - tempLastMeasurementTime > tempReadingInterval) && tempSensorOn) {
+  if ((millis() - tempLastMeasurementTime > config.tempReadingInterval) && config.tempSensorOn) {
     return true;
   }
   return false;
@@ -17,7 +17,7 @@ void measureTemp() {
 }
 
 bool shouldMeasureLight() {
-  if ((millis() - lightLastMeasurementTime > lightReadingInterval) && lightSensorOn) {
+  if ((millis() - lightLastMeasurementTime > config.lightReadingInterval) && config.lightSensorOn) {
     return true;
   }
   return false;

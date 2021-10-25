@@ -8,6 +8,7 @@ void readBluetooth() {
     character = Serial.read();
     if (character == END_OF_THE_CMD_INDICATOR) {
       execCmd();
+      saveConfiguration(filename, config);
       cmd = "";
     }
     else {
