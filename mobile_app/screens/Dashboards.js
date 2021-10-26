@@ -1,14 +1,16 @@
 import React from "react";
 import {Text, View, Button, StyleSheet} from 'react-native';
+import AppTitle from "../components/Title";
+import AppButton from "../components/Button";
 
 const DashboardScreen = props => {
     return (
         <View style={styles.main}>
-            <View style={styles.logoContainer}>
-                <Text style={styles.logoText}>Dszbordziki</Text>
+            <View>
+                <AppTitle title="Dashboards"/>
             </View>
             <View style={styles.text}>
-                <Text>sdvewvgreg</Text>
+                <Text>..................</Text>
             </View>
         </View>
     );

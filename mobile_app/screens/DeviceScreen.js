@@ -1,11 +1,13 @@
 import React from "react";
 import {Text, View, Button, StyleSheet} from 'react-native';
+import AppTitle from "../components/Title";
+import AppButton from "../components/Button";
 
 const DeviceScreen = props => {
     return (
         <View style={styles.main}>
-            <View style={styles.logoContainer}>
-                <Text style={styles.logoText}>Dvajsiki</Text>
+            <View>
+                <AppTitle title="Dvajsiki"/>
             </View>
             <View style={styles.text}>
                 <Text>i dwajsiątka</Text>
@@ -22,14 +24,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         alignItems: 'center',
         justifyContent: 'center',
-      },
-      logoContainer: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
-      },
-      logoText: {
-        fontSize: 20,
-      },
+    },
       text: {
       }
 });

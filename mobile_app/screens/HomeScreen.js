@@ -1,21 +1,19 @@
 import React from "react";
 import {Text, View, Button, StyleSheet} from 'react-native';
-// import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-// import { HeaderTitle } from "react-navigation-stack";
-import DrawerNavigator from "../navigation/DrawerNavigator";
-// import { HeaderButton } from "react-navigation-header-buttons";
+import AppTitle from "../components/Title";
+import AppButton from "../components/Button";
 
 const HomeScreen = props => {
     return (
         <View style={styles.main}>
-            <View style={styles.logoContainer}>
-                <Text style={styles.logoText}>HOME</Text>
+            <View>
+                <AppTitle title="HOME"/>
             </View>
             <View style={styles.text}>
-                <Text>Tu się mają pokazać wszystkie pierdoły dla userahbjhbjhb</Text>
+                <Text>Tu się mają pokazać wszystkie rzeczy dla usera</Text>
             </View>
-                <Button  title="Kama" onPress={() => {props.navigation.navigate('Device') }}/>
-                <Button  title="Arek" onPress={() => {props.navigation.navigate('Dashboard') }}/>
+                <AppButton  title="Kama" onPress={() => {props.navigation.navigate('Device') }}/>
+                <AppButton  title="Arek" onPress={() => {props.navigation.navigate('Dashboard') }}/>
         </View>
     );
 };
@@ -29,15 +27,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
       },
-      logoContainer: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
-      },
-      logoText: {
-        fontSize: 20,
-      },
       text: {
-          fontSize: 10
+          fontSize: 10,
+          textAlign: 'center',
+          margin: 5
       }
 });
 

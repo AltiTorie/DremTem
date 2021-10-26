@@ -1,20 +1,20 @@
 import React from "react";
 import {Text, View, Button, StyleSheet} from 'react-native';
 import AboutScreen from '../screens/AboutScreen';
+import AppButton from "../components/Button";
+import AppTitle from "../components/Title";
 
 const WelcomeScreen = props => {
     return (
         <View style={styles.main}>
-            <View style={styles.logoContainer}>
-                <Text style={styles.logoText}>DREM TEM</Text>
+            <View>
+                <AppTitle title="drem tem"/>
             </View>
             <View style={styles.buttonContainer}>
-                <Button title="About" onPress={() => {props.navigation.navigate('About');
-                }}/>
-                <Button title="Sign in"/>
-                <Button title="Log in"/>
-                <Button title="Next" onPress={() => {props.navigation.replace('Home');
-                }}/>
+                <AppButton title="About" onPress={() => {props.navigation.navigate('About');}}/>
+                <AppButton title="Log in"/>
+                <AppButton title="Sign in"/>
+                <Button title="Next" onPress={() => {props.navigation.replace('Home');}}/>
             </View>
         </View>
     );
@@ -28,18 +28,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         alignItems: 'center',
         justifyContent: 'center',
-      },
-      logoContainer: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
-      },
-      logoText: {
-        fontSize: 20,
-      },
-      buttonContainer: {
-          borderColor: "#7cb48f",
-      },
-
+      }
 });
 
 export default WelcomeScreen;
