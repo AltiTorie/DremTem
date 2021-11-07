@@ -15,6 +15,7 @@ struct Config {
 
 
 const char *filename = "/config.txt";
+const char *deviceConfigfilename = "/DEVICE.txt";
 Config config;
 
 void setup() {
@@ -27,7 +28,8 @@ void setup() {
   }
 
   loadConfiguration(filename, config);
-  printConfig();
+//  printConfig();
+//  printFile(filename);
   
   tempLastMeasurementTime = millis();
   lightLastMeasurementTime = millis();

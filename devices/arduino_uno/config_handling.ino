@@ -23,8 +23,15 @@ int getNumOfCmdArgs() {
 void execCmd() {
   int numOfCmdArgs = getNumOfCmdArgs();
 
+
+
   if (numOfCmdArgs != EXPECTED_NUM_OF_CMD_ARGS) {
-    Serial.println("ERROR: Incorrect CMD provided. CMD should consist of 3 args.");
+    if (cmd == "GETFROMDEVICE") {
+      sendDeviceConfig();
+    }
+    else {
+      Serial.println("ERROR: Incorrect CMD provided. CMD should consist of 3 args.");
+    }
   }
   else {
     int init_size = cmd.length() + 1;
@@ -98,8 +105,8 @@ void loadConfiguration(const char *filename, Config &config) {
 
   DeserializationError err = deserializeJson(doc, file);
 
-    if (err)
-      Serial.println(F("Failed to read file, using default configuration"));
+  if (err)
+    Serial.println(F("Failed to read file, using default configuration"));
 
   config.tempReadingInterval = doc["tempReadingInterval"] | 1000;
   config.lightReadingInterval = doc["lightReadingInterval"] | 1000;
@@ -135,10 +142,14 @@ void saveConfiguration(const char *filename, Config &config) {
   file.close();
 }
 
+void sendDeviceConfig() {
+  Serial.println("START");
+  printFile(deviceConfigfilename);
+  Serial.println('#');
+}
+
 
 void printFile(const char *filename) {
-  Serial.println("Printing file");
-
   File file = SD.open(filename);
   if (!file) {
     Serial.println(F("Failed to read file"));
