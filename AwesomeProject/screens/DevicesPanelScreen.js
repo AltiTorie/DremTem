@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   text: {},
   container: {
     flex: 1,
-    marginVertical: 20,
+    marginVertical: 0,
   },
   item: {
     backgroundColor: '#4a67a1',
