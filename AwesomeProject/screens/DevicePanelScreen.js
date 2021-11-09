@@ -63,9 +63,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: 36,
   },
-  test: {
-    backgroundColor: 'red',
-  },
 });
 
 export default DevicePanelScreen;
