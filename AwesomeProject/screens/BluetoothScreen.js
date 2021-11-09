@@ -188,17 +188,17 @@ export default class App extends Component {
         <Button
           onPress={this.getFromDevice.bind(this)}
           title="getFromDevice"
-          color="#0ffc03"
+          color="#4983e6"
         />
         <Button
           onPress={this.tempOn.bind(this)}
           title="TEMP(On)"
-          color="#0ffc03"
+          color="#86e86b"
         />
         <Button
           onPress={this.tempOff.bind(this)}
           title="TEMP(Off)"
-          color="#fc0303"
+          color="#e83535"
         />
       </View>
     );

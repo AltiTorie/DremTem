@@ -15,9 +15,15 @@ const HomeScreen = props => {
         <Text>Tu się mają pokazać wszystkie rzeczy dla usera</Text>
       </View>
       <AppButton
-        title="Kama"
+        title="Devices panel"
         onPress={() => {
-          props.navigation.navigate('Device');
+          props.navigation.navigate('DevicesPanel');
+        }}
+      />
+      <AppButton
+        title="Configure device"
+        onPress={() => {
+          props.navigation.navigate('Bluetooth');
         }}
       />
       <AppButton
