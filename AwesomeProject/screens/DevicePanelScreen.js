@@ -13,6 +13,8 @@ const DevicePanelScreen = props => {
           text: 'Yes',
           onPress: () => {
             console.log('Yes');
+            props.route.params.onGoBack();
+            props.navigation.goBack();
           },
         },
         {
