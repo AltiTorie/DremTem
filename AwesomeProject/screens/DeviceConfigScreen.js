@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Switch} from 'react-native';
+import {Text, View, StyleSheet, Switch, ToastAndroid} from 'react-native';
 import AppButton from '../components/Button';
 import SelectDropdown from 'react-native-select-dropdown';
 
@@ -13,10 +13,9 @@ const DeviceConfigScreen = props => {
     // console.log(sensorsNames);
     return sensorsNames;
   };
-  var selectedSensorID;
-  var sensorState;
 
   const [isEnabled, setIsEnabled] = useState(false);
+  const [dropdownValue, setdropdownValue] = useState();
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
@@ -35,7 +34,7 @@ const DeviceConfigScreen = props => {
           defaultButtonText="Select sensor"
           data={getSensorsNamesList(props.route.params.deviceConfig.sensors)}
           onSelect={(selectedItem, index) => {
-            selectedSensorID = selectedItem;
+            setdropdownValue(selectedItem);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem;
@@ -44,6 +43,7 @@ const DeviceConfigScreen = props => {
             return item;
           }}
         />
+        <Text style={styles.text}>{'\nSet sensor state:'}</Text>
         <Switch
           trackColor={{false: '#767577', true: '#767577'}}
           thumbColor={isEnabled ? '#FFC163' : '#f4f3f4'}
@@ -55,22 +55,15 @@ const DeviceConfigScreen = props => {
       </View>
       <View style={styles.bottom}>
         <AppButton
-          title="LIGHT ON"
-          onPress={() => props.route.params.bt.lightOn()}
-        />
-        <AppButton
-          title="LIGHT OFF"
-          onPress={() => props.route.params.bt.lightOff()}
-        />
-        <AppButton
           title="SEND TO DEVICE"
-          onPress={
-            () =>
-              props.route.params.bt.sendStateConfig(
-                selectedSensorID,
-                sensorState,
-              ) // TODO: fix params (are undefined now)
-          }
+          onPress={() => {
+            if (typeof dropdownValue == 'undefined') {
+              ToastAndroid.show(`Select sensor`, ToastAndroid.SHORT);
+            } else {
+              let state = isEnabled ? 'ON' : 'OFF';
+              props.route.params.bt.sendStateConfig(dropdownValue, state);
+            }
+          }}
         />
       </View>
     </View>
