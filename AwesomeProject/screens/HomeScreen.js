@@ -28,8 +28,8 @@ const HomeScreen = props => {
           props.navigation.navigate('ConfigureDevices');
         }}
       />
-      <SecondButton
-        title="Arek"
+      <AppButton
+        title="Dashboards"
         onPress={() => {
           props.navigation.navigate('Dashboard');
         }}
