@@ -1,15 +1,10 @@
 import React, {useState} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Switch,
-  ToastAndroid,
-  TextInput,
-} from 'react-native';
 import AppButton from '../components/Button_main';
 import SelectDropdown from 'react-native-select-dropdown';
 import DeviceStackNavigator from '../navigation/DeviceStackNavigator';
+import {Text, View, StyleSheet, Switch} from 'react-native';
+import AppButton from '../components/Button';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const DeviceConfigScreen = props => {
   const getSensorsNamesList = sensorsData => {
