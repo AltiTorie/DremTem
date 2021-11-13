@@ -23,6 +23,7 @@ import TemperatureDashboardScreen from './screens/Dashboards/TemperatureDashboar
 import TemperatureMoistureDashboardScreen from './screens/Dashboards/TemperatureMoistureDashboardScreen';
 import LightDashboardScreen from './screens/Dashboards/LightDashboardScreen';
 import DefaultDashboardScreen from './screens/Dashboards/DefaultDashboardScreen';
+import DeviceConfigScreen from './screens/DeviceConfigScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -53,6 +54,7 @@ export default function App() {
           name="DefaultDashboard"
           component={DefaultDashboardScreen}
         />
+        <Stack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

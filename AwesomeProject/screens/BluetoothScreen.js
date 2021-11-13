@@ -117,8 +117,8 @@ export default class App extends Component {
       })
       .catch(err => console.log(err.message));
   }
-  tempOn() {
-    BluetoothSerial.write('STATE:TEMP:ON#')
+  lightOn() {
+    BluetoothSerial.write('STATE:LIGHT:ON#')
       .then(res => {
         console.log(res);
         console.log('Successfuly wrote to device');
@@ -126,8 +126,19 @@ export default class App extends Component {
       })
       .catch(err => console.log(err.message));
   }
-  tempOff() {
-    BluetoothSerial.write('STATE:TEMP:OFF#')
+  sendStateConfig(selectedSensorID, sensorState) {
+    let cmd = 'STATE:' + selectedSensorID + ':' + sensorState + '#';
+    console.log(cmd);
+    BluetoothSerial.write(cmd)
+      .then(res => {
+        console.log(res);
+        console.log('Successfuly wrote to device');
+        this.setState({connected: true});
+      })
+      .catch(err => console.log(err.message));
+  }
+  lightOff() {
+    BluetoothSerial.write('STATE:LIGHT:OFF#')
       .then(res => {
         console.log(res);
         console.log('Successfuly wrote to device');
@@ -155,9 +166,18 @@ export default class App extends Component {
         },
       );
       BluetoothSerial.on('read', data => {
-        var deviceConfig = data.data;
-        // console.log(`DATA FROM BLUETOOTH: ${data.data}`);
-        console.log(deviceConfig.split('START')[1].split('#')[0]);
+        let deviceConfigString = data.data;
+        deviceConfigString = deviceConfigString.split('START')[1].split('#')[0];
+        deviceConfigString = deviceConfigString.replace(/^\n|\n$/g, '');
+        console.log(deviceConfigString);
+        // // console.log(`DATA FROM BLUETOOTH: ${data.data}`);
+        let deviceConfig = JSON.parse(deviceConfigString);
+        console.log('AF');
+        console.log(deviceConfig);
+        this.props.navigation.navigate('DeviceConfig', {
+          deviceConfig: deviceConfig,
+          bt: this,
+        });
       });
     });
   }
@@ -191,12 +211,12 @@ export default class App extends Component {
           color="#4983e6"
         />
         <Button
-          onPress={this.tempOn.bind(this)}
+          onPress={this.lightOn.bind(this)}
           title="TEMP(On)"
           color="#86e86b"
         />
         <Button
-          onPress={this.tempOff.bind(this)}
+          onPress={this.lightOff.bind(this)}
           title="TEMP(Off)"
           color="#e83535"
         />
