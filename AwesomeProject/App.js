@@ -18,6 +18,7 @@ import Dashboards from './screens/Dashboards';
 import BluetoothScreen from './screens/BluetoothScreen';
 import DevicesPanelScreen from './screens/DevicesPanelScreen';
 import DevicePanelScreen from './screens/DevicePanelScreen';
+import DeviceConfigScreen from './screens/DeviceConfigScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -31,6 +32,7 @@ export default function App() {
         <Stack.Screen name="Bluetooth" component={BluetoothScreen} />
         <Stack.Screen name="Dashboard" component={Dashboards} />
         <Stack.Screen name="Device" component={DevicePanelScreen} />
+        <Stack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

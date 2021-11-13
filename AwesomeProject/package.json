@@ -18,7 +18,8 @@
     "react-native-bluetooth-serial": "^1.0.0-rc1",
     "react-native-iconly": "^1.0.12",
     "react-native-safe-area-context": "^3.3.2",
-    "react-native-screens": "^3.9.0"
+    "react-native-screens": "^3.9.0",
+    "react-native-select-dropdown": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
