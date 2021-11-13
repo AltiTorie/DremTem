@@ -14,10 +14,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AboutScreen from './screens/AboutScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import HomeScreen from './screens/HomeScreen';
-import Dashboards from './screens/Dashboards';
+import DashboardScreen from './screens/Dashboards';
 import BluetoothScreen from './screens/BluetoothScreen';
 import DevicesPanelScreen from './screens/DevicesPanelScreen';
 import DevicePanelScreen from './screens/DevicePanelScreen';
+import MoistureDashboardScreen from './screens/Dashboards/MoistureDashboardScreen';
+import TemperatureDashboardScreen from './screens/Dashboards/TemperatureDashboardScreen';
+import TemperatureMoistureDashboardScreen from './screens/Dashboards/TemperatureMoistureDashboardScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -29,8 +32,20 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="DevicesPanel" component={DevicesPanelScreen} />
         <Stack.Screen name="Bluetooth" component={BluetoothScreen} />
-        <Stack.Screen name="Dashboard" component={Dashboards} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} />
         <Stack.Screen name="Device" component={DevicePanelScreen} />
+        <Stack.Screen
+          name="MoistureDashboard"
+          component={MoistureDashboardScreen}
+        />
+        <Stack.Screen
+          name="TemperatureDashboard"
+          component={TemperatureDashboardScreen}
+        />
+        <Stack.Screen
+          name="TemperatureMoistureDashboard"
+          component={TemperatureMoistureDashboardScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

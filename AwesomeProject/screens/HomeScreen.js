@@ -27,7 +27,7 @@ const HomeScreen = props => {
         }}
       />
       <AppButton
-        title="Arek"
+        title="Dashboards"
         onPress={() => {
           props.navigation.navigate('Dashboard');
         }}
