@@ -25,9 +25,6 @@ const DevicePanelScreen = props => {
   };
   return (
     <View style={styles.main}>
-      <View>
-        <AppTitle title="Device" />
-      </View>
       <View style={{alignItems: 'center'}}>
         <Text style={styles.textHeader}>{props.route.params.device.name}</Text>
         <Text style={styles.text}>
