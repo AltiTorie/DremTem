@@ -45,7 +45,7 @@ const DeviceConfigScreen = props => {
         </Text>
         <Text style={styles.text}>{'\nSensor:'}</Text>
         <SelectDropdown
-          defaultButtonText="Select sensor"
+          defaultButtonText="SENSOR"
           data={getSensorsNamesList(props.route.params.deviceConfig.sensors)}
           onSelect={(selectedItem, index) => {
             setSensorConfig(selectedItem);
