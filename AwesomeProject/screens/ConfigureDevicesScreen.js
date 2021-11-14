@@ -9,6 +9,7 @@ import {
   Switch,
   TouchableOpacity,
   ToastAndroid,
+  Dimensions,
 } from 'react-native';
 var _ = require('lodash');
 import BluetoothSerial from 'react-native-bluetooth-serial';
@@ -17,7 +18,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../components/Title';
 import AppButton from '../components/Button';
 
-export default class App extends Component {
+export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -52,6 +53,10 @@ export default class App extends Component {
     });
   }
   connect(device) {
+    ToastAndroid.show(
+      `Connecting to device ${device.name}`,
+      ToastAndroid.SHORT,
+    );
     this.setState({connecting: true});
     BluetoothSerial.connect(device.id)
       .then(res => {
@@ -61,8 +66,15 @@ export default class App extends Component {
           `Connected to device ${device.name}`,
           ToastAndroid.SHORT,
         );
+
+        this.getDeviceConfig();
       })
-      .catch(err => console.log(err.message));
+      .catch(err =>
+        ToastAndroid.show(
+          `Unable to connect to device ${device.name}`,
+          ToastAndroid.SHORT,
+        ),
+      );
   }
   _renderItem(item) {
     return (
@@ -117,38 +129,49 @@ export default class App extends Component {
       })
       .catch(err => console.log(err.message));
   }
-  lightOn() {
-    BluetoothSerial.write('STATE:LIGHT:ON#')
-      .then(res => {
-        console.log(res);
-        console.log('Successfuly wrote to device');
-        this.setState({connected: true});
-      })
-      .catch(err => console.log(err.message));
-  }
+
   sendStateConfig(selectedSensorID, sensorState) {
     let cmd = 'STATE:' + selectedSensorID + ':' + sensorState + '#';
     console.log(cmd);
     BluetoothSerial.write(cmd)
       .then(res => {
         console.log(res);
-        console.log('Successfuly wrote to device');
-        this.setState({connected: true});
+        ToastAndroid.show(
+          `Successfully changed ${selectedSensorID} sensor state`,
+          ToastAndroid.SHORT,
+        ),
+          this.setState({connected: true});
       })
-      .catch(err => console.log(err.message));
-  }
-  lightOff() {
-    BluetoothSerial.write('STATE:LIGHT:OFF#')
-      .then(res => {
-        console.log(res);
-        console.log('Successfuly wrote to device');
-        this.setState({connected: true});
-      })
-      .catch(err => console.log(err.message));
+      .catch(err =>
+        ToastAndroid.show(
+          `Failed to change ${selectedSensorID} sensor state`,
+          ToastAndroid.SHORT,
+        ),
+      );
   }
 
-  getFromDevice() {
-    BluetoothSerial.write('GETFROMDEVICE#')
+  sendIntervalConfig(selectedSensorID, interval) {
+    let cmd = 'INTERVAL:' + selectedSensorID + ':' + interval + '#';
+    console.log(cmd);
+    BluetoothSerial.write(cmd)
+      .then(res => {
+        console.log(res);
+        ToastAndroid.show(
+          `Successfully changed ${selectedSensorID} sensor interval`,
+          ToastAndroid.SHORT,
+        ),
+          this.setState({connected: true});
+      })
+      .catch(err =>
+        ToastAndroid.show(
+          `Failed to change ${selectedSensorID} sensor interval`,
+          ToastAndroid.SHORT,
+        ),
+      );
+  }
+
+  getDeviceConfig() {
+    BluetoothSerial.write('GETDEVICECONFIG#')
       .then(res => {
         console.log(res);
         console.log('Successfuly wrote to device');
@@ -174,6 +197,8 @@ export default class App extends Component {
         let deviceConfig = JSON.parse(deviceConfigString);
         console.log('AF');
         console.log(deviceConfig);
+        console.log('AF');
+
         this.props.navigation.navigate('DeviceConfig', {
           deviceConfig: deviceConfig,
           bt: this,
@@ -184,41 +209,28 @@ export default class App extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.main}>
         <View style={styles.toolbar}>
-          <Text style={styles.toolbarTitle}>Bluetooth Device List</Text>
+          <Text style={styles.text}>Bluetooth</Text>
           <View style={styles.toolbarButton}>
             <Switch
+              trackColor={{false: '#767577', true: '#767577'}}
+              thumbColor={this.state.isEnabled ? '#FFC163' : '#f4f3f4'}
+              ios_backgroundColor="#3e3e3e"
               value={this.state.isEnabled}
               onValueChange={val => this.toggleBluetooth(val)}
             />
           </View>
         </View>
-        <Button
+        <AppButton
           onPress={this.discoverAvailableDevices.bind(this)}
           title="Scan for Devices"
-          color="#841584"
         />
         <FlatList
           style={{flex: 1}}
           data={this.state.devices}
           keyExtractor={item => item.id}
           renderItem={item => this._renderItem(item)}
-        />
-        <Button
-          onPress={this.getFromDevice.bind(this)}
-          title="getFromDevice"
-          color="#4983e6"
-        />
-        <Button
-          onPress={this.lightOn.bind(this)}
-          title="TEMP(On)"
-          color="#86e86b"
-        />
-        <Button
-          onPress={this.lightOff.bind(this)}
-          title="TEMP(Off)"
-          color="#e83535"
         />
       </View>
     );
@@ -234,7 +246,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {},
+  text: {
+    fontSize: 20,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',
@@ -243,6 +258,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 30,
     flexDirection: 'row',
+    alignItems: 'flex-end',
   },
   toolbarButton: {
     width: 50,
@@ -257,12 +273,18 @@ const styles = StyleSheet.create({
   },
   deviceName: {
     fontSize: 17,
-    color: 'black',
+    color: 'white',
   },
   deviceNameWrap: {
-    margin: 10,
-    borderBottomWidth: 1,
+    backgroundColor: '#4a67a1',
+    borderColor: '#fff',
+    borderWidth: 1,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    margin: 8,
+    height: 40,
+    width: 200, // approximate a square
   },
 });
-
-//export default DeviceScreen;

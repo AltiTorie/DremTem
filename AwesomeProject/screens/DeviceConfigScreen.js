@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Switch, ToastAndroid} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Switch,
+  ToastAndroid,
+  TextInput,
+} from 'react-native';
 import AppButton from '../components/Button';
 import SelectDropdown from 'react-native-select-dropdown';
 
@@ -15,7 +22,8 @@ const DeviceConfigScreen = props => {
   };
 
   const [isEnabled, setIsEnabled] = useState(false);
-  const [dropdownValue, setdropdownValue] = useState();
+  const [dropdownValue, setDropdownValue] = useState();
+  const [interval, setInterval] = useState();
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
@@ -27,14 +35,14 @@ const DeviceConfigScreen = props => {
         </Text>
         <Text style={styles.text}>
           {'\nWorking as online device: ' +
-            props.route.params.deviceConfig.online +
-            '\n\n'}
+            props.route.params.deviceConfig.online}
         </Text>
+        <Text style={styles.text}>{'\nSelect sensor:'}</Text>
         <SelectDropdown
-          defaultButtonText="Select sensor"
+          defaultButtonText="SENSOR"
           data={getSensorsNamesList(props.route.params.deviceConfig.sensors)}
           onSelect={(selectedItem, index) => {
-            setdropdownValue(selectedItem);
+            setDropdownValue(selectedItem);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             return selectedItem;
@@ -43,7 +51,16 @@ const DeviceConfigScreen = props => {
             return item;
           }}
         />
-        <Text style={styles.text}>{'\nSet sensor state:'}</Text>
+
+        <Text style={styles.text}>{'Set sensor interval (in seconds):'}</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          onChangeText={inputNumber => setInterval(inputNumber)}
+          value={interval}
+          maxLength={3}
+        />
+        <Text style={styles.text}>{'Set sensor state:'}</Text>
         <Switch
           trackColor={{false: '#767577', true: '#767577'}}
           thumbColor={isEnabled ? '#FFC163' : '#f4f3f4'}
@@ -51,7 +68,6 @@ const DeviceConfigScreen = props => {
           onValueChange={toggleSwitch}
           value={isEnabled}
         />
-        <Text style={styles.text}></Text>
       </View>
       <View style={styles.bottom}>
         <AppButton
@@ -62,6 +78,15 @@ const DeviceConfigScreen = props => {
             } else {
               let state = isEnabled ? 'ON' : 'OFF';
               props.route.params.bt.sendStateConfig(dropdownValue, state);
+              if (interval != '' && !isNaN(+interval)) {
+                let intervalInMicroSec = interval * 1000;
+                props.route.params.bt.sendIntervalConfig(
+                  dropdownValue,
+                  intervalInMicroSec,
+                );
+              } else {
+                console.log('Interval not a number ' + interval);
+              }
             }
           }}
         />
@@ -77,7 +102,6 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   textHeader: {
     fontSize: 40,
@@ -87,9 +111,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   bottom: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 36,
+    position: 'absolute',
+    bottom: 0,
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 10,
   },
 });
 
