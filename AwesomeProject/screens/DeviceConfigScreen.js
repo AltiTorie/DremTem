@@ -47,9 +47,9 @@ const DeviceConfigScreen = props => {
           {'\nWorking as online device: ' +
             props.route.params.deviceConfig.online}
         </Text>
-        <Text style={styles.text}>{'\nSelect sensor:'}</Text>
+        <Text style={styles.text}>{'\nSensor:'}</Text>
         <SelectDropdown
-          defaultButtonText="SENSOR"
+          defaultButtonText="Select sensor"
           data={getSensorsNamesList(props.route.params.deviceConfig.sensors)}
           onSelect={(selectedItem, index) => {
             setSensorConfig(selectedItem);
@@ -63,7 +63,7 @@ const DeviceConfigScreen = props => {
           }}
         />
 
-        <Text style={styles.text}>{'Set sensor interval (in seconds):'}</Text>
+        <Text style={styles.text}>{'Sensor interval (in seconds):'}</Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -71,7 +71,7 @@ const DeviceConfigScreen = props => {
           value={interval}
           maxLength={3}
         />
-        <Text style={styles.text}>{'Set sensor state:'}</Text>
+        <Text style={styles.text}>{'Sensor state:'}</Text>
         <Switch
           trackColor={{false: '#767577', true: '#767577'}}
           thumbColor={isEnabled ? '#FFC163' : '#f4f3f4'}
@@ -87,11 +87,11 @@ const DeviceConfigScreen = props => {
             if (typeof dropdownValue == 'undefined') {
               ToastAndroid.show(`Select sensor`, ToastAndroid.SHORT);
             } else {
-              props.route.params.sensorsConfig[dropdownValue + 'SensorOn'] =
-                isEnabled;
-              let state = isEnabled ? 'ON' : 'OFF';
-              props.route.params.bt.sendStateConfig(dropdownValue, state);
               if (interval != '' && !isNaN(+interval)) {
+                props.route.params.sensorsConfig[dropdownValue + 'SensorOn'] =
+                  isEnabled;
+                let state = isEnabled ? 'ON' : 'OFF';
+                props.route.params.bt.sendStateConfig(dropdownValue, state);
                 let intervalInMicroSec = interval * 1000;
                 props.route.params.sensorsConfig[
                   dropdownValue + 'ReadingInterval'
@@ -102,7 +102,10 @@ const DeviceConfigScreen = props => {
                   intervalInMicroSec,
                 );
               } else {
-                console.log('Interval not a number ' + interval);
+                ToastAndroid.show(
+                  'Interval not a number ' + interval,
+                  ToastAndroid.SHORT,
+                );
               }
             }
           }}

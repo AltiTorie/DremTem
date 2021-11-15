@@ -210,6 +210,36 @@ export default class ConfigureDevicesScreen extends Component {
     });
   }
 
+  getSensorsConfig() {
+    BluetoothSerial.write('GETSENSORSCONFIG#')
+      .then(res => {
+        console.log(res);
+        console.log('Successfuly wrote to device');
+        this.setState({connected: true});
+      })
+      .catch(err => console.log(err.message));
+
+    BluetoothSerial.withDelimiter('#').then(() => {
+      Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
+        values => {
+          const [isEnabled, devices] = values;
+        },
+      );
+      BluetoothSerial.on('read', data => {
+        var sensorsConfigString = data.data;
+        sensorsConfigString = sensorsConfigString
+          .split('START')[1]
+          .split('#')[0];
+        sensorsConfigString = sensorsConfigString.replace(/^\n|\n$/g, '');
+        console.log(sensorsConfigString);
+        var sensorsConfig = JSON.parse(sensorsConfigString);
+        console.log('RETURNING');
+        console.log(sensorsConfig);
+        return sensorsConfig;
+      });
+    });
+  }
+
   render() {
     return (
       <View style={styles.main}>
