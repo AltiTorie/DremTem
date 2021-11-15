@@ -16,7 +16,7 @@ import BluetoothSerial from 'react-native-bluetooth-serial';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../components/Title';
-import AppButton from '../components/Button';
+import AppButton from '../components/Button_main';
 
 export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
@@ -199,8 +199,13 @@ export default class ConfigureDevicesScreen extends Component {
         sensorsConfiString = sensorsConfiString.replace(/^\n|\n$/g, '');
 
         let deviceConfig = JSON.parse(deviceConfigString);
+        console.log('-------------------------');
+        console.log(deviceConfig);
         let sensorsConfig = JSON.parse(sensorsConfiString);
+        console.log('-------------------------');
+        console.log(sensorsConfig);
 
+        console.log('navigation');
         this.props.navigation.navigate('DeviceConfig', {
           deviceConfig: deviceConfig,
           sensorsConfig: sensorsConfig,

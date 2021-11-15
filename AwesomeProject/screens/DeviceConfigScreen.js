@@ -7,8 +7,9 @@ import {
   ToastAndroid,
   TextInput,
 } from 'react-native';
-import AppButton from '../components/Button';
+import AppButton from '../components/Button_main';
 import SelectDropdown from 'react-native-select-dropdown';
+import DeviceStackNavigator from '../navigation/DeviceStackNavigator';
 
 const DeviceConfigScreen = props => {
   const getSensorsNamesList = sensorsData => {
