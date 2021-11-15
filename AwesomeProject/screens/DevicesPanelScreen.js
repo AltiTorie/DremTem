@@ -8,17 +8,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const data = [
+var mockedData = [
   {deviceID: 'A836b19g7', name: 'My device 1', online: true},
   {deviceID: 'Cc83h2k5n', name: 'Device in forest', online: false},
   {deviceID: 'Ejs2354nn', name: 'Ejs2354nn', online: true},
-  {deviceID: 'F234hh23i', name: 'F234hh23i', online: true},
-  {deviceID: 'Gkk35n46n', name: 'Gkk35n46n', online: true},
-  {deviceID: 'B83b154hb', name: 'Device in kitchen', online: true},
-  {deviceID: 'H187345gh', name: 'H187345gh', online: false},
-  {deviceID: 'I2j2j35hh', name: 'I2j2j35hh', online: false},
-  {deviceID: 'Jwsehjhrw', name: 'Jwsehjhrw', online: false},
-  {deviceID: 'D21jh6456', name: 'My favourite device', online: false},
+  // {deviceID: 'F234hh23i', name: 'F234hh23i', online: true},
+  // {deviceID: 'Gkk35n46n', name: 'Gkk35n46n', online: true},
+  // {deviceID: 'B83b154hb', name: 'Device in kitchen', online: true},
+  // {deviceID: 'H187345gh', name: 'H187345gh', online: false},
+  // {deviceID: 'I2j2j35hh', name: 'I2j2j35hh', online: false},
+  // {deviceID: 'Jwsehjhrw', name: 'Jwsehjhrw', online: false},
+  // {deviceID: 'D21jh6456', name: 'My favourite device', online: false},
 ];
 
 const formatData = (data, numColumns) => {
@@ -47,7 +47,10 @@ export default class DevicesPanel extends React.Component {
       <View style={styles.item}>
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate('Device', {device: item});
+            this.props.navigation.navigate('Device', {
+              device: item,
+              onGoBack: () => this.refresh(),
+            });
           }}>
           <Text style={styles.itemText}>{item.name}</Text>
         </TouchableOpacity>
@@ -55,11 +58,24 @@ export default class DevicesPanel extends React.Component {
     );
   };
 
+  getDevicesData() {
+    // TODO: add API call
+    return mockedData;
+  }
+
+  refresh() {
+    console.log('refresh');
+    this.render();
+  }
+
   render() {
+    console.log('render DevicesPanel');
+    let devicesData = this.getDevicesData();
+    console.log(devicesData);
     return (
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <FlatList
-          data={formatData(data, numColumns)}
+          data={formatData(devicesData, numColumns)}
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}

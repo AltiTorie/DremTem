@@ -13,6 +13,8 @@ const DevicePanelScreen = props => {
           text: 'Yes',
           onPress: () => {
             console.log('Yes');
+            props.route.params.onGoBack();
+            props.navigation.goBack();
           },
         },
         {
@@ -23,9 +25,6 @@ const DevicePanelScreen = props => {
   };
   return (
     <View style={styles.main}>
-      <View>
-        <AppTitle title="Device" />
-      </View>
       <View style={{alignItems: 'center'}}>
         <Text style={styles.textHeader}>{props.route.params.device.name}</Text>
         <Text style={styles.text}>
