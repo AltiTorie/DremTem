@@ -8,7 +8,7 @@ import AboutScreen from '../screens/AboutScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import Dashboards from '../screens/Dashboards';
-import DeviceScreen from '../screens/DeviceScreen';
+import DevicesPanel from '../screens/DevicesPanelScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SupportScreen from '../screens/SupportScreen';

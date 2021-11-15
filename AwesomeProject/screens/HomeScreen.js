@@ -25,7 +25,7 @@ const HomeScreen = props => {
       <AppButton
         title="Configure devices"
         onPress={() => {
-          props.navigation.navigate('Configure Devices');
+          props.navigation.navigate('ConfigureDevices');
         }}
       />
       <SecondButton

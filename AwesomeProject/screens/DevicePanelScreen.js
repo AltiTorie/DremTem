@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, Button, StyleSheet, Alert} from 'react-native';
 import AppTitle from '../components/Title';
-import AppButton from '../components/Button';
+import AppButton from '../components/Button_main';
 
 const DevicePanelScreen = props => {
   const showConfirmDialog = () => {

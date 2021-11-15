@@ -199,8 +199,13 @@ export default class ConfigureDevicesScreen extends Component {
         sensorsConfiString = sensorsConfiString.replace(/^\n|\n$/g, '');
 
         let deviceConfig = JSON.parse(deviceConfigString);
+        console.log('-------------------------');
+        console.log(deviceConfig);
         let sensorsConfig = JSON.parse(sensorsConfiString);
+        console.log('-------------------------');
+        console.log(sensorsConfig);
 
+        console.log('navigation');
         this.props.navigation.navigate('DeviceConfig', {
           deviceConfig: deviceConfig,
           sensorsConfig: sensorsConfig,

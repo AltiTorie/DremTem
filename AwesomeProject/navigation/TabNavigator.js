@@ -13,10 +13,10 @@ import AboutScreen from '../screens/AboutScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import Dashboards from '../screens/Dashboards';
-import DeviceScreen from '../screens/DeviceScreen';
+import DevicesPanel from '../screens/DevicesPanelScreen';
 import GroupScreen from '../screens/GroupScreen';
 import NotificationScreen from '../screens/NotificationScreen';
-import DeviceStackNavigator from './DeviceStackNavigator';
+import DeviceStackNavigator from '../navigation/DeviceStackNavigator';
 
 const Tab = createMaterialBottomTabNavigator();
 

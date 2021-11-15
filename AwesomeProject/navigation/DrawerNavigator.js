@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    marinTop: 3,
+    marginTop: 3,
     fontWeight: 'bold',
   },
   caption: {

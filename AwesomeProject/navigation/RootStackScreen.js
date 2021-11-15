@@ -6,7 +6,6 @@ import {IconlyProvider, Home, Notification} from 'react-native-iconly';
 import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/SigninScreen';
 import SignupScreen from '../screens/SignupScreen';
-import AppStackNavigator from './AppNavigator';
 
 const RootStack = createNativeStackNavigator();
 
