@@ -15,7 +15,7 @@ import BluetoothSerial from 'react-native-bluetooth-serial';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../components/Title';
-import AppButton from '../components/Button';
+import AppButton from '../components/Button_main';
 
 export default class App extends Component {
   constructor(props) {

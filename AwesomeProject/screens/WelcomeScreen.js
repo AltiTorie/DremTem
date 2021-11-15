@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
-import AppButton from '../components/Button';
+import AppButton from '../components/Button_main';
 import AppTitle from '../components/Title';
 
 const WelcomeScreen = props => {
@@ -15,7 +15,10 @@ const WelcomeScreen = props => {
           title="About"
           onPress={() => props.navigation.navigate('About')}
         />
-        <AppButton title="Log in" />
+        <AppButton
+          title="Log in"
+          onPress={() => props.navigation.navigate('Login')}
+        />
         <AppButton title="Sign up" />
         <AppButton
           title="Next"

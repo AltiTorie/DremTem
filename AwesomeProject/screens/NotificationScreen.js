@@ -2,11 +2,11 @@ import React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
 import AppTitle from '../components/Title';
 
-const DashboardScreen = props => {
+const GroupScreen = props => {
   return (
     <View style={styles.main}>
       <View>
-        <AppTitle title="Dashboards" />
+        <AppTitle title="Notifications" />
       </View>
       <View style={styles.text}>
         <Text>..................</Text>
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   text: {},
 });
 
-export default DashboardScreen;
+export default GroupScreen;

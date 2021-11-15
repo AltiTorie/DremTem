@@ -11,25 +11,10 @@ import {
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AboutScreen from './screens/AboutScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
-import HomeScreen from './screens/HomeScreen';
-import Dashboards from './screens/Dashboards';
-import DeviceScreen from './screens/DeviceScreen';
+import AppStackNavigator from './navigation/AppNavigator';
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="About" component={AboutScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Device" component={DeviceScreen} />
-        <Stack.Screen name="Dashboard" component={Dashboards} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  return <AppStackNavigator />;
 }
 
 const styles = StyleSheet.create({
