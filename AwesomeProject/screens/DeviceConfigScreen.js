@@ -21,6 +21,16 @@ const DeviceConfigScreen = props => {
     return sensorsNames;
   };
 
+  const setSensorConfig = sensorName => {
+    console.log(props.route.params.sensorsConfig);
+    setIsEnabled(props.route.params.sensorsConfig[sensorName + 'SensorOn']);
+    setInterval(
+      (
+        props.route.params.sensorsConfig[sensorName + 'ReadingInterval'] / 1000
+      ).toString(),
+    );
+  };
+
   const [isEnabled, setIsEnabled] = useState(false);
   const [dropdownValue, setDropdownValue] = useState();
   const [interval, setInterval] = useState();
@@ -42,6 +52,7 @@ const DeviceConfigScreen = props => {
           defaultButtonText="SENSOR"
           data={getSensorsNamesList(props.route.params.deviceConfig.sensors)}
           onSelect={(selectedItem, index) => {
+            setSensorConfig(selectedItem);
             setDropdownValue(selectedItem);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
@@ -76,10 +87,16 @@ const DeviceConfigScreen = props => {
             if (typeof dropdownValue == 'undefined') {
               ToastAndroid.show(`Select sensor`, ToastAndroid.SHORT);
             } else {
+              props.route.params.sensorsConfig[dropdownValue + 'SensorOn'] =
+                isEnabled;
               let state = isEnabled ? 'ON' : 'OFF';
               props.route.params.bt.sendStateConfig(dropdownValue, state);
               if (interval != '' && !isNaN(+interval)) {
                 let intervalInMicroSec = interval * 1000;
+                props.route.params.sensorsConfig[
+                  dropdownValue + 'ReadingInterval'
+                ] = intervalInMicroSec;
+
                 props.route.params.bt.sendIntervalConfig(
                   dropdownValue,
                   intervalInMicroSec,
@@ -120,6 +137,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
+    textAlign: 'center',
   },
 });
 
