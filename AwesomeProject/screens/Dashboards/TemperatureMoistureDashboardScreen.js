@@ -1,7 +1,6 @@
 import React from 'react';
-import InteractiveChart from '../../components/Charts/Interactive_chart';
+import {StyleSheet, Text, View} from 'react-native';
 import LinedChart from '../../components/Charts/Line_Chart';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
 const TemperatureMoistureDashboardScreen = props => {
   const {data, labels} = props.route.params;
