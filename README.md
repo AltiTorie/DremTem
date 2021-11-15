@@ -35,7 +35,7 @@ npx react-native run-android
 
 7. Dodanie Plotly.js (Możliwe że niepotrzene)
 
-    Thanks to [Deyson](https://stackoverflow.com/questions/61832232/invariant-violation-requirenativecomponent-rncwebview-was-not-found-in-the-u/64932506#64932506?newreg=2bce1754a2f049699cd4ef8e1c7953e8)
+    Thanks to [Deyson](https://stackoverflow.com/a/64932506/17400863)
 
     1. Add this in your android/settings.gradle:
 

@@ -1,22 +1,15 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  Platform,
-  Text,
-  View,
-  Button,
-  StyleSheet,
-  Modal,
-  TouchableWithoutFeedback,
-  Keyboard,
-  FlatList,
-  TouchableOpacity,
   Dimensions,
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import AppTitle from '../components/Title';
 import AppButton from '../components/Button';
-import DashboardForm from '../components/DashboardForm';
+import DashboardForm from '../components/Charts/DashboardForm';
 
 export default class DashboardScreen extends Component {
   constructor(props) {
@@ -26,6 +19,7 @@ export default class DashboardScreen extends Component {
       buttons: [
         {key: 1, name: 'Moisture', screen_name: 'MoistureDashboard'},
         {key: 2, name: 'Temperature', screen_name: 'TemperatureDashboard'},
+        {key: 3, name: 'Light', screen_name: 'LightDashboard'},
       ],
       numOfColumns: 2,
       modalOpen: false,
@@ -38,20 +32,6 @@ export default class DashboardScreen extends Component {
       data: pred_data,
     });
   }
-
-  // _addButton() {
-  //   this.setState({
-  //     // buttons: [
-  //     //   ...this.state.buttons,
-  //     //   {
-  //     //     name: 'New Dashboard_' + this.state.buttons.length,
-  //     //     screen_name: 'AddDashboard',
-  //     //   },
-  //     // ],
-  //     modalOpen: true,
-  //   });
-  //   console.log(this.state.buttons);
-  // }
 
   _addDashboard = dashboard => {
     dashboard.key = Math.random().toString();
@@ -147,13 +127,11 @@ export default class DashboardScreen extends Component {
     return (
       <View style={styles.main}>
         <View style={styles.playground}>
-          <Modal
-            visible={this.state.modalOpen}
-            style={styles.modalContent}
-            animationType="fade">
+          <Modal visible={this.state.modalOpen} animationType="slide">
+            {/* <DashboardForm additionalFunction={this._addDashboard} /> */}
             <DashboardForm additionalFunction={this._addDashboard} />
 
-            <View style={styles.addDashboard}>
+            <View>
               <AppButton title="close" onPress={() => this._hide_modal()} />
             </View>
           </Modal>
@@ -257,15 +235,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logoContainer: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-  },
-  logoText: {
-    fontSize: 20,
-  },
-  modalContent: {},
-  text: {},
   container: {
     flex: 1,
     marginVertical: 0,
@@ -290,15 +259,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  addDashboardView: {
-    width: 60,
-    height: 60,
-    borderRadius: 100,
-    backgroundColor: '#ee6e73',
-    position: 'absolute',
-    bottom: 500,
-    right: 500,
-  },
   playground: {
     padding: 20,
     flex: 1,
@@ -307,10 +267,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     flexWrap: 'wrap',
   },
-  // dashboards_selector: {
-  //   flex: 3,
-  // },
-  // addDashboard: {
-  //   flex: 1,
-  // },
 });
