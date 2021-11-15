@@ -182,25 +182,28 @@ export default class ConfigureDevicesScreen extends Component {
     // BluetoothSerial.readFromDevice().then(data => {
     //   console.log(data);
     // });
-    BluetoothSerial.withDelimiter('#').then(() => {
+    BluetoothSerial.withDelimiter('STOP').then(() => {
       Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
         values => {
           const [isEnabled, devices] = values;
         },
       );
       BluetoothSerial.on('read', data => {
-        let deviceConfigString = data.data;
-        deviceConfigString = deviceConfigString.split('START')[1].split('#')[0];
+        let deviceConfigsString = data.data;
+        console.log(deviceConfigsString);
+        deviceConfigsString = deviceConfigsString.split('START')[1];
+        deviceConfigsString = deviceConfigsString.split('STOP')[0];
+        let deviceConfigString = deviceConfigsString.split('#')[0];
+        let sensorsConfiString = deviceConfigsString.split('#')[1];
         deviceConfigString = deviceConfigString.replace(/^\n|\n$/g, '');
-        console.log(deviceConfigString);
-        // // console.log(`DATA FROM BLUETOOTH: ${data.data}`);
+        sensorsConfiString = sensorsConfiString.replace(/^\n|\n$/g, '');
+
         let deviceConfig = JSON.parse(deviceConfigString);
-        console.log('AF');
-        console.log(deviceConfig);
-        console.log('AF');
+        let sensorsConfig = JSON.parse(sensorsConfiString);
 
         this.props.navigation.navigate('DeviceConfig', {
           deviceConfig: deviceConfig,
+          sensorsConfig: sensorsConfig,
           bt: this,
         });
       });
