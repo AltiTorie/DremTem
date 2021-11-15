@@ -23,6 +23,9 @@ import TemperatureDashboardScreen from './screens/Dashboards/TemperatureDashboar
 import TemperatureMoistureDashboardScreen from './screens/Dashboards/TemperatureMoistureDashboardScreen';
 import LightDashboardScreen from './screens/Dashboards/LightDashboardScreen';
 import DefaultDashboardScreen from './screens/Dashboards/DefaultDashboardScreen';
+import ConfigureDevicesScreen from './screens/ConfigureDevicesScreen';
+import DevicesPanelScreen from './screens/DevicesPanelScreen';
+import DevicePanelScreen from './screens/DevicePanelScreen';
 import DeviceConfigScreen from './screens/DeviceConfigScreen';
 
 export default function App() {
@@ -33,13 +36,6 @@ export default function App() {
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Devices" component={DevicesPanelScreen} />
-        <Stack.Screen
-          name="Configure Devices"
-          component={ConfigureDevicesScreen}
-        />
-        <Stack.Screen name="Dashboard" component={Dashboards} />
-        <Stack.Screen name="Device" component={DevicePanelScreen} />
         <Stack.Screen
           name="MoistureDashboard"
           component={MoistureDashboardScreen}
@@ -57,6 +53,13 @@ export default function App() {
           name="DefaultDashboard"
           component={DefaultDashboardScreen}
         />
+        <Stack.Screen name="Devices" component={DevicesPanelScreen} />
+        <Stack.Screen
+          name="Configure Devices"
+          component={ConfigureDevicesScreen}
+        />
+        <Stack.Screen name="Dashboard" component={Dashboards} />
+        <Stack.Screen name="Device" component={DevicePanelScreen} />
         <Stack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       </Stack.Navigator>
     </NavigationContainer>
