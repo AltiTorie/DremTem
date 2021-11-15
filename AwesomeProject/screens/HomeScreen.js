@@ -1,11 +1,7 @@
 import React from 'react';
-import {Text, View, Button, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AppTitle from '../components/Title';
+import {StyleSheet, Text, View} from 'react-native';
 import AppButton from '../components/Button_main';
-import SecondButton from '../components/Button_second';
-import DeviceStackNavigator from '../navigation/DeviceStackNavigator';
+import AppTitle from '../components/Title';
 
 const HomeScreen = props => {
   return (
@@ -28,10 +24,10 @@ const HomeScreen = props => {
           props.navigation.navigate('ConfigureDevices');
         }}
       />
-      <SecondButton
-        title="Arek"
+      <AppButton
+        title="Dashboards"
         onPress={() => {
-          props.navigation.navigate('Dashboard');
+          props.navigation.navigate('Dashboards');
         }}
       />
     </View>
