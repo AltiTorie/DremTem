@@ -3,7 +3,9 @@ import {Text, View, Button, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../components/Title';
-import AppButton from '../components/Button';
+import AppButton from '../components/Button_main';
+import SecondButton from '../components/Button_second';
+import DeviceStackNavigator from '../navigation/DeviceStackNavigator';
 
 const HomeScreen = props => {
   return (
@@ -26,7 +28,7 @@ const HomeScreen = props => {
           props.navigation.navigate('Configure Devices');
         }}
       />
-      <AppButton
+      <SecondButton
         title="Arek"
         onPress={() => {
           props.navigation.navigate('Dashboard');
