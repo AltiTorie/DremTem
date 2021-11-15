@@ -3,7 +3,6 @@ import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
 const MoistureDashboardScreen = props => {
   const {data, labels} = props.route.params;
-
   return (
     <SafeAreaView style={styles.main}>
       <Text>Moisture Dasboard</Text>

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import AppButton from '../components/Button';
+import AppButton from '../components/Button_main';
 import DashboardForm from '../components/Charts/DashboardForm';
 
 export default class DashboardScreen extends Component {
@@ -27,6 +27,7 @@ export default class DashboardScreen extends Component {
   }
   _navigate_to(screen_name, props) {
     let [pred_labels, pred_data] = this._predefined_data();
+    console.log(props.navigation);
     props.navigation.navigate(screen_name, {
       labels: pred_labels,
       data: pred_data,

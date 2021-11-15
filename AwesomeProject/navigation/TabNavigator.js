@@ -17,6 +17,7 @@ import DevicesPanel from '../screens/DevicesPanelScreen';
 import GroupScreen from '../screens/GroupScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import DeviceStackNavigator from '../navigation/DeviceStackNavigator';
+import DashboardStackNavigator from '../navigation/DashboardStackNavigator';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -60,7 +61,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Dashboards"
-        component={Dashboards}
+        component={DashboardStackNavigator}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({color}) => (

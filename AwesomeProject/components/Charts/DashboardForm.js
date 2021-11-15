@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Button, TextInput, View, Text} from 'react-native';
 import {Formik, Field} from 'formik';
-import AppButton from '../Button';
+import AppButton from '../Button_main';
 import MultiSelect from './MultiSelectChart';
 import Globals from '../Globals';
 

@@ -12,10 +12,17 @@ export default class LightDashboardScreen extends React.Component {
     );
     this.state = {
       props: props,
-      data: {
+      data1: {
         __id: '1',
         x: m,
         y: props.route.params.data[0],
+        mode: 'lines+markers',
+        type: 'scatter',
+      },
+      data2: {
+        __id: '2',
+        x: m,
+        y: props.route.params.data[1],
         mode: 'lines+markers',
         type: 'scatter',
       },
@@ -35,7 +42,7 @@ export default class LightDashboardScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <Plotly
-          data={[this.state.data]}
+          data={[this.state.data1, this.state.data2]}
           layout={this.state.layout}
           style={styles.chart}
           update={this.update}
