@@ -15,9 +15,10 @@ import AboutScreen from './screens/AboutScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import HomeScreen from './screens/HomeScreen';
 import Dashboards from './screens/Dashboards';
-import BluetoothScreen from './screens/BluetoothScreen';
+import ConfigureDevicesScreen from './screens/ConfigureDevicesScreen';
 import DevicesPanelScreen from './screens/DevicesPanelScreen';
 import DevicePanelScreen from './screens/DevicePanelScreen';
+import DeviceConfigScreen from './screens/DeviceConfigScreen';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -27,10 +28,14 @@ export default function App() {
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
         <Stack.Screen name="About" component={AboutScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="DevicesPanel" component={DevicesPanelScreen} />
-        <Stack.Screen name="Bluetooth" component={BluetoothScreen} />
+        <Stack.Screen name="Devices" component={DevicesPanelScreen} />
+        <Stack.Screen
+          name="Configure Devices"
+          component={ConfigureDevicesScreen}
+        />
         <Stack.Screen name="Dashboard" component={Dashboards} />
         <Stack.Screen name="Device" component={DevicePanelScreen} />
+        <Stack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
