@@ -9,10 +9,11 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
+import {User, Hide, Show, Lock, Password} from 'react-native-iconly';
+import AppButton from '../../components/Button_main';
+import SecondButton from '../../components/Button_second';
 
-const SigninScreen = ({navigation}) => {
+const SignUpScreen = props => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -21,32 +22,60 @@ const SigninScreen = ({navigation}) => {
       <View style={styles.footer}>
         <Text style={styles.text_footer}> E-mail </Text>
         <View style={styles.action}>
-          <FontAwesome name="user-o" color="#05375a" size={20} />
+          <User set="curved" color="#05375a" size={20} />
           <TextInput
             placeholder="Your mail"
             style={styles.textInput}
             autoCapitalize="none"
           />
-          <Feather name="check-circle" color="green" size={20} />
         </View>
 
         <Text style={[styles.text_footer, {marginTop: 35}]}> Password </Text>
         <View style={styles.action}>
-          <FontAwesome name="lock" color="#05375a" size={20} />
+          <Lock set="light" color="#05375a" size={20} />
           <TextInput
             placeholder="Your password"
             secureTextEntry={true}
             style={styles.textInput}
             autoCapitalize="none"
           />
-          <Feather name="eye-off" color="grey" size={20} />
+          <Hide set="curved" color="#05375a" size={20} />
+        </View>
+
+        <Text style={[styles.text_footer, {marginTop: 35}]}>
+          {' '}
+          Confirm password{' '}
+        </Text>
+        <View style={styles.action}>
+          <Lock set="light" color="#05375a" size={20} />
+          <TextInput
+            placeholder="Your password"
+            secureTextEntry={true}
+            style={styles.textInput}
+            autoCapitalize="none"
+          />
+          <Hide set="curved" color="#05375a" size={20} />
+        </View>
+        <View style={styles.buttonContainer}>
+          <AppButton
+            title="Log in"
+            onPress={() => {
+              props.navigation.goBack();
+            }}
+          />
+          <SecondButton
+            title="Sign up"
+            onPress={() => {
+              props.navigation.navigate('Home');
+            }}
+          />
         </View>
       </View>
     </View>
   );
 };
 
-export default SigninScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -56,7 +85,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     justifyContent: 'flex-end',
-    paddingHorizontal: '20',
+    paddingHorizontal: 20,
     paddingBottom: 50,
     color: 'black',
   },
@@ -116,5 +145,9 @@ const styles = StyleSheet.create({
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

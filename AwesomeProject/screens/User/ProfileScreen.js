@@ -1,12 +1,12 @@
 import React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
-import AppTitle from '../components/Title';
+import AppTitle from '../../components/Title';
 
-const GroupScreen = props => {
+const ProfileScreen = props => {
   return (
     <View style={styles.main}>
       <View>
-        <AppTitle title="Add new Device" />
+        <AppTitle title="Profile" />
       </View>
       <View style={styles.text}>
         <Text>..................</Text>
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   text: {},
 });
 
-export default GroupScreen;
+export default ProfileScreen;

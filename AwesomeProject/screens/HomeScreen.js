@@ -9,9 +9,6 @@ const HomeScreen = props => {
       <View>
         <AppTitle title="HOME" />
       </View>
-      <View style={styles.text}>
-        <Text>Tu się mają pokazać wszystkie rzeczy dla usera</Text>
-      </View>
       <AppButton
         title="Devices"
         onPress={() => {

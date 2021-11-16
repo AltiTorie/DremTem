@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import AppButton from '../components/Button_main';
+import AppButton from '../../components/Button_main';
 import SelectDropdown from 'react-native-select-dropdown';
 import {Text, View, StyleSheet, Switch, TextInput} from 'react-native';
 
