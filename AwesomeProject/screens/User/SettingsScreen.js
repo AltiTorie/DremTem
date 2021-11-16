@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
-import AppTitle from '../components/Title';
+import AppTitle from '../../components/Title';
 
 const SettingsScreen = props => {
   return (
