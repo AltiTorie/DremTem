@@ -14,8 +14,12 @@ export default class DefaultDashboardScreen extends React.Component {
       data: {
         __id: '1',
         x: m,
-        y: props.route.params.data[0],
+        y: [
+          0, 1, 2, 3, 4, 5, 5.5, 5.7, 5.9, 6, 6.1, 6.2, 6.3, 6.5, 7, 8, 10, 11,
+          12, 13, 14, 15, 15.2, 15.3, 15.3, 15.3, 15.3,
+        ],
         mode: 'lines+markers',
+        line: {shape: 'spline'},
         type: 'scatter',
       },
       layout: {
@@ -42,7 +46,6 @@ export default class DefaultDashboardScreen extends React.Component {
           debug
           // TODO: Delete saving as picture
           // TODO: Delete unnecesary 'select' options
-          // TODO: Rotate x axis
           config={{
             displaylogo: false,
             responsive: true,
