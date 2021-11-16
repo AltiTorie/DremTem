@@ -3,10 +3,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {IconlyProvider, Home, Notification} from 'react-native-iconly';
 
-import DevicesPanel from '../screens/DevicesPanelScreen';
-import DevicePanelScreen from '../screens/DevicePanelScreen';
-import ConfigureDevicesScreen from '../screens/ConfigureDevicesScreen';
-import DeviceConfigScreen from '../screens/DeviceConfigScreen';
+import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
+import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
+import ConfigureDevicesScreen from '../screens/Devices/ConfigureDevicesScreen';
+import DeviceConfigScreen from '../screens/Devices/DeviceConfigScreen';
 
 const DeviceStack = createNativeStackNavigator();
 

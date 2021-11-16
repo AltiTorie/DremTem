@@ -10,7 +10,7 @@ import DashboardScreen from '../screens/Dashboards';
 
 const DashboardStack = createNativeStackNavigator();
 
-const DashboardStackNavigator = ({navigation}) => {
+const DashboardStackNavigator = props => {
   return (
     <DashboardStack.Navigator headerMode="none">
       <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />

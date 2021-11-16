@@ -15,8 +15,8 @@ var _ = require('lodash');
 import BluetoothSerial from 'react-native-bluetooth-serial';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AppTitle from '../components/Title';
-import AppButton from '../components/Button_main';
+import AppTitle from '../../components/Title';
+import AppButton from '../../components/Button_main';
 
 export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
