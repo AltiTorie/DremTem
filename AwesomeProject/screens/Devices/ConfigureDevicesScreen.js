@@ -179,9 +179,6 @@ export default class ConfigureDevicesScreen extends Component {
       })
       .catch(err => console.log(err.message));
 
-    // BluetoothSerial.readFromDevice().then(data => {
-    //   console.log(data);
-    // });
     BluetoothSerial.withDelimiter('STOP').then(() => {
       Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
         values => {
@@ -189,60 +186,40 @@ export default class ConfigureDevicesScreen extends Component {
         },
       );
       BluetoothSerial.on('read', data => {
-        let deviceConfigsString = data.data;
-        console.log(deviceConfigsString);
-        deviceConfigsString = deviceConfigsString.split('START')[1];
-        deviceConfigsString = deviceConfigsString.split('STOP')[0];
-        let deviceConfigString = deviceConfigsString.split('#')[0];
-        let sensorsConfiString = deviceConfigsString.split('#')[1];
-        deviceConfigString = deviceConfigString.replace(/^\n|\n$/g, '');
-        sensorsConfiString = sensorsConfiString.replace(/^\n|\n$/g, '');
+        let dataFromDevice = data.data;
+        dataFromDevice = dataFromDevice.split('START')[1];
+        dataFromDevice = dataFromDevice.split('STOP')[0];
+        if (dataFromDevice.includes('{')) {
+          // json - device configs
+          let deviceConfigString = dataFromDevice.split('#')[0];
+          let sensorsConfigString = dataFromDevice.split('#')[1];
+          deviceConfigString = deviceConfigString.replace(/^\n|\n$/g, '');
+          sensorsConfigString = sensorsConfigString.replace(/^\n|\n$/g, '');
 
-        let deviceConfig = JSON.parse(deviceConfigString);
-        console.log('-------------------------');
-        console.log(deviceConfig);
-        let sensorsConfig = JSON.parse(sensorsConfiString);
-        console.log('-------------------------');
-        console.log(sensorsConfig);
+          let deviceConfig = JSON.parse(deviceConfigString);
+          let sensorsConfig = JSON.parse(sensorsConfigString);
 
-        console.log('navigation');
-        this.props.navigation.navigate('DeviceConfig', {
-          deviceConfig: deviceConfig,
-          sensorsConfig: sensorsConfig,
-          bt: this,
-        });
+          this.props.navigation.navigate('DeviceConfig', {
+            deviceConfig: deviceConfig,
+            sensorsConfig: sensorsConfig,
+            bt: this,
+          });
+        } else {
+          // sensor csv
+          console.log(dataFromDevice);
+        }
       });
     });
   }
 
-  getSensorsConfig() {
-    BluetoothSerial.write('GETSENSORSCONFIG#')
+  getSensorCsv(sensorID) {
+    BluetoothSerial.write(sensorID + '.csv#')
       .then(res => {
         console.log(res);
         console.log('Successfuly wrote to device');
         this.setState({connected: true});
       })
       .catch(err => console.log(err.message));
-
-    BluetoothSerial.withDelimiter('#').then(() => {
-      Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
-        values => {
-          const [isEnabled, devices] = values;
-        },
-      );
-      BluetoothSerial.on('read', data => {
-        var sensorsConfigString = data.data;
-        sensorsConfigString = sensorsConfigString
-          .split('START')[1]
-          .split('#')[0];
-        sensorsConfigString = sensorsConfigString.replace(/^\n|\n$/g, '');
-        console.log(sensorsConfigString);
-        var sensorsConfig = JSON.parse(sensorsConfigString);
-        console.log('RETURNING');
-        console.log(sensorsConfig);
-        return sensorsConfig;
-      });
-    });
   }
 
   render() {

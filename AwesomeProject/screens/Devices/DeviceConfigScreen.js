@@ -1,7 +1,15 @@
 import React, {useState} from 'react';
 import AppButton from '../../components/Button_main';
 import SelectDropdown from 'react-native-select-dropdown';
-import {Text, View, StyleSheet, Switch, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Switch,
+  TextInput,
+  ToastAndroid,
+} from 'react-native';
+import SecondButton from '../../components/Button_second';
 
 const DeviceConfigScreen = props => {
   const getSensorsNamesList = sensorsData => {
@@ -29,16 +37,29 @@ const DeviceConfigScreen = props => {
   const [interval, setInterval] = useState();
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+  const renderElement = () => {
+    if (props.route.params.deviceConfig.online == false)
+      return (
+        <SecondButton
+          title="Get sensor csv"
+          onPress={() => {
+            if (!dropdownValue) {
+              ToastAndroid.show(`Select sensor`, ToastAndroid.SHORT);
+            } else {
+              props.route.params.bt.getSensorCsv(dropdownValue);
+              ToastAndroid.show(`Obtaining csv`, ToastAndroid.SHORT);
+            }
+          }}
+        />
+      );
+    return null;
+  };
+
   return (
     <View style={styles.main}>
       <View style={{alignItems: 'center'}}>
-        <Text style={styles.textHeader}>Device:</Text>
         <Text style={styles.textHeader}>
           {props.route.params.deviceConfig.deviceID}
-        </Text>
-        <Text style={styles.text}>
-          {'\nWorking as online device: ' +
-            props.route.params.deviceConfig.online}
         </Text>
         <Text style={styles.text}>{'\nSensor:'}</Text>
         <SelectDropdown
@@ -103,6 +124,7 @@ const DeviceConfigScreen = props => {
             }
           }}
         />
+        {renderElement()}
       </View>
     </View>
   );
