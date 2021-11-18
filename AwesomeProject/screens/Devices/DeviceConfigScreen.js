@@ -83,7 +83,7 @@ const DeviceConfigScreen = props => {
               if (interval != '' && !isNaN(+interval)) {
                 props.route.params.sensorsConfig[dropdownValue + 'SensorOn'] =
                   isEnabled;
-                let state = isEnabled ? 'ON' : 'OFF';
+                let state = isEnabled ? '1' : '0';
                 props.route.params.bt.sendStateConfig(dropdownValue, state);
                 let intervalInMicroSec = interval * 1000;
                 props.route.params.sensorsConfig[

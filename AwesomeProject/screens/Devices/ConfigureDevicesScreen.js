@@ -131,7 +131,7 @@ export default class ConfigureDevicesScreen extends Component {
   }
 
   sendStateConfig(selectedSensorID, sensorState) {
-    let cmd = 'STATE:' + selectedSensorID + ':' + sensorState + '#';
+    let cmd = 'S:' + selectedSensorID + ':' + sensorState + '#';
     console.log(cmd);
     BluetoothSerial.write(cmd)
       .then(res => {
@@ -151,7 +151,7 @@ export default class ConfigureDevicesScreen extends Component {
   }
 
   sendIntervalConfig(selectedSensorID, interval) {
-    let cmd = 'INTERVAL:' + selectedSensorID + ':' + interval + '#';
+    let cmd = 'I:' + selectedSensorID + ':' + interval + '#';
     console.log(cmd);
     BluetoothSerial.write(cmd)
       .then(res => {
@@ -171,7 +171,7 @@ export default class ConfigureDevicesScreen extends Component {
   }
 
   getDeviceConfig() {
-    BluetoothSerial.write('GETDEVICECONFIG#')
+    BluetoothSerial.write('GDC#')
       .then(res => {
         console.log(res);
         console.log('Successfuly wrote to device');
