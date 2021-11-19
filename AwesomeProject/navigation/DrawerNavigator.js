@@ -11,10 +11,15 @@ import {
   Switch,
 } from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {Logout, Setting, User, Call, Danger, Home} from 'react-native-iconly';
+import {Logout, Setting, User, Danger, Home} from 'react-native-iconly';
+
+import {AuthContext} from '../components/context';
+import {signOut} from './AppNavigator';
 
 const DrawerNavigator = props => {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+
+  const {signOut} = React.useContext(AuthContext);
 
   const toggleTheme = () => {
     setIsDarkTheme(!isDarkTheme);
@@ -108,7 +113,9 @@ const DrawerNavigator = props => {
         <DrawerItem
           icon={() => <Logout set="light" primaryColor="black" size="large" />}
           label="Sign out"
-          onPress={() => {}}
+          onPress={() => {
+            signOut();
+          }}
         />
       </Drawer.Section>
     </View>
