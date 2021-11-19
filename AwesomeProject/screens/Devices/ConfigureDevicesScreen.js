@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   ToastAndroid,
   Dimensions,
+  PermissionsAndroid,
+  Alert,
 } from 'react-native';
 var _ = require('lodash');
 import BluetoothSerial from 'react-native-bluetooth-serial';
@@ -17,6 +19,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../../components/Title';
 import AppButton from '../../components/Button_main';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
@@ -211,22 +214,45 @@ export default class ConfigureDevicesScreen extends Component {
             ToastAndroid.show(`Empty csv`, ToastAndroid.SHORT);
           } else {
             console.log(dataFromDevice);
+
             ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
+            const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/data.csv`;
+            console.log('pathToWrite', pathToWrite);
+            RNFetchBlob.fs
+              .writeFile(pathToWrite, dataFromDevice, 'utf8')
+              .then(() => {
+                console.log(`wrote file ${pathToWrite}`);
+              })
+              .catch(error => console.error(error));
           }
         }
       });
     });
   }
 
-  getSensorCsv(sensorID) {
-    BluetoothSerial.write(sensorID + '.csv#')
-      .then(res => {
-        console.log(res);
-        console.log('Successfuly wrote to device');
-        this.setState({connected: true});
-      })
-      .catch(err => console.log(err.message));
-  }
+  getSensorCsv = async sensorID => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        BluetoothSerial.write(sensorID + '.csv#')
+          .then(res => {
+            console.log(res);
+            console.log('Successfuly wrote to device');
+            this.setState({connected: true});
+          })
+          .catch(err => console.log(err.message));
+      } else {
+        Alert.alert(
+          'Permission Denied!',
+          'You need to give storage permission to download the file',
+        );
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   render() {
     return (
