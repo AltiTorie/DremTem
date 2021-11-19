@@ -206,7 +206,13 @@ export default class ConfigureDevicesScreen extends Component {
           });
         } else {
           // sensor csv
-          console.log(dataFromDevice);
+          if (dataFromDevice.includes('EMPTY CSV')) {
+            console.log('EMPTY CSV');
+            ToastAndroid.show(`Empty csv`, ToastAndroid.SHORT);
+          } else {
+            console.log(dataFromDevice);
+            ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
+          }
         }
       });
     });

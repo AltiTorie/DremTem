@@ -47,7 +47,7 @@ const DeviceConfigScreen = props => {
               ToastAndroid.show(`Select sensor`, ToastAndroid.SHORT);
             } else {
               props.route.params.bt.getSensorCsv(dropdownValue);
-              ToastAndroid.show(`Obtaining csv`, ToastAndroid.SHORT);
+              ToastAndroid.show(`Downloading csv`, ToastAndroid.SHORT);
             }
           }}
         />
