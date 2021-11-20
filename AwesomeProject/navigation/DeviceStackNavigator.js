@@ -7,6 +7,7 @@ import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
 import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
 import ConfigureDevicesScreen from '../screens/Devices/ConfigureDevicesScreen';
 import DeviceConfigScreen from '../screens/Devices/DeviceConfigScreen';
+import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
 
 const DeviceStack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const DeviceStackNavigator = ({navigation}) => {
         component={ConfigureDevicesScreen}
       />
       <DeviceStack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
+      <DeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />
     </DeviceStack.Navigator>
   );
 };

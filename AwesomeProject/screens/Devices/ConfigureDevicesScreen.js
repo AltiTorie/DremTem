@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
   ToastAndroid,
   Dimensions,
+  PermissionsAndroid,
+  Alert,
 } from 'react-native';
 var _ = require('lodash');
 import BluetoothSerial from 'react-native-bluetooth-serial';
@@ -17,6 +19,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../../components/Title';
 import AppButton from '../../components/Button_main';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
@@ -131,7 +134,7 @@ export default class ConfigureDevicesScreen extends Component {
   }
 
   sendStateConfig(selectedSensorID, sensorState) {
-    let cmd = 'STATE:' + selectedSensorID + ':' + sensorState + '#';
+    let cmd = 'S:' + selectedSensorID + ':' + sensorState + '#';
     console.log(cmd);
     BluetoothSerial.write(cmd)
       .then(res => {
@@ -151,7 +154,7 @@ export default class ConfigureDevicesScreen extends Component {
   }
 
   sendIntervalConfig(selectedSensorID, interval) {
-    let cmd = 'INTERVAL:' + selectedSensorID + ':' + interval + '#';
+    let cmd = 'I:' + selectedSensorID + ':' + interval + '#';
     console.log(cmd);
     BluetoothSerial.write(cmd)
       .then(res => {
@@ -171,7 +174,7 @@ export default class ConfigureDevicesScreen extends Component {
   }
 
   getDeviceConfig() {
-    BluetoothSerial.write('GETDEVICECONFIG#')
+    BluetoothSerial.write('GDC#')
       .then(res => {
         console.log(res);
         console.log('Successfuly wrote to device');
@@ -179,9 +182,6 @@ export default class ConfigureDevicesScreen extends Component {
       })
       .catch(err => console.log(err.message));
 
-    // BluetoothSerial.readFromDevice().then(data => {
-    //   console.log(data);
-    // });
     BluetoothSerial.withDelimiter('STOP').then(() => {
       Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
         values => {
@@ -189,61 +189,70 @@ export default class ConfigureDevicesScreen extends Component {
         },
       );
       BluetoothSerial.on('read', data => {
-        let deviceConfigsString = data.data;
-        console.log(deviceConfigsString);
-        deviceConfigsString = deviceConfigsString.split('START')[1];
-        deviceConfigsString = deviceConfigsString.split('STOP')[0];
-        let deviceConfigString = deviceConfigsString.split('#')[0];
-        let sensorsConfiString = deviceConfigsString.split('#')[1];
-        deviceConfigString = deviceConfigString.replace(/^\n|\n$/g, '');
-        sensorsConfiString = sensorsConfiString.replace(/^\n|\n$/g, '');
+        let dataFromDevice = data.data;
+        dataFromDevice = dataFromDevice.split('START')[1];
+        dataFromDevice = dataFromDevice.split('STOP')[0];
+        if (dataFromDevice.includes('{')) {
+          // json - device configs
+          let deviceConfigString = dataFromDevice.split('#')[0];
+          let sensorsConfigString = dataFromDevice.split('#')[1];
+          deviceConfigString = deviceConfigString.replace(/^\n|\n$/g, '');
+          sensorsConfigString = sensorsConfigString.replace(/^\n|\n$/g, '');
 
-        let deviceConfig = JSON.parse(deviceConfigString);
-        console.log('-------------------------');
-        console.log(deviceConfig);
-        let sensorsConfig = JSON.parse(sensorsConfiString);
-        console.log('-------------------------');
-        console.log(sensorsConfig);
+          let deviceConfig = JSON.parse(deviceConfigString);
+          let sensorsConfig = JSON.parse(sensorsConfigString);
 
-        console.log('navigation');
-        this.props.navigation.navigate('DeviceConfig', {
-          deviceConfig: deviceConfig,
-          sensorsConfig: sensorsConfig,
-          bt: this,
-        });
+          this.props.navigation.navigate('DeviceConfig', {
+            deviceConfig: deviceConfig,
+            sensorsConfig: sensorsConfig,
+            bt: this,
+          });
+        } else {
+          // sensor csv
+          if (dataFromDevice.includes('EMPTY CSV')) {
+            console.log('EMPTY CSV');
+            ToastAndroid.show(`Empty csv`, ToastAndroid.SHORT);
+          } else {
+            console.log(dataFromDevice);
+
+            ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
+            const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/data.csv`;
+            console.log('pathToWrite', pathToWrite);
+            RNFetchBlob.fs
+              .writeFile(pathToWrite, dataFromDevice, 'utf8')
+              .then(() => {
+                console.log(`wrote file ${pathToWrite}`);
+              })
+              .catch(error => console.error(error));
+          }
+        }
       });
     });
   }
 
-  getSensorsConfig() {
-    BluetoothSerial.write('GETSENSORSCONFIG#')
-      .then(res => {
-        console.log(res);
-        console.log('Successfuly wrote to device');
-        this.setState({connected: true});
-      })
-      .catch(err => console.log(err.message));
-
-    BluetoothSerial.withDelimiter('#').then(() => {
-      Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
-        values => {
-          const [isEnabled, devices] = values;
-        },
+  getSensorCsv = async sensorID => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       );
-      BluetoothSerial.on('read', data => {
-        var sensorsConfigString = data.data;
-        sensorsConfigString = sensorsConfigString
-          .split('START')[1]
-          .split('#')[0];
-        sensorsConfigString = sensorsConfigString.replace(/^\n|\n$/g, '');
-        console.log(sensorsConfigString);
-        var sensorsConfig = JSON.parse(sensorsConfigString);
-        console.log('RETURNING');
-        console.log(sensorsConfig);
-        return sensorsConfig;
-      });
-    });
-  }
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        BluetoothSerial.write(sensorID + '.csv#')
+          .then(res => {
+            console.log(res);
+            console.log('Successfuly wrote to device');
+            this.setState({connected: true});
+          })
+          .catch(err => console.log(err.message));
+      } else {
+        Alert.alert(
+          'Permission Denied!',
+          'You need to give storage permission to download the file',
+        );
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   render() {
     return (
