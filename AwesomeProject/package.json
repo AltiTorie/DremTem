@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "web": "webpack serve --mode=development --config webpack.config.js",
     "test": "jest",
     "lint": "eslint ."
   },
@@ -45,17 +46,27 @@
     "react-native-svg-transformer": "^0.14.3",
     "react-native-vector-icons": "^9.0.0",
     "react-native-webview": "^11.2.3",
-    "rn-fetch-blob": "^0.12.0"
+    "rn-fetch-blob": "^0.12.0",
+    "react-native-web": "^0.17.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@svgr/webpack": "^5.5.0",
     "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-react-native-web": "^0.17.5",
     "eslint": "7.14.0",
+    "html-webpack-plugin": "^5.5.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.2",
-    "react-test-renderer": "17.0.2"
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "17.0.2",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.64.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.5.0"
   },
   "jest": {
     "preset": "react-native"
