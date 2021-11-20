@@ -21,6 +21,7 @@ import {
 import AppButton from '../../components/Button_main';
 import SecondButton from '../../components/Button_second';
 import {AuthContext} from '../../components/context';
+import Users from '../../model/users';
 
 import SignUpScreen from './SignupScreen';
 import DrawerNavigator from '../../navigation/DrawerNavigator';
@@ -31,31 +32,44 @@ const SigninScreen = props => {
     password: '',
     chceck_textInputChange: false,
     secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
   });
 
   const {signIn} = React.useContext(AuthContext);
 
   const textInputChange = value => {
-    if (value.length > 0) {
+    if (value.trim().length >= 4) {
       setData({
         ...data,
         username: value,
         chceck_textInputChange: true,
+        isValidUser: true,
       });
     } else {
       setData({
         ...data,
         username: value,
         chceck_textInputChange: false,
+        isValidUser: false,
       });
     }
   };
 
   const handlePasswordChange = value => {
-    setData({
-      ...data,
-      password: value,
-    });
+    if (value.trim().length >= 8) {
+      setData({
+        ...data,
+        password: value,
+        isValidPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        password: value,
+        isValidPassword: false,
+      });
+    }
   };
 
   const updateSecureTextEntry = () => {
@@ -65,8 +79,41 @@ const SigninScreen = props => {
     });
   };
 
-  const loginHandle = (username, password) => {
-    signIn(username, password);
+  const handleValidUser = val => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        isValidUser: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidUser: false,
+      });
+    }
+  };
+
+  const loginHandle = (userName, password) => {
+    const foundUser = Users.filter(item => {
+      return userName === item.username && password === item.password;
+    });
+
+    if (data.username.length === 0 || data.password.length === 0) {
+      Alert.alert(
+        'Wrong input!',
+        'Username or password field cannot be empty.',
+        [{text: 'Okay'}],
+      );
+      return;
+    }
+
+    if (foundUser.length === 0) {
+      Alert.alert('Invalid user', 'Username or password is incorrect', [
+        {text: 'Okay'},
+      ]);
+      return;
+    }
+    signIn(foundUser);
   };
 
   return (
@@ -84,6 +131,7 @@ const SigninScreen = props => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={value => textInputChange(value)}
+            onEndEditing={e => handleValidUser(e.nativeEvent.text)}
           />
           {data.chceck_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -91,6 +139,13 @@ const SigninScreen = props => {
             </Animatable.View>
           ) : null}
         </View>
+        {data.isValidUser ? null : (
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>
+              Username must be 4 chcaracters long
+            </Text>
+          </Animatable.View>
+        )}
 
         <Text style={[styles.text_footer, {marginTop: 35}]}> Password </Text>
         <View style={styles.action}>
@@ -110,6 +165,14 @@ const SigninScreen = props => {
             )}
           </TouchableOpacity>
         </View>
+        {data.isValidPassword ? null : (
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>
+              Password must be 8 chcaracters long
+            </Text>
+          </Animatable.View>
+        )}
+
         <TouchableOpacity>
           <Text style={{color: 'black', marginTop: 15}}>Forgot password?</Text>
         </TouchableOpacity>

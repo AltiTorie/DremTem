@@ -74,16 +74,14 @@ const AppStackNavigator = () => {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (userName, password) => {
+      signIn: async foundUser => {
         let userToken;
-        userToken = null;
-        if (userName === 'user' && password === 'pass') {
-          userToken = 'aaa';
-          try {
-            await AsyncStorage.setItem('userToken', userToken);
-          } catch (e) {
-            console.log(e);
-          }
+        userToken = String(foundUser[0].userToken);
+        const userName = String(foundUser[0].username);
+        try {
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch (e) {
+          console.log(e);
         }
         dispatch({type: 'LOGIN', id: userName, userToken: userToken});
       },
@@ -94,10 +92,6 @@ const AppStackNavigator = () => {
           console.log(e);
         }
         dispatch({type: 'LOGOUT'});
-      },
-      signUp: () => {
-        // setUserToken('aaa');
-        // setIsLoading(false);
       },
     }),
     [],
