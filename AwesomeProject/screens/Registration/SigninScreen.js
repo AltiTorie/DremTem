@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,45 +9,179 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
-import {User, Hide, Show, Lock, Password} from 'react-native-iconly';
+import * as Animatable from 'react-native-animatable';
+import {
+  User,
+  Hide,
+  Show,
+  Lock,
+  Password,
+  TickSquare,
+} from 'react-native-iconly';
 import AppButton from '../../components/Button_main';
 import SecondButton from '../../components/Button_second';
+import {AuthContext} from '../../components/context';
+import Users from '../../model/users';
+
 import SignUpScreen from './SignupScreen';
 import DrawerNavigator from '../../navigation/DrawerNavigator';
 
 const SigninScreen = props => {
+  const [data, setData] = useState({
+    username: '',
+    password: '',
+    chceck_textInputChange: false,
+    secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
+  });
+
+  const {signIn} = React.useContext(AuthContext);
+
+  const textInputChange = value => {
+    if (value.trim().length >= 4) {
+      setData({
+        ...data,
+        username: value,
+        chceck_textInputChange: true,
+        isValidUser: true,
+      });
+    } else {
+      setData({
+        ...data,
+        username: value,
+        chceck_textInputChange: false,
+        isValidUser: false,
+      });
+    }
+  };
+
+  const handlePasswordChange = value => {
+    if (value.trim().length >= 8) {
+      setData({
+        ...data,
+        password: value,
+        isValidPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        password: value,
+        isValidPassword: false,
+      });
+    }
+  };
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry,
+    });
+  };
+
+  const handleValidUser = val => {
+    if (val.trim().length >= 4) {
+      setData({
+        ...data,
+        isValidUser: true,
+      });
+    } else {
+      setData({
+        ...data,
+        isValidUser: false,
+      });
+    }
+  };
+
+  const loginHandle = (userName, password) => {
+    const foundUser = Users.filter(item => {
+      return userName === item.username && password === item.password;
+    });
+
+    if (data.username.length === 0 || data.password.length === 0) {
+      Alert.alert(
+        'Wrong input!',
+        'Username or password field cannot be empty.',
+        [{text: 'Okay'}],
+      );
+      return;
+    }
+
+    if (foundUser.length === 0) {
+      Alert.alert('Invalid user', 'Username or password is incorrect', [
+        {text: 'Okay'},
+      ]);
+      return;
+    }
+    signIn(foundUser);
+  };
+
   return (
     <View style={styles.container}>
+      {/* <StatusBar barStyle="dark-content" /> */}
       <View style={styles.header}>
         <Text style={styles.text_header}> Hello! </Text>
       </View>
-      <View style={styles.footer}>
+      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <Text style={styles.text_footer}> E-mail </Text>
         <View style={styles.action}>
-          <User set="curved" color="#05375a" size={20} />
+          <User set="curved" color="#05375a" size={25} />
           <TextInput
             placeholder="Your mail"
             style={styles.textInput}
             autoCapitalize="none"
+            onChangeText={value => textInputChange(value)}
+            onEndEditing={e => handleValidUser(e.nativeEvent.text)}
           />
+          {data.chceck_textInputChange ? (
+            <Animatable.View animation="bounceIn">
+              <TickSquare set="curved" color="#639E6C" size={25} />
+            </Animatable.View>
+          ) : null}
         </View>
+        {data.isValidUser ? null : (
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>
+              Username must be 4 chcaracters long
+            </Text>
+          </Animatable.View>
+        )}
 
         <Text style={[styles.text_footer, {marginTop: 35}]}> Password </Text>
         <View style={styles.action}>
-          <Lock set="light" color="#05375a" size={20} />
+          <Lock set="light" color="#05375a" size={25} />
           <TextInput
             placeholder="Your password"
-            secureTextEntry={true}
+            secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
+            onChangeText={value => handlePasswordChange(value)}
           />
-          <Hide set="curved" color="#05375a" size={20} />
+          <TouchableOpacity onPress={updateSecureTextEntry}>
+            {data.secureTextEntry ? (
+              <Hide set="curved" color="#05375a" size={25} />
+            ) : (
+              <Show set="curved" color="#05375a" size={25} />
+            )}
+          </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
+        {data.isValidPassword ? null : (
+          <Animatable.View animation="fadeInLeft" duration={500}>
+            <Text style={styles.errorMsg}>
+              Password must be 8 chcaracters long
+            </Text>
+          </Animatable.View>
+        )}
+
+        <TouchableOpacity>
+          <Text style={{color: 'black', marginTop: 15}}>Forgot password?</Text>
+        </TouchableOpacity>
+        <View style={styles.button}>
           <AppButton
-            title="Log in"
+            title="Sign in"
             onPress={() => {
-              props.navigation.navigate('Home');
+              console.log('clicked');
+              loginHandle(data.username, data.password);
             }}
           />
           <SecondButton
@@ -57,7 +191,7 @@ const SigninScreen = props => {
             }}
           />
         </View>
-      </View>
+      </Animatable.View>
     </View>
   );
 };
@@ -132,9 +266,5 @@ const styles = StyleSheet.create({
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  buttonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

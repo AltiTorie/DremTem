@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {IconlyProvider, Home, Notification} from 'react-native-iconly';
+
+import {AuthContext} from '../components/context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AboutScreen from '../screens/AboutScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
@@ -16,24 +20,120 @@ import TabNavigator from './TabNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import RootStackNavigator from './RootStackScreen';
 import SigninScreen from '../screens/Registration/SigninScreen';
+import {ActivityIndicator} from 'react-native';
+import {initial} from 'lodash';
 
 const Drawer = createDrawerNavigator();
 
 const AppStackNavigator = () => {
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [userToken, setUserToken] = useState(null);
+
+  const initialLoginState = {
+    isLoading: true,
+    userName: null,
+    userToken: null,
+  };
+
+  loginReducer = (prevState, action) => {
+    switch (action.type) {
+      case 'RETRIEVE_TOKEN':
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGIN':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGOUT':
+        return {
+          ...prevState,
+          userName: null,
+          userToken: null,
+          isLoading: false,
+        };
+      case 'REGISTER':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+    }
+  };
+
+  const [loginState, dispatch] = React.useReducer(
+    loginReducer,
+    initialLoginState,
+  );
+
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async foundUser => {
+        let userToken;
+        userToken = String(foundUser[0].userToken);
+        const userName = String(foundUser[0].username);
+        try {
+          await AsyncStorage.setItem('userToken', userToken);
+        } catch (e) {
+          console.log(e);
+        }
+        dispatch({type: 'LOGIN', id: userName, userToken: userToken});
+      },
+      signOut: async () => {
+        try {
+          await AsyncStorage.removeItem('userToken');
+        } catch (e) {
+          console.log(e);
+        }
+        dispatch({type: 'LOGOUT'});
+      },
+    }),
+    [],
+  );
+
+  useEffect(() => {
+    setTimeout(async () => {
+      // setIsLoading(false);
+      let userToken;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
+    }, 1000);
+  }, []);
+
+  if (loginState.isLoading) {
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
   return (
-    //     // <NavigationContainer>
-    //     //   <RootStackNavigator />
-    //     // </NavigationContainer>
-    //     // <RootStack.Navigator headerMode="none">
-    //     //   <RootStack.Screen name="SignInScreen" component={SigninScreen} />
-    //     //   {/* <RootStack.Screen name="SignUpScreen" component={SignupScreen} /> */}
-    //     // </RootStack.Navigator>
-    <Drawer.Navigator drawerContent={props => <DrawerNavigator {...props} />}>
-      <Drawer.Screen name="Home" component={TabNavigator} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
-      <Drawer.Screen name="Settings" component={SettingsScreen} />
-      <Drawer.Screen name="Support" component={SupportScreen} />
-    </Drawer.Navigator>
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        {loginState.userToken !== null ? (
+          <Drawer.Navigator
+            drawerContent={props => <DrawerNavigator {...props} />}>
+            <Drawer.Screen name="HomeDrawer" component={TabNavigator} />
+            <Drawer.Screen name="Profile" component={ProfileScreen} />
+            <Drawer.Screen name="Settings" component={SettingsScreen} />
+            <Drawer.Screen name="Support" component={SupportScreen} />
+          </Drawer.Navigator>
+        ) : (
+          <RootStackNavigator />
+        )}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };
 
