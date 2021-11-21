@@ -1,9 +1,10 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import TestScreen from './web/screens/test';
+import HomeScreen from './web/screens/HomeScreen';
+import RootWebStackNavigator from './web/navigation/RootNavigation';
 
 export default function App() {
-  return <TestScreen />;
+  return <RootWebStackNavigator />;
 }
 
 const styles = StyleSheet.create({
