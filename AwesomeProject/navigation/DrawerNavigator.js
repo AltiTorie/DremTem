@@ -1,14 +1,15 @@
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Danger, Home, Logout, Setting, User} from 'react-native-iconly';
 import {
   Avatar,
-  Title,
   Caption,
-  Paragraph,
   Drawer,
-  Text,
-  TouchableRipple,
   Switch,
+  Text,
+  Title,
+  TouchableRipple,
 } from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Logout, Setting, User, Danger, Home} from 'react-native-iconly';

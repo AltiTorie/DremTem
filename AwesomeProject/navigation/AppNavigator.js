@@ -1,27 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {IconlyProvider, Home, Notification} from 'react-native-iconly';
-
-import {AuthContext} from '../components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import AboutScreen from '../screens/AboutScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
-import HomeScreen from '../screens/HomeScreen';
-// import Dashboards from '../screens/Dashboards';
-import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+import {default as React, default as React, useEffect} from 'react';
+import {ActivityIndicator, View} from 'react-native';
+import {AuthContext} from '../components/context';
+import SupportScreen from '../screens/SupportScreen';
 import ProfileScreen from '../screens/User/ProfileScreen';
 import SettingsScreen from '../screens/User/SettingsScreen';
-import SupportScreen from '../screens/SupportScreen';
-import TabNavigator from './TabNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import RootStackNavigator from './RootStackScreen';
-import SigninScreen from '../screens/Registration/SigninScreen';
-import {ActivityIndicator} from 'react-native';
-import {initial} from 'lodash';
+import TabNavigator from './TabNavigator';
 
 const Drawer = createDrawerNavigator();
 

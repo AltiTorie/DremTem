@@ -3,14 +3,24 @@ import React from 'react';
 import {Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Plotly from 'react-native-plotly';
 import Globals from '../../components/Globals';
-export default class DefaultDashboardScreen extends React.Component {
+
+{
+  /*
+  This class is supposed to show data from one device/sensor (to be decided).
+  If from device then it should be called from DevicePanel.
+  If from sensor, then (if such screen will exist) it should gather data from one sensor.
+  If the device/sensor works in offline mode, data passed to this Dashboard could come from
+  data sent via Bluetooth in .csv format.
+  */
+}
+export default class DefaultMobileDashboardScreen extends React.Component {
   constructor(props) {
     super(props);
-    let dashboard_options = props.route.params.item;
+    let dashboard_options = props.route.params;
     console.log(dashboard_options);
-    let labels = Globals.TEST_LABELS;
-    let data = Globals.TEST_DATA;
-    let data2 = Globals.TEST_DATA_2;
+    let labels = Globals.TEST_LABELS.slice(-50);
+    let data = Globals.TEST_DATA.slice(-50);
+    let data2 = Globals.TEST_DATA_2.slice(-50);
     this.state = {
       props: props,
       data: {
@@ -25,6 +35,7 @@ export default class DefaultDashboardScreen extends React.Component {
         __id: '2',
         x: labels,
         y: data2,
+        yaxis: 'y2',
         mode: 'markers',
         type: 'scatter',
       },
@@ -32,7 +43,16 @@ export default class DefaultDashboardScreen extends React.Component {
         title: 'Default',
         autozise: true,
         font: {size: 18},
+        showlegend: false,
         xaxis: {rangeslider: {}},
+        yaxis: {title: 'yaxis title'},
+        yaxis2: {
+          title: 'yaxis2 title',
+          // titlefont: {color: 'rgb(148, 103, 189)'},
+          tickfont: {color: 'rgb(148, 103, 189)'},
+          overlaying: 'y',
+          side: 'right',
+        },
       },
     };
   }
