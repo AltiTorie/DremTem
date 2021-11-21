@@ -5,7 +5,7 @@ import {
   DefaultTheme as NavigationDefaultTheme,
   NavigationContainer,
 } from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {default as React, default as React, useEffect} from 'react';
 import {ActivityIndicator, View} from 'react-native';
 import {
   DarkTheme as PaperDarkTheme,
