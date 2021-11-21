@@ -35,6 +35,14 @@ const DevicePanelScreen = props => {
         </Text>
       </View>
       <View style={styles.bottom}>
+        <AppButton
+          title="Check last data"
+          onPress={() =>
+            props.navigation.navigate('DefaultMobileDashboard', {
+              item: {types: ['one', 'two']},
+            })
+          }
+        />
         <AppButton title="Delete device" onPress={() => showConfirmDialog()} />
       </View>
     </View>

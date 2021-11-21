@@ -9,13 +9,17 @@ export default function DashboardForm({additionalFunction}) {
   return (
     <View style={styles.container}>
       <Formik
-        initialValues={{name: 'New_dashboard', screen_name: ''}}
+        initialValues={{
+          name: 'New_dashboard',
+          screen_name: '',
+          sensor_types: [],
+        }}
         onSubmit={(values, actions) => {
           additionalFunction(values);
           actions.resetForm();
         }}>
         {props => {
-          const selectedTypes = function (selectedTypes) {
+          const selectTypes = function (selectedTypes) {
             if (selectedTypes.length > 0) {
               let types = [];
               selectedTypes.forEach(item => types.push(item.abbr));
@@ -25,11 +29,9 @@ export default function DashboardForm({additionalFunction}) {
                   chart.required_types.length == types.length &&
                   chart.required_types.every(rt => types.includes(rt)),
               );
-              if (q) {
-                props.setFieldValue('screen_name', q.chart_link);
-              } else {
-                props.setFieldValue('screen_name', 'DefaultDashboard');
-              }
+              props.setFieldValue('sensor_types', selectedTypes);
+              let chart_link = q ? q.chart_link : 'DefaultDashboard';
+              props.setFieldValue('screen_name', chart_link);
             }
           };
           return (
@@ -41,7 +43,7 @@ export default function DashboardForm({additionalFunction}) {
                   onChangeText={props.handleChange('name')}
                   value={props.values.name}
                 />
-                <MultiSelect onSelection={selectedTypes}></MultiSelect>
+                <MultiSelect onSelection={selectTypes}></MultiSelect>
                 <AppButton title="submit" onPress={props.handleSubmit} />
               </View>
             </>
