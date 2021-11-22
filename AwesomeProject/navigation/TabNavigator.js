@@ -8,9 +8,11 @@ import {
   Category,
   Star,
 } from 'react-native-iconly';
+import {useTheme} from '@react-navigation/native';
+// import {useTheme} from 'react-native-paper';
+import NavigationDarkTheme from './AppNavigator';
 
 import AboutScreen from '../screens/AboutScreen';
-import WelcomeScreen from '../screens/WelcomeScreen';
 import HomeScreen from '../screens/HomeScreen';
 import Dashboards from '../screens/Dashboards';
 import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
@@ -22,11 +24,16 @@ import DashboardStackNavigator from '../navigation/DashboardStackNavigator';
 const Tab = createMaterialBottomTabNavigator();
 
 const TabNavigator = () => {
+  const paperTheme = useTheme();
+  const {colors} = useTheme();
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="blue"
-      barStyle={{backgroundColor: 'white'}}>
+      barStyle={{
+        backgroundColor: paperTheme.dark ? '#202020' : 'white',
+      }}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
@@ -35,8 +42,7 @@ const TabNavigator = () => {
           tabBarIcon: ({color}) => (
             <Home
               set="light"
-              primaryColor="black"
-              secondaryColor="white"
+              primaryColor={colors.text}
               stroke="bold"
               size="large"
             />
@@ -51,8 +57,7 @@ const TabNavigator = () => {
           tabBarIcon: ({color}) => (
             <Star
               set="light"
-              primaryColor="black"
-              secondaryColor="blue"
+              primaryColor={colors.text}
               stroke="bold"
               size="large"
             />
@@ -67,8 +72,7 @@ const TabNavigator = () => {
           tabBarIcon: ({color}) => (
             <Chart
               set="light"
-              primaryColor="black"
-              secondaryColor="blue"
+              primaryColor={colors.text}
               stroke="bold"
               size="large"
             />
@@ -83,8 +87,7 @@ const TabNavigator = () => {
           tabBarIcon: ({color}) => (
             <Category
               set="light"
-              primaryColor="black"
-              secondaryColor="blue"
+              primaryColor={colors.text}
               stroke="bold"
               size="large"
             />
@@ -99,8 +102,7 @@ const TabNavigator = () => {
           tabBarIcon: ({color}) => (
             <Notification
               set="light"
-              primaryColor="black"
-              secondaryColor="blue"
+              primaryColor={colors.text}
               stroke="bold"
               size="large"
             />

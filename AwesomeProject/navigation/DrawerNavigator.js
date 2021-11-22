@@ -9,7 +9,9 @@ import {
   Text,
   TouchableRipple,
   Switch,
+  useTheme,
 } from 'react-native-paper';
+// import {useTheme} from '@react-navigation/native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Logout, Setting, User, Danger, Home} from 'react-native-iconly';
 
@@ -17,13 +19,10 @@ import {AuthContext} from '../components/context';
 import {signOut} from './AppNavigator';
 
 const DrawerNavigator = props => {
-  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+  const paperTheme = useTheme();
+  const {colors} = useTheme();
 
-  const {signOut} = React.useContext(AuthContext);
-
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
+  const {signOut, toggleTheme} = React.useContext(AuthContext);
 
   const [isEnglishVersion, setisEnglishVersion] = React.useState(false);
 
@@ -53,7 +52,7 @@ const DrawerNavigator = props => {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={() => (
-                <Home set="light" primaryColor="black" size="large" />
+                <Home set="light" primaryColor={colors.text} size="large" />
               )}
               activeBackgroundColor="#FFDC84"
               label="Home"
@@ -63,7 +62,7 @@ const DrawerNavigator = props => {
             />
             <DrawerItem
               icon={() => (
-                <User set="curved" primaryColor="black" size="large" />
+                <User set="curved" primaryColor={colors.text} size="large" />
               )}
               label="My profile"
               onPress={() => {
@@ -72,7 +71,7 @@ const DrawerNavigator = props => {
             />
             <DrawerItem
               icon={() => (
-                <Setting set="curved" primaryColor="black" size="large" />
+                <Setting set="curved" primaryColor={colors.text} size="large" />
               )}
               label="Settings"
               onPress={() => {
@@ -81,7 +80,7 @@ const DrawerNavigator = props => {
             />
             <DrawerItem
               icon={() => (
-                <Danger set="curved" primaryColor="black" size="large" />
+                <Danger set="curved" primaryColor={colors.text} size="large" />
               )}
               label="Support"
               onPress={() => {
@@ -94,7 +93,11 @@ const DrawerNavigator = props => {
               <View style={styles.preference}>
                 <Text>Dark Theme</Text>
                 <View pointerEvents="none">
-                  <Switch value={isDarkTheme} />
+                  <Switch
+                    trackColor={{true: '#FFC163', false: 'grey'}}
+                    thumbColor={paperTheme.dark ? '#FFC163' : 'white'}
+                    value={paperTheme.dark}
+                  />
                 </View>
               </View>
             </TouchableRipple>
@@ -102,7 +105,12 @@ const DrawerNavigator = props => {
               <View style={styles.preference}>
                 <Text>English</Text>
                 <View pointerEvents="none">
-                  <Switch value={isEnglishVersion} />
+                  <Switch
+                    trackColor={{true: '#FFC163', false: 'grey'}}
+                    thumbColor={isEnglishVersion ? '#FFC163' : 'white'}
+                    ios_backgroundColor="#3e3e3e"
+                    value={isEnglishVersion}
+                  />
                 </View>
               </View>
             </TouchableRipple>
@@ -111,7 +119,9 @@ const DrawerNavigator = props => {
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
-          icon={() => <Logout set="light" primaryColor="black" size="large" />}
+          icon={() => (
+            <Logout set="light" primaryColor={colors.text} size="large" />
+          )}
           label="Sign out"
           onPress={() => {
             signOut();
