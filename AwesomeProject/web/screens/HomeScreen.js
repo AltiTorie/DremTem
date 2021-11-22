@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {Avatar} from 'react-native-paper';
 import Navbar from '../components/Navbar';
-import Dupa from '../components/Button';
+import AppLink from '../components/NavbarLink';
 import ProductsScreen from './ProductsScreen';
 
 const HomeScreen = props => {
@@ -18,9 +18,6 @@ const HomeScreen = props => {
           }}
           size={400}
         />
-      </View>
-      <View>
-        <Dupa title="Produkty" screen="Products" />
       </View>
 
       <View style={styles.text}>

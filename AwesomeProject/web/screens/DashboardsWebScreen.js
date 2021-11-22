@@ -2,17 +2,15 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {Avatar} from 'react-native-paper';
 import Navbar from '../components/Navbar';
-import AppLink from '../components/NavbarLink';
-import {Link} from '@react-navigation/native';
 
-const ProductsScreen = () => {
+const DashboardsWebScreen = () => {
   return (
     <View>
       <View style={styles.navbar}>
         <Navbar />
       </View>
       <View style={styles.cat}>
-        <Text>Produktyyyyyy</Text>
+        <Text>Daszbordziki</Text>
       </View>
       <View style={styles.text}>
         <Text>
@@ -205,4 +203,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductsScreen;
+export default DashboardsWebScreen;
