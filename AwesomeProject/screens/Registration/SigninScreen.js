@@ -123,11 +123,11 @@ const SigninScreen = props => {
         <Text style={styles.text_header}> Hello! </Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}> E-mail </Text>
+        <Text style={styles.text_footer}> Username </Text>
         <View style={styles.action}>
           <User set="curved" color="#05375a" size={25} />
           <TextInput
-            placeholder="Your mail"
+            placeholder="Your username"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={value => textInputChange(value)}

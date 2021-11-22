@@ -6,7 +6,7 @@ import SigninScreen from '../screens/Registration/SigninScreen';
 
 const RootStack = createNativeStackNavigator();
 
-const RootStackNavigator = ({navigation}) => {
+const RootStackNavigator = () => {
   return (
     <RootStack.Navigator screenOptions={{headerShown: false}}>
       <RootStack.Screen name="SignIn" component={SigninScreen} />

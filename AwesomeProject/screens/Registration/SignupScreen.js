@@ -86,11 +86,11 @@ const SignunScreen = props => {
         <Text style={styles.text_header}> Join us! </Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}> E-mail </Text>
+        <Text style={styles.text_footer}> Username </Text>
         <View style={styles.action}>
           <User set="curved" color="#05375a" size={25} />
           <TextInput
-            placeholder="Your mail"
+            placeholder="Your username"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={value => textInputChange(value)}
@@ -141,12 +141,7 @@ const SignunScreen = props => {
           </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <AppButton
-            title="Sign up"
-            onPress={() => {
-              props.navigation.navigate('Home');
-            }}
-          />
+          <AppButton title="Sign up" onPress={() => {}} />
           <SecondButton
             title="Sign in"
             onPress={() => {
