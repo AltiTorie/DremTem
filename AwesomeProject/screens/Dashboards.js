@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import colors from '../components/Charts/DashboardForm';
 import AppButton from '../components/Button_main';
+import DrawerHeader from '../components/Drawer_header';
 import DashboardForm from '../components/Charts/DashboardForm';
-
 export default class DashboardScreen extends Component {
   constructor(props) {
     super(props);
@@ -123,7 +124,6 @@ export default class DashboardScreen extends Component {
       </View>
     );
   };
-
   render() {
     return (
       <View style={styles.main}>
@@ -132,12 +132,11 @@ export default class DashboardScreen extends Component {
             {/* <DashboardForm additionalFunction={this._addDashboard} /> */}
             <DashboardForm additionalFunction={this._addDashboard} />
 
-            <View>
+            <View style={{backgroundColor: colors.background}}>
               <AppButton title="close" onPress={() => this._hide_modal()} />
             </View>
           </Modal>
-
-          <View style={{flex: 1, backgroundColor: 'white'}}>
+          <View style={{flex: 1}}>
             <FlatList
               data={this._formatData(
                 this.state.buttons,

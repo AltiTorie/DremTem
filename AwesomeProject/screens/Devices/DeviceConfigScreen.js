@@ -10,6 +10,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 import SecondButton from '../../components/Button_second';
+import DrawerHeader from '../../components/Drawer_header';
 
 const DeviceConfigScreen = props => {
   const getSensorsNamesList = sensorsData => {

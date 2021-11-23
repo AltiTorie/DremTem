@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {StyleSheet, Button, TextInput, View, Text} from 'react-native';
+import {useTheme} from 'react-native-paper';
 import {Formik, Field} from 'formik';
 import AppButton from '../Button_main';
 import MultiSelect from './MultiSelectChart';
 import Globals from '../Globals';
 
 export default function DashboardForm({additionalFunction}) {
+  const {colors} = useTheme();
   return (
-    <View style={styles.container}>
+    <View style={{backgroundColor: colors.background, flex: 1, padding: 20}}>
       <Formik
         initialValues={{name: 'New_dashboard', screen_name: ''}}
         onSubmit={(values, actions) => {
@@ -53,10 +55,7 @@ export default function DashboardForm({additionalFunction}) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
+  container: {},
   input: {
     borderWidth: 1,
     borderColor: '#ddd',

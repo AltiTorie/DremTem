@@ -1,11 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import AppButton from '../components/Button_main';
 import AppTitle from '../components/Title';
+import DrawerHeader from '../components/Drawer_header';
 
 const HomeScreen = props => {
   return (
     <View style={styles.main}>
+      <DrawerHeader
+        screen="Home"
+        onPress={() => props.navigation.openDrawer()}
+      />
       <View>
         <AppTitle title="HOME" />
       </View>

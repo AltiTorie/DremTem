@@ -15,11 +15,12 @@ import {
 } from 'react-native';
 var _ = require('lodash');
 import BluetoothSerial from 'react-native-bluetooth-serial';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../../components/Title';
 import AppButton from '../../components/Button_main';
 import RNFetchBlob from 'rn-fetch-blob';
+import DrawerHeader from '../../components/Drawer_header';
 
 export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
