@@ -26,6 +26,7 @@ export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      props: props,
       isEnabled: false,
       discovering: false,
       devices: [],
@@ -210,7 +211,7 @@ export default class ConfigureDevicesScreen extends Component {
           let deviceConfig = JSON.parse(deviceConfigString);
           let sensorsConfig = JSON.parse(sensorsConfigString);
 
-          this.props.navigation.navigate('DeviceConfig', {
+          this.state.props.navigation.navigate('DeviceConfig', {
             deviceConfig: deviceConfig,
             sensorsConfig: sensorsConfig,
             bt: this,

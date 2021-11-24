@@ -2,10 +2,9 @@ import React, {useEffect} from 'react';
 import {useTheme} from '@react-navigation/native';
 import ConfigureDevicesScreen from './ConfigureDevicesScreen';
 
-const ConfigureDevicesParentScreen = () => {
+const ConfigureDevicesParentScreen = props => {
   const {colors} = useTheme();
-
-  return <ConfigureDevicesScreen colors={colors} />;
+  return <ConfigureDevicesScreen {...props} colors={colors} />;
 };
 
 export default ConfigureDevicesParentScreen;

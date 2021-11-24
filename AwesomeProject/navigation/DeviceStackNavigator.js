@@ -32,10 +32,6 @@ const DeviceStackNavigator = props => {
         },
         headerTitleAlign: 'center',
       }}>
-      {/* <DeviceStack.Screen
-        name="DeviceDupa"
-        component={ConfigureDevicesParentScreen}
-      /> */}
       <DeviceStack.Screen
         name="DevicesPanel"
         component={DevicesPanel}
