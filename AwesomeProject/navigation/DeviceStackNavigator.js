@@ -6,7 +6,7 @@ import {IconlyProvider, Home, Notification} from 'react-native-iconly';
 
 import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
 import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
-import ConfigureDevicesScreen from '../screens/Devices/ConfigureDevicesScreen';
+import ConfigureDevicesParentScreen from '../screens/Devices/ConfigureDeviceParent';
 import DeviceConfigScreen from '../screens/Devices/DeviceConfigScreen';
 import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
 import {useTheme} from '@react-navigation/native';
@@ -32,6 +32,10 @@ const DeviceStackNavigator = props => {
         },
         headerTitleAlign: 'center',
       }}>
+      {/* <DeviceStack.Screen
+        name="DeviceDupa"
+        component={ConfigureDevicesParentScreen}
+      /> */}
       <DeviceStack.Screen
         name="DevicesPanel"
         component={DevicesPanel}
@@ -46,7 +50,7 @@ const DeviceStackNavigator = props => {
       <DeviceStack.Screen name="Device" component={DevicePanelScreen} />
       <DeviceStack.Screen
         name="ConfigureDevices"
-        component={ConfigureDevicesScreen}
+        component={ConfigureDevicesParentScreen}
       />
       <DeviceStack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       <DeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />

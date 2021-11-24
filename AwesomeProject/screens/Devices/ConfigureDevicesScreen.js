@@ -31,8 +31,16 @@ export default class ConfigureDevicesScreen extends Component {
       devices: [],
       unpairedDevices: [],
       connected: false,
+      colors: props.colors,
     };
   }
+
+  componentDidUpdate() {
+    if (this.state.colors !== this.props.colors) {
+      this.setState({colors: this.props.colors});
+    }
+  }
+
   UNSAFE_componentWillMount() {
     Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
       values => {
@@ -41,7 +49,6 @@ export default class ConfigureDevicesScreen extends Component {
         this.setState({isEnabled, devices});
       },
     );
-
     BluetoothSerial.on('bluetoothEnabled', () => {
       Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
         values => {
@@ -256,10 +263,18 @@ export default class ConfigureDevicesScreen extends Component {
   };
 
   render() {
+    // const {colors} = useTheme();
     return (
       <View style={styles.main}>
         <View style={styles.toolbar}>
-          <Text style={styles.text}>Bluetooth</Text>
+          <Text
+            style={{
+              fontSize: 20,
+              justifyContent: 'center',
+              color: this.state.colors.text,
+            }}>
+            Bluetooth
+          </Text>
           <View style={styles.toolbarButton}>
             <Switch
               trackColor={{false: '#767577', true: '#767577'}}
@@ -293,10 +308,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 20,
-    justifyContent: 'center',
-  },
+
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',

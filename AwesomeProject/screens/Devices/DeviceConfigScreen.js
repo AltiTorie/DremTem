@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import SecondButton from '../../components/Button_second';
 import DrawerHeader from '../../components/Drawer_header';
+import {useTheme} from '@react-navigation/native';
 
 const DeviceConfigScreen = props => {
   const getSensorsNamesList = sensorsData => {
@@ -55,14 +56,17 @@ const DeviceConfigScreen = props => {
       );
     return null;
   };
-
+  const {colors} = useTheme();
   return (
     <View style={styles.main}>
       <View style={{alignItems: 'center'}}>
-        <Text style={styles.textHeader}>
+        <Text style={{fontSize: 40, color: colors.text}}>
           {props.route.params.deviceConfig.deviceID}
         </Text>
-        <Text style={styles.text}>{'\nSensor:'}</Text>
+        <Text
+          style={{fontSize: 20, justifyContent: 'center', color: colors.text}}>
+          {'\nSensor:'}
+        </Text>
         <SelectDropdown
           defaultButtonText="Select sensor"
           data={getSensorsNamesList(props.route.params.deviceConfig.sensors)}
@@ -78,7 +82,10 @@ const DeviceConfigScreen = props => {
           }}
         />
 
-        <Text style={styles.text}>{'Sensor interval (in seconds):'}</Text>
+        <Text
+          style={{fontSize: 20, justifyContent: 'center', color: colors.text}}>
+          {'Sensor interval (in seconds):'}
+        </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -86,7 +93,10 @@ const DeviceConfigScreen = props => {
           value={interval}
           maxLength={3}
         />
-        <Text style={styles.text}>{'Sensor state:'}</Text>
+        <Text
+          style={{fontSize: 20, justifyContent: 'center', color: colors.text}}>
+          {'Sensor state:'}
+        </Text>
         <Switch
           trackColor={{false: '#767577', true: '#767577'}}
           thumbColor={isEnabled ? '#FFC163' : '#f4f3f4'}
@@ -140,10 +150,6 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontSize: 40,
-  },
-  text: {
-    fontSize: 20,
-    justifyContent: 'center',
   },
   bottom: {
     position: 'absolute',
