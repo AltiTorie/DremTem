@@ -8,9 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AppButton from '../../components/Button_main';
-
 import RNFetchBlob from 'rn-fetch-blob';
-
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
@@ -34,6 +32,7 @@ export default class DevicesCsv extends React.Component {
     this.state = {
       props: props,
       listed: [],
+      data: {device: '', sensor: '', labels: [], data: []},
     };
   }
   renderItem = ({item, index}) => {
@@ -44,7 +43,30 @@ export default class DevicesCsv extends React.Component {
       <View style={styles.item}>
         <TouchableOpacity
           onPress={() => {
-            console.log('Tapped ' + item.name);
+            RNFetchBlob.fs
+              .readFile(item.path)
+              .then(v => {
+                let splitted = v
+                  .split(/(\s+)/)
+                  .map(s => s.split(','))
+                  .filter(f => f.length > 2);
+                let tss = [];
+                let readings = [];
+                splitted.slice(1).forEach(element => {
+                  tss.push(element[0]);
+                  readings.push(element[3]);
+                });
+                let data = {
+                  device: splitted[1][1],
+                  sensor: splitted[1][2],
+                  labels: tss,
+                  data: readings,
+                };
+                this.props.navigation.navigate('OfflineDataDashboardScreen', {
+                  data: data,
+                });
+              })
+              .catch(err => console.log(err));
           }}>
           <Text style={styles.itemText}>{item.name}</Text>
         </TouchableOpacity>
@@ -64,7 +86,7 @@ export default class DevicesCsv extends React.Component {
       .then(v =>
         this.setState({
           listed: v.map(function (e) {
-            return {name: e};
+            return {name: e, path: csvsPath + '/' + e};
           }),
         }),
       )

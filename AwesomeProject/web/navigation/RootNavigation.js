@@ -8,7 +8,8 @@ import ProductsScreen from '../screens/ProductsScreen';
 import AboutScreen from '../screens/AboutScreen';
 import UsersMainScreen from '../screens/UsersMainScreen';
 import {Home} from 'react-native-iconly';
-
+import DashboardsWebScreen from '../screens/DashboardsWebScreen';
+import DefaultDashboardScreen from '../screens/Dashboards/DefaultDashboardScreen';
 const RootStackWeb = createNativeStackNavigator();
 
 const linking = {
@@ -20,6 +21,7 @@ const linking = {
       Products: '/products',
       About: '/aboutUs',
       LogIn: '/UsersMainScreen',
+      Dashboards: '/Dashboards',
     },
   },
 };
@@ -32,6 +34,14 @@ const RootWebStackNavigator = () => {
         <RootStackWeb.Screen name="Products" component={ProductsScreen} />
         <RootStackWeb.Screen name="About" component={AboutScreen} />
         <RootStackWeb.Screen name="LogIn" component={UsersMainScreen} />
+        <RootStackWeb.Screen
+          name="Dashboards"
+          component={DashboardsWebScreen}
+        />
+        <RootStackWeb.Screen
+          name="DefaultDashboard"
+          component={DefaultDashboardScreen}
+        />
       </RootStackWeb.Navigator>
     </NavigationContainer>
   );

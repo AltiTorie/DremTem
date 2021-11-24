@@ -10,12 +10,9 @@ import {
   Text,
   Title,
   TouchableRipple,
-  Switch,
   useTheme,
 } from 'react-native-paper';
 // import {useTheme} from '@react-navigation/native';
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {Logout, Setting, User, Danger, Home} from 'react-native-iconly';
 
 import {AuthContext} from '../components/context';
 import {signOut} from './AppNavigator';

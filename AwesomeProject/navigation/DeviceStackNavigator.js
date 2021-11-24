@@ -6,6 +6,7 @@ import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
 import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
 import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
 import DefaultMobileDashboardScreen from '../screens/MobileDashboards/DefaultMobileDashboardScreen';
+import OfflineDataDashboardScreen from '../screens/MobileDashboards/OfflineDataDashboardScreen';
 const DeviceStack = createNativeStackNavigator();
 
 const DeviceStackNavigator = ({navigation}) => {
@@ -22,6 +23,10 @@ const DeviceStackNavigator = ({navigation}) => {
       <DeviceStack.Screen
         name="DefaultMobileDashboard"
         component={DefaultMobileDashboardScreen}
+      />
+      <DeviceStack.Screen
+        name="OfflineDataDashboardScreen"
+        component={OfflineDataDashboardScreen}
       />
     </DeviceStack.Navigator>
   );
