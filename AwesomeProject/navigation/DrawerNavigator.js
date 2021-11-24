@@ -1,19 +1,18 @@
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Danger, Home, Logout, Setting, User} from 'react-native-iconly';
 import {
   Avatar,
-  Title,
   Caption,
-  Paragraph,
   Drawer,
-  Text,
-  TouchableRipple,
   Switch,
+  Text,
+  Title,
+  TouchableRipple,
   useTheme,
 } from 'react-native-paper';
 // import {useTheme} from '@react-navigation/native';
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {Logout, Setting, User, Danger, Home} from 'react-native-iconly';
 
 import {AuthContext} from '../components/context';
 import {signOut} from './AppNavigator';

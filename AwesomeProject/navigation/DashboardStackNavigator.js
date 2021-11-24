@@ -7,7 +7,7 @@ import MoistureDashboardScreen from '../screens/Dashboards/MoistureDashboardScre
 import TemperatureDashboardScreen from '../screens/Dashboards/TemperatureDashboardScreen';
 import TemperatureMoistureDashboardScreen from '../screens/Dashboards/TemperatureMoistureDashboardScreen';
 import DashboardScreen from '../screens/Dashboards';
-
+import DefaultMobileDashboardScreen from '../screens/MobileDashboards/DefaultMobileDashboardScreen';
 const DashboardStack = createNativeStackNavigator();
 
 const DashboardStackNavigator = props => {

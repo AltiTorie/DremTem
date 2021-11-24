@@ -1,25 +1,19 @@
 import React, {Component} from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  FlatList,
-  Switch,
-  TouchableOpacity,
-  ToastAndroid,
-  Dimensions,
-  PermissionsAndroid,
   Alert,
+  FlatList,
+  PermissionsAndroid,
+  StyleSheet,
+  Switch,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-var _ = require('lodash');
 import BluetoothSerial from 'react-native-bluetooth-serial';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AppTitle from '../../components/Title';
-import AppButton from '../../components/Button_main';
 import RNFetchBlob from 'rn-fetch-blob';
+import AppButton from '../../components/Button_main';
+var _ = require('lodash');
 
 export default class ConfigureDevicesScreen extends Component {
   constructor(props) {

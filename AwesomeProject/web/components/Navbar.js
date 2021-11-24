@@ -20,6 +20,7 @@ const Navbar = () => (
       <AppLink title="Home" screen="Home" />
       <AppLink title="Produkty" screen="Products" />
       <AppLink title="About" screen="About" />
+      <AppLink title="Dashboards" screen="Dashboards" />
     </View>
 
     <View style={styles.navRight}>
