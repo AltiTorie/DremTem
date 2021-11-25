@@ -1,29 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import {
-  NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
+  NavigationContainer,
 } from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {IconlyProvider, Home, Notification} from 'react-native-iconly';
-import {ActivityIndicator} from 'react-native';
+import React, {useEffect} from 'react';
+import {ActivityIndicator, View} from 'react-native';
 import {
-  Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
+  Provider as PaperProvider,
 } from 'react-native-paper';
-
 import {AuthContext} from '../components/context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import SupportScreen from '../screens/SupportScreen';
 import ProfileScreen from '../screens/User/ProfileScreen';
 import SettingsScreen from '../screens/User/SettingsScreen';
-import SupportScreen from '../screens/SupportScreen';
-import TabNavigator from './TabNavigator';
 import DrawerNavigator from './DrawerNavigator';
 import RootStackNavigator from './RootStackScreen';
-import DrawerHeader from '../components/Drawer_header';
+import TabNavigator from './TabNavigator';
 
 const Drawer = createDrawerNavigator();
 

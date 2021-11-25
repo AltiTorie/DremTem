@@ -3,35 +3,35 @@ import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Plotly from 'react-native-plotly';
 import {SafeAreaView} from 'react-native-safe-area-context';
-
+import Globals from '../../components/Globals';
 export default class LightDashboardScreen extends React.Component {
   constructor(props) {
     super(props);
-    let m = props.route.params.labels.map(el =>
-      moment(el, 'YYYY.MM.DD - hh:mm:ss').toISOString(),
-    );
     this.state = {
       props: props,
       data1: {
         __id: '1',
-        x: m,
-        y: props.route.params.data[0],
-        mode: 'lines+markers',
-        type: 'scatter',
-      },
-      data2: {
-        __id: '2',
-        x: m,
-        y: props.route.params.data[1],
-        mode: 'lines+markers',
-        type: 'scatter',
+        x: Globals.TEST_LABELS,
+        y: Globals.TEST_DATA,
+        mode: 'markers',
+        type: 'lines',
+        marker: {
+          size: 4,
+        },
       },
       layout: {
         title: 'Plotly.js running in React Native!',
         autozise: true,
-        font: {size: 18},
-        xaxis: {rangeslider: {}},
+        xaxis: {
+          autorange: true,
+          rangeslider: {},
+          type: 'date',
+        },
+        yaxis: {
+          position: 0,
+        },
       },
+      line: {shape: 'spline'},
     };
   }
   update = (_, {data, layout, config}, plotly) => {
@@ -42,7 +42,7 @@ export default class LightDashboardScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <Plotly
-          data={[this.state.data1, this.state.data2]}
+          data={[this.state.data1]}
           layout={this.state.layout}
           style={styles.chart}
           update={this.update}

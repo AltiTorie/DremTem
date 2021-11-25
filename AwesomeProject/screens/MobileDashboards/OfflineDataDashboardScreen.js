@@ -1,38 +1,32 @@
-import moment from 'moment';
 import React from 'react';
 import {Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Plotly from 'react-native-plotly';
-import Globals from '../../components/Globals';
-export default class DefaultDashboardScreen extends React.Component {
+export default class OfflineDataDashboardScreen extends React.Component {
   constructor(props) {
     super(props);
-    let dashboard_options = props.route.params.item;
-    console.log(dashboard_options);
-    let labels = Globals.TEST_LABELS;
-    let data = Globals.TEST_DATA;
-    let data2 = Globals.TEST_DATA_2;
+    let opts = props.route.params.data;
     this.state = {
       props: props,
       data: {
         __id: '1',
-        x: labels,
-        y: data,
+        x: opts.labels,
+        y: opts.data,
         mode: 'lines+markers',
         line: {shape: 'spline'},
         type: 'scatter',
       },
-      data2: {
-        __id: '2',
-        x: labels,
-        y: data2,
-        mode: 'markers',
-        type: 'scatter',
-      },
       layout: {
-        title: 'Default',
+        title: opts.device + ' - ' + opts.sensor,
         autozise: true,
         font: {size: 18},
-        xaxis: {rangeslider: {}},
+        xaxis: {
+          rangeslider: {
+            borderwidth: 3,
+            bordercolor: '#5080F0',
+            thickness: 0.1,
+            yaxis: {rangemode: 'auto'},
+          },
+        },
       },
     };
   }
@@ -44,14 +38,12 @@ export default class DefaultDashboardScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Plotly
-          data={[this.state.data, this.state.data2]}
+          data={[this.state.data]}
           layout={this.state.layout}
           style={styles.chart}
           update={this.update}
           onLoad={() => console.log('loaded')}
           debug
-          // TODO: Delete saving as picture
-          // TODO: Delete unnecesary 'select' options
           config={{
             displaylogo: false,
             responsive: true,
@@ -93,6 +85,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     width: '100%',
     height: '100%',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

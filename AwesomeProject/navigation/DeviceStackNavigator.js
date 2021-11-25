@@ -50,6 +50,14 @@ const DeviceStackNavigator = props => {
       />
       <DeviceStack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       <DeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />
+      <DeviceStack.Screen
+        name="DefaultMobileDashboard"
+        component={DefaultMobileDashboardScreen}
+      />
+      <DeviceStack.Screen
+        name="OfflineDataDashboardScreen"
+        component={OfflineDataDashboardScreen}
+      />
     </DeviceStack.Navigator>
   );
 };

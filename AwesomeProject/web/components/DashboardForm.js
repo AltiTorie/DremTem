@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import {StyleSheet, Button, TextInput, View, Text} from 'react-native';
-import {useTheme} from 'react-native-paper';
 import {Formik, Field} from 'formik';
-import AppButton from '../Button_main';
-import MultiSelect from './MultiSelectChart';
-import Globals from '../Globals';
+// import AppButton from '../Button_main';
+import MultiSelectChart from './MultiSelectChart';
+import Globals from '../../components/Globals';
+import AppButton from './Button_main';
 
 export default function DashboardForm({additionalFunction}) {
-  const {colors} = useTheme();
   return (
-    <View style={{backgroundColor: colors.background, flex: 1, padding: 20}}>
+    <View style={styles.container}>
       <Formik
         initialValues={{
           name: 'New_dashboard',
@@ -45,7 +44,9 @@ export default function DashboardForm({additionalFunction}) {
                   onChangeText={props.handleChange('name')}
                   value={props.values.name}
                 />
-                <MultiSelect onSelection={selectTypes}></MultiSelect>
+                <MultiSelectChart
+                  onSelection={selectTypes}
+                  style={{width: '50%'}}></MultiSelectChart>
                 <AppButton title="submit" onPress={props.handleSubmit} />
               </View>
             </>
@@ -57,12 +58,22 @@ export default function DashboardForm({additionalFunction}) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    padding: 20,
+  },
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
     padding: 10,
     fontSize: 18,
     borderRadius: 6,
+  },
+  addButton: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    top: '10em',
+    right: '10em',
   },
 });
