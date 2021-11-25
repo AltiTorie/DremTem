@@ -113,10 +113,9 @@ export default class DashboardsWebScreen extends Component {
   };
 
   _setSelected(item) {
-    // if (item !== this.state.selected) {
-    console.log('hello');
-    this.setState({selected: false}, () => this.setState({selected: item}));
-    // }
+    if (item !== this.state.selected) {
+      this.setState({selected: false}, () => this.setState({selected: item}));
+    }
   }
 
   render() {
