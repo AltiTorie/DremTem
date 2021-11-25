@@ -1,16 +1,15 @@
-import React from 'react';
-import {Platform} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createStackNavigator} from '@react-navigation/stack';
-import {IconlyProvider, Home, Notification} from 'react-native-iconly';
-
-import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
-import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
+import React from 'react';
+import DrawerHeader from '../components/Drawer_header';
 import ConfigureDevicesParentScreen from '../screens/Devices/ConfigureDeviceParent';
 import DeviceConfigScreen from '../screens/Devices/DeviceConfigScreen';
+import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
 import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
-import {useTheme} from '@react-navigation/native';
-import DrawerHeader from '../components/Drawer_header';
+import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
+import DefaultMobileDashboardScreen from '../screens/MobileDashboards/DefaultMobileDashboardScreen';
+import OfflineDataDashboardScreen from '../screens/MobileDashboards/OfflineDataDashboardScreen';
 
 const DeviceStack = createStackNavigator();
 
