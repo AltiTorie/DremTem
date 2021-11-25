@@ -1,10 +1,15 @@
 import React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
 import AppTitle from '../components/Title';
+import DrawerHeader from '../components/Drawer_header';
 
 const GroupScreen = props => {
   return (
     <View style={styles.main}>
+      <DrawerHeader
+        screen="Groups"
+        onPress={() => props.navigation.openDrawer()}
+      />
       <View>
         <AppTitle title="Groups" />
       </View>

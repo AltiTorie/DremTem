@@ -146,8 +146,9 @@ const AppStackNavigator = () => {
         <NavigationContainer theme={theme}>
           {loginState.userToken !== null ? (
             <Drawer.Navigator
-              drawerContent={props => <DrawerNavigator {...props} />}>
-              <Drawer.Screen name="HomeDrawer" component={TabNavigator} />
+              drawerContent={props => <DrawerNavigator {...props} />}
+              screenOptions={{headerShown: false}}>
+              <Drawer.Screen name="Home" component={TabNavigator} />
               <Drawer.Screen name="Profile" component={ProfileScreen} />
               <Drawer.Screen name="Settings" component={SettingsScreen} />
               <Drawer.Screen name="Support" component={SupportScreen} />

@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
+import DrawerHeader from '../../components/Drawer_header';
 
 var mockedData = [
   {deviceID: 'A836b19g7', name: 'My device 1', online: true},
@@ -73,7 +74,7 @@ export default class DevicesPanel extends React.Component {
     let devicesData = this.getDevicesData();
     console.log(devicesData);
     return (
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={{flex: 1}}>
         <FlatList
           data={formatData(devicesData, numColumns)}
           style={styles.container}
@@ -100,7 +101,6 @@ const styles = StyleSheet.create({
   logoText: {
     fontSize: 20,
   },
-  text: {},
   container: {
     flex: 1,
     marginVertical: 0,

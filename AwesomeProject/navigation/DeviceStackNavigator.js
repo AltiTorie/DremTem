@@ -1,22 +1,51 @@
+import {useTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import ConfigureDevicesScreen from '../screens/Devices/ConfigureDevicesScreen';
+import DrawerHeader from '../components/Drawer_header';
+import ConfigureDevicesParentScreen from '../screens/Devices/ConfigureDeviceParent';
 import DeviceConfigScreen from '../screens/Devices/DeviceConfigScreen';
-import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
 import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
+import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
 import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
 import DefaultMobileDashboardScreen from '../screens/MobileDashboards/DefaultMobileDashboardScreen';
 import OfflineDataDashboardScreen from '../screens/MobileDashboards/OfflineDataDashboardScreen';
-const DeviceStack = createNativeStackNavigator();
 
-const DeviceStackNavigator = ({navigation}) => {
+const DeviceStack = createStackNavigator();
+
+const DeviceStackNavigator = props => {
+  const {colors} = useTheme();
   return (
-    <DeviceStack.Navigator headerMode="none">
-      <DeviceStack.Screen name="DevicesPanel" component={DevicesPanel} />
+    <DeviceStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.background,
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        },
+        headerTintColor: colors.text,
+        headerTitleStyle: {
+          fontSize: 20,
+          fontFamily: 'Robot',
+        },
+        headerTitleAlign: 'center',
+      }}>
+      <DeviceStack.Screen
+        name="DevicesPanel"
+        component={DevicesPanel}
+        options={{
+          headerLeft: () => (
+            <DrawerHeader
+              onPress={() => props.navigation.openDrawer()}
+              screen=""></DrawerHeader>
+          ),
+        }}
+      />
       <DeviceStack.Screen name="Device" component={DevicePanelScreen} />
       <DeviceStack.Screen
         name="ConfigureDevices"
-        component={ConfigureDevicesScreen}
+        component={ConfigureDevicesParentScreen}
       />
       <DeviceStack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       <DeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />

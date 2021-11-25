@@ -48,12 +48,13 @@ const DrawerNavigator = props => {
               </View>
             </View>
           </View>
+
           <Drawer.Section style={styles.drawerSection}>
+            {/* <DrawerItemList {...props} /> */}
             <DrawerItem
               icon={() => (
                 <Home set="light" primaryColor={colors.text} size="large" />
               )}
-              activeBackgroundColor="#FFDC84"
               label="Home"
               onPress={() => {
                 props.navigation.navigate('Home');
@@ -87,6 +88,7 @@ const DrawerNavigator = props => {
               }}
             />
           </Drawer.Section>
+
           <Drawer.Section style={{paddingLeft: 20}}>
             <TouchableRipple onPress={() => toggleTheme()}>
               <View style={styles.preference}>
@@ -117,7 +119,7 @@ const DrawerNavigator = props => {
         </View>
       </DrawerContentScrollView>
       <Drawer.Section style={styles.bottomDrawerSection}>
-        <DrawerItem
+        <Drawer.Item
           icon={() => (
             <Logout set="light" primaryColor={colors.text} size="large" />
           )}

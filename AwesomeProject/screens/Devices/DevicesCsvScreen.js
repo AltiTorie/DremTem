@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AppButton from '../../components/Button_main';
+import DrawerHeader from '../../components/Drawer_header';
 import RNFetchBlob from 'rn-fetch-blob';
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
@@ -99,7 +100,7 @@ export default class DevicesCsv extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={{flex: 1}}>
         <FlatList
           data={formatData(this.state.listed, numColumns)}
           style={styles.container}

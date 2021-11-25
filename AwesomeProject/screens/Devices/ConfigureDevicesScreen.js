@@ -11,21 +11,34 @@ import {
   View,
 } from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial';
-import RNFetchBlob from 'rn-fetch-blob';
+import {NavigationContainer, useTheme} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AppTitle from '../../components/Title';
 import AppButton from '../../components/Button_main';
+import DrawerHeader from '../../components/Drawer_header';
+import RNFetchBlob from 'rn-fetch-blob';
 var _ = require('lodash');
 
 export default class ConfigureDevicesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      props: props,
       isEnabled: false,
       discovering: false,
       devices: [],
       unpairedDevices: [],
       connected: false,
+      colors: props.colors,
     };
   }
+
+  componentDidUpdate() {
+    if (this.state.colors !== this.props.colors) {
+      this.setState({colors: this.props.colors});
+    }
+  }
+
   UNSAFE_componentWillMount() {
     Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
       values => {
@@ -34,7 +47,6 @@ export default class ConfigureDevicesScreen extends Component {
         this.setState({isEnabled, devices});
       },
     );
-
     BluetoothSerial.on('bluetoothEnabled', () => {
       Promise.all([BluetoothSerial.isEnabled(), BluetoothSerial.list()]).then(
         values => {
@@ -196,7 +208,7 @@ export default class ConfigureDevicesScreen extends Component {
           let deviceConfig = JSON.parse(deviceConfigString);
           let sensorsConfig = JSON.parse(sensorsConfigString);
 
-          this.props.navigation.navigate('DeviceConfig', {
+          this.state.props.navigation.navigate('DeviceConfig', {
             deviceConfig: deviceConfig,
             sensorsConfig: sensorsConfig,
             bt: this,
@@ -249,10 +261,18 @@ export default class ConfigureDevicesScreen extends Component {
   };
 
   render() {
+    // const {colors} = useTheme();
     return (
       <View style={styles.main}>
         <View style={styles.toolbar}>
-          <Text style={styles.text}>Bluetooth</Text>
+          <Text
+            style={{
+              fontSize: 20,
+              justifyContent: 'center',
+              color: this.state.colors.text,
+            }}>
+            Bluetooth
+          </Text>
           <View style={styles.toolbarButton}>
             <Switch
               trackColor={{false: '#767577', true: '#767577'}}
@@ -286,10 +306,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 20,
-    justifyContent: 'center',
-  },
+
   container: {
     flex: 1,
     backgroundColor: '#F5FCFF',

@@ -8,6 +8,7 @@ import {
   Category,
   Star,
 } from 'react-native-iconly';
+import Icon from 'react-native-vector-icons/Entypo';
 import {useTheme} from '@react-navigation/native';
 // import {useTheme} from 'react-native-paper';
 import NavigationDarkTheme from './AppNavigator';
@@ -20,6 +21,7 @@ import GroupScreen from '../screens/GroupScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import DeviceStackNavigator from '../navigation/DeviceStackNavigator';
 import DashboardStackNavigator from '../navigation/DashboardStackNavigator';
+import DrawerHeader from '../components/Drawer_header';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -30,7 +32,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="blue"
+      activeColor="#FFC163"
       barStyle={{
         backgroundColor: paperTheme.dark ? '#202020' : 'white',
       }}>
@@ -54,13 +56,8 @@ const TabNavigator = () => {
         component={DeviceStackNavigator}
         options={{
           tabBarLabel: '',
-          tabBarIcon: ({color}) => (
-            <Star
-              set="light"
-              primaryColor={colors.text}
-              stroke="bold"
-              size="large"
-            />
+          tabBarIcon: ({color, size}) => (
+            <Icon name="rss" size={25} color={colors.text} />
           ),
         }}
       />

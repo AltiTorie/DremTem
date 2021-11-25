@@ -1,19 +1,46 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {useTheme} from '@react-navigation/native';
+import DrawerHeader from '../components/Drawer_header';
 import DefaultDashboardScreen from '../screens/Dashboards/DefaultDashboardScreen';
 import LightDashboardScreen from '../screens/Dashboards/LightDashboardScreen';
 import MoistureDashboardScreen from '../screens/Dashboards/MoistureDashboardScreen';
 import TemperatureDashboardScreen from '../screens/Dashboards/TemperatureDashboardScreen';
 import TemperatureMoistureDashboardScreen from '../screens/Dashboards/TemperatureMoistureDashboardScreen';
 import DashboardScreen from '../screens/Dashboards';
-import DefaultMobileDashboardScreen from '../screens/MobileDashboards/DefaultMobileDashboardScreen';
-const DashboardStack = createNativeStackNavigator();
+
+const DashboardStack = createStackNavigator();
 
 const DashboardStackNavigator = props => {
+  const {colors} = useTheme();
   return (
-    <DashboardStack.Navigator headerMode="none">
-      <DashboardStack.Screen name="Dashboard" component={DashboardScreen} />
+    <DashboardStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colors.background,
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        },
+        headerTintColor: colors.text,
+        headerTitleStyle: {
+          fontSize: 20,
+          fontFamily: 'Robot',
+        },
+        headerTitleAlign: 'center',
+      }}>
+      <DashboardStack.Screen
+        name="Dashboard"
+        component={DashboardScreen}
+        options={{
+          headerLeft: () => (
+            <DrawerHeader
+              onPress={() => props.navigation.openDrawer()}
+              screen=""></DrawerHeader>
+          ),
+        }}
+      />
       <DashboardStack.Screen
         name="DefaultDashboard"
         component={DefaultDashboardScreen}
