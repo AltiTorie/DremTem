@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     margin: 20,
-    height: Dimensions.get('window').width / (1.5 * numColumns * 2), // approximate a square
+    height: '15vw', // approximate a square
   },
   itemInvisible: {
     backgroundColor: 'transparent',
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: '2vw',
     fontWeight: 'bold',
   },
   flatListView: {
