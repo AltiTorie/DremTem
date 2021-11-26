@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     margin: 20,
-    height: '15vw', // approximate a square
+    height: '15vw',
   },
   itemInvisible: {
     backgroundColor: 'transparent',
