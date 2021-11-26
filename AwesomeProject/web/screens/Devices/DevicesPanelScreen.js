@@ -26,7 +26,7 @@ var mockedData = [
 
 const numColumns = 3;
 
-const DevicesPanelScreen = () => {
+const DevicesPanelScreen = props => {
   const getDevicesData = () => {
     // TODO: add API call
     return mockedData;
@@ -60,7 +60,7 @@ const DevicesPanelScreen = () => {
       <View style={styles.item}>
         <TouchableOpacity
           onPress={() => {
-            this.props.navigation.navigate('Device', {
+            props.navigation.navigate('Device', {
               device: item,
               onGoBack: () => refresh(),
             });
