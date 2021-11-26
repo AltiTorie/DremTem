@@ -33,8 +33,6 @@ const linking = {
 };
 
 const RootWebStackNavigator = () => {
-  console.log('Witam');
-  console.log(RootStackWeb);
   return (
     <NavigationContainer linking={linking}>
       <RootStackWeb.Navigator screenOptions={{headerShown: false}}>
