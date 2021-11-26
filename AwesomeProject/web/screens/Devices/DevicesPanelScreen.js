@@ -1,13 +1,5 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-import {Avatar} from 'react-native-paper';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import Navbar from '../../components/Navbar';
 import ScreenTitle from '../../components/ScreenTitle';
 
@@ -27,14 +19,21 @@ var mockedData = [
 const numColumns = 3;
 
 const DevicesPanelScreen = props => {
+  const [devicesData, setDevicesData] = useState([]);
+
+  useEffect(() => {
+    setDevicesData(getDevicesData());
+  }, []);
+
   const getDevicesData = () => {
     // TODO: add API call
     return mockedData;
   };
 
   const refresh = () => {
-    console.log('refresh');
-    render();
+    mockedData = mockedData.slice(1); // TODO: remove
+    console.log(getDevicesData());
+    setDevicesData(getDevicesData());
   };
 
   const formatData = (data, numColumns) => {
@@ -70,7 +69,7 @@ const DevicesPanelScreen = props => {
       </View>
     );
   };
-  let devicesData = getDevicesData();
+  // let devicesData = getDevicesData();
 
   return (
     <View>

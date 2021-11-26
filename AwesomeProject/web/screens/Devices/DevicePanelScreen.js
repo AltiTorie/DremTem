@@ -1,55 +1,14 @@
 import React, {useState} from 'react';
-import {Text, View, Modal, StyleSheet, TouchableHighlight} from 'react-native';
-// import {confirmAlert} from 'react-confirm-alert'; // Import
+import {Text, View, Modal, StyleSheet} from 'react-native';
 import Navbar from '../../components/Navbar';
 
 import AppButton from '../../components/Button_main';
+import SecondButton from '../../components/Button_second';
 import {useTheme} from '@react-navigation/native';
 
 const DevicePanelScreen = props => {
   const {colors} = useTheme();
-  //   const [showAlert, setShowAlert] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const showConfirmDialog = () => {
-    console.log('Show dialog');
-    //   return Alert.alert(
-    //     'Are your sure?',
-    //     'This will delete all your device data.',
-    //     [
-    //       {
-    //         text: 'Yes',
-    //         onPress: () => {
-    //           console.log('Yes');
-    //           props.route.params.onGoBack();
-    //           props.navigation.goBack();
-    //         },
-    //       },
-    //       {
-    //         text: 'No',
-    //       },
-    //     ],
-    //   );
-  };
-
-  submit = () => {
-    console.log('submit');
-    // alert('This will delete all your device data');
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to do this.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => alert('Click Yes'),
-        },
-        {
-          label: 'No',
-          onClick: () => alert('Click No'),
-        },
-      ],
-    });
-    console.log('sfter');
-  };
 
   _show_modal = () => {
     setModalOpen(true);
@@ -57,6 +16,11 @@ const DevicePanelScreen = props => {
 
   _hide_modal = () => {
     setModalOpen(false);
+  };
+
+  _delete_device_data = () => {
+    console.log('Deleting ' + props.route.params.device + ' data');
+    // TODO: add sending proper request to server app one its available
   };
 
   return (
@@ -99,24 +63,39 @@ const DevicePanelScreen = props => {
           marginBottom: 36,
           color: colors.background,
         }}>
-        {/* <View style={styles.bottom}> */}
-        <AppButton
-          title="Check last data"
-          onPress={() =>
-            props.navigation.navigate('DefaultMobileDashboard', {
-              item: {types: ['one', 'two']},
-            })
-          }
-        />
-        <AppButton title="Delete device" onPress={() => _show_modal()} />
-        <Modal visible={modalOpen} animationType="slide">
-          <View>
-            <AppButton
-              title="close"
-              onPress={() => {
-                _hide_modal();
-              }}
-            />
+        <View style={styles.bottom}>
+          <AppButton
+            title="Check last data"
+            onPress={() =>
+              props.navigation.navigate('DefaultMobileDashboard', {
+                item: {types: ['one', 'two']},
+              })
+            }
+          />
+          <AppButton title="Delete device" onPress={() => _show_modal()} />
+        </View>
+        <Modal visible={modalOpen} animationType="slide" transparent={true}>
+          <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                {'Are your sure?\nThis will delete all your device data.'}
+              </Text>
+              <AppButton
+                title="Yes, delete device data"
+                onPress={() => {
+                  _hide_modal();
+                  _delete_device_data();
+                  props.route.params.onGoBack(props.route.params.device);
+                  props.navigation.goBack();
+                }}
+              />
+              <SecondButton
+                title="No"
+                onPress={() => {
+                  _hide_modal();
+                }}
+              />
+            </View>
           </View>
         </Modal>
       </View>
@@ -135,6 +114,40 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 100,
+  },
+  cat: {
+    alignItems: 'center',
+    margin: 80,
+  },
+  bottom: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  modalView: {
+    marginTop: 200,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    height: '15vw',
+    width: '35vw',
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: '1vw',
   },
 });
 
