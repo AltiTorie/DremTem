@@ -69,7 +69,6 @@ const DevicesPanelScreen = props => {
       </View>
     );
   };
-  // let devicesData = getDevicesData();
 
   return (
     <View>
