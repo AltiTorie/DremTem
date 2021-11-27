@@ -63,7 +63,7 @@ const UploadCsvScreen = () => {
         </Dropzone>
       </View>
       {selectedFiles.length > 0 && (
-        <View style={{height: '50%'}}>
+        <View style={{height: '50%', alignItems: 'center'}}>
           <Text style={{fontSize: '2vw'}}>{'\nSelected files:\n'}</Text>
           <FlatList
             data={selectedFiles}
