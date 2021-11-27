@@ -55,7 +55,7 @@ const UploadCsvScreen = () => {
                   alignItems: 'center',
                 }}>
                 <Text style={styles.dragndrop}>
-                  {"Click or drag'n'drop to select files"}
+                  {'Click or drag and drop to select files'}
                 </Text>
               </View>
             </div>
@@ -63,7 +63,7 @@ const UploadCsvScreen = () => {
         </Dropzone>
       </View>
       {selectedFiles.length > 0 && (
-        <View style={{height: '50%'}}>
+        <View style={{height: '50%', alignItems: 'center'}}>
           <Text style={{fontSize: '2vw'}}>{'\nSelected files:\n'}</Text>
           <FlatList
             data={selectedFiles}
