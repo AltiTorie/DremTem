@@ -9,7 +9,7 @@ const ScreenTitle = props => {
       <Text
         style={{
           color: colors.text,
-          fontWeight: 'bold',
+          // fontWeight: 'bold',
           fontSize: 40,
         }}>
         {props.title}
