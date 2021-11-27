@@ -14,6 +14,7 @@ import DashboardsWebScreen from '../screens/DashboardsWebScreen';
 import DefaultDashboardScreen from '../screens/Dashboards/DefaultDashboardScreen';
 import DevicesPanelScreen from '../screens/Devices/DevicesPanelScreen';
 import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
+import UploadCsvScreen from '../screens/Devices/UploadCsvScreen';
 const RootStackWeb = createNativeStackNavigator();
 
 const linking = {
@@ -28,6 +29,7 @@ const linking = {
       Dashboards: '/Dashboards',
       DevicesPanel: '/DevicesPanel',
       DevicePanel: '/DevicePanel',
+      UploadCsv: '/UploadCsv',
     },
   },
 };
@@ -53,6 +55,7 @@ const RootWebStackNavigator = () => {
           component={DevicesPanelScreen}
         />
         <RootStackWeb.Screen name="Device" component={DevicePanelScreen} />
+        <RootStackWeb.Screen name="UploadCsv" component={UploadCsvScreen} />
       </RootStackWeb.Navigator>
     </NavigationContainer>
   );
