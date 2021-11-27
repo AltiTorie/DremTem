@@ -55,7 +55,7 @@ const UploadCsvScreen = () => {
                   alignItems: 'center',
                 }}>
                 <Text style={styles.dragndrop}>
-                  {"Click or drag'n'drop to select files"}
+                  {'Click or drag and drop to select files'}
                 </Text>
               </View>
             </div>
