@@ -1,10 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Avatar} from 'react-native-paper';
-import RootWebStackNavigator from '../navigation/RootNavigation';
 import AppLink from './NavbarLink';
-import {Link} from '@react-navigation/native';
-import UsersMainScreen from '../screens/UsersMainScreen';
 
 const Navbar = () => (
   <View style={styles.main}>
@@ -18,10 +15,10 @@ const Navbar = () => (
         style={styles.logo}
       />
       <AppLink title="Home" screen="Home" />
-      <AppLink title="Produkty" screen="Products" />
-      <AppLink title="About" screen="About" />
-      <AppLink title="Dashboards" screen="Dashboards" />
-      <AppLink title="Devices Panel" screen="DevicesPanel" />
+      {/* <AppLink title="Produkty" screen="Products" />
+      <AppLink title="About" screen="About" /> */}
+      {/* <AppLink title="Dashboards" screen="Dashboards" />
+      <AppLink title="Devices Panel" screen="DevicesPanel" /> */}
     </View>
 
     <View style={styles.navRight}>
@@ -35,10 +32,19 @@ const styles = StyleSheet.create({
   main: {
     backgroundColor: '#FFC163',
     width: '100%',
-    height: 53,
+    height: 70,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: 'grey',
+    shadowOffset: {
+      width: 1,
+      height: 3,
+    },
+    shadowRadius: 6,
+    shadowOpacity: 0.8,
   },
   logo: {
     margin: 13,

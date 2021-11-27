@@ -14,7 +14,6 @@ const AppLink = ({screen, title}) => (
 
 const styles = StyleSheet.create({
   appButtonContainer: {
-    // elevation: 8,
     backgroundColor: '#FFC163',
     paddingVertical: 10,
     paddingHorizontal: 12,

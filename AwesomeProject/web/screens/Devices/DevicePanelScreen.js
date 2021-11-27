@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View, Modal, StyleSheet} from 'react-native';
-import Navbar from '../../components/Navbar';
+import SideNavbar from '../../components/SideNavbar';
 
 import AppButton from '../../components/Button_main';
 import SecondButton from '../../components/Button_second';
@@ -32,9 +32,6 @@ const DevicePanelScreen = props => {
         justifyContent: 'center',
         backgroundColor: colors.background,
       }}>
-      <View style={styles.navbar}>
-        <Navbar />
-      </View>
       <View style={{alignItems: 'center', paddingTop: 80}}>
         <Text style={{fontSize: 40, color: colors.text}}>
           {props.route.params.device.name}
@@ -104,17 +101,6 @@ const DevicePanelScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  main: {},
-  textHeader: {},
-  text: {},
-  bottom: {},
-  navbar: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-  },
   cat: {
     alignItems: 'center',
     margin: 80,
