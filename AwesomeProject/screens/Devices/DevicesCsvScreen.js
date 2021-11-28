@@ -6,6 +6,7 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import AppButton from '../../components/Button_main';
 import DrawerHeader from '../../components/Drawer_header';
@@ -98,6 +99,22 @@ export default class DevicesCsv extends React.Component {
     this._async_render();
   }
 
+  showConfirmDialog = () => {
+    return Alert.alert('Are your sure?', 'This will sync all your data.', [
+      {
+        text: 'Yes, sync all data',
+        onPress: () => {
+          console.log('Yes');
+          // TODO: add API call to send csv files
+          this.props.navigation.goBack();
+        },
+      },
+      {
+        text: 'No',
+      },
+    ]);
+  };
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -110,7 +127,7 @@ export default class DevicesCsv extends React.Component {
         <View style={styles.bottom}>
           <AppButton
             title="SYNC FILES"
-            onPress={() => console.log('SYNC clicked')}
+            onPress={() => this.showConfirmDialog()}
           />
         </View>
       </View>
