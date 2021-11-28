@@ -1,0 +1,188 @@
+[
+  {
+    "name": "Arduino Dashboard (moist, light)",
+    "component_name": "MoistureLightDashboardComponent",
+    "sensor_types": [
+      {
+        "value": {
+          "sensorID": 1,
+          "type": "moist",
+          "unit": "%"
+        },
+        "label": "ArduinoUno-moist"
+      },
+      {
+        "value": {
+          "sensorID": 2,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "ArduinoUno-light"
+      }
+    ],
+    "key": "5744538321"
+  },
+  {
+    "name": "All my lights",
+    "component_name": "LightDashboardComponent",
+    "sensor_types": [
+      {
+        "value": {
+          "sensorID": 2,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "ArduinoUno-light"
+      },
+      {
+        "value": {
+          "sensorID": 5,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "RaspberryPi-light"
+      },
+      {
+        "value": {
+          "sensorID": 7,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "Unknown-light"
+      }
+    ],
+    "key": "75506557446"
+  },
+  {
+    "name": "All Temperatures",
+    "component_name": "TemperatureDashboardComponent",
+    "sensor_types": [
+      {
+        "value": {
+          "sensorID": 4,
+          "type": "temp",
+          "unit": "°C"
+        },
+        "label": "RaspberryPi-temp"
+      },
+      {
+        "value": {
+          "sensorID": 6,
+          "type": "temp",
+          "unit": "°C"
+        },
+        "label": "Unknown-temp"
+      }
+    ],
+    "key": "16316001100"
+  },
+  {
+    "name": "Arduino",
+    "component_name": "MoistureLightDashboardComponent",
+    "sensor_types": [
+      {
+        "value": {
+          "sensorID": 1,
+          "type": "moist",
+          "unit": "%"
+        },
+        "label": "ArduinoUno-moist"
+      },
+      {
+        "value": {
+          "sensorID": 2,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "ArduinoUno-light"
+      }
+    ],
+    "key": "5961340524"
+  },
+  {
+    "name": "RaspberrySuggested",
+    "component_name": "TemperatureHumidityDashboardComponent",
+    "sensor_types": [
+      {
+        "value": {
+          "sensorID": 3,
+          "type": "humid",
+          "unit": "%"
+        },
+        "label": "RaspberryPi-humid"
+      },
+      {
+        "value": {
+          "sensorID": 4,
+          "type": "temp",
+          "unit": "°C"
+        },
+        "label": "RaspberryPi-temp"
+      }
+    ],
+    "key": "87541182434"
+  },
+  {
+    "name": "Everything",
+    "component_name": "DefaultDashboardComponent",
+    "sensor_types": [
+      {
+        "value": {
+          "sensorID": 1,
+          "type": "moist",
+          "unit": "%"
+        },
+        "label": "ArduinoUno-moist"
+      },
+      {
+        "value": {
+          "sensorID": 2,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "ArduinoUno-light"
+      },
+      {
+        "value": {
+          "sensorID": 3,
+          "type": "humid",
+          "unit": "%"
+        },
+        "label": "RaspberryPi-humid"
+      },
+      {
+        "value": {
+          "sensorID": 4,
+          "type": "temp",
+          "unit": "°C"
+        },
+        "label": "RaspberryPi-temp"
+      },
+      {
+        "value": {
+          "sensorID": 5,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "RaspberryPi-light"
+      },
+      {
+        "value": {
+          "sensorID": 6,
+          "type": "temp",
+          "unit": "°C"
+        },
+        "label": "Unknown-temp"
+      },
+      {
+        "value": {
+          "sensorID": 7,
+          "type": "light",
+          "unit": "lm"
+        },
+        "label": "Unknown-light"
+      }
+    ],
+    "key": "46665617823"
+  }
+]

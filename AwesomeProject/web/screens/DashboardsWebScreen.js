@@ -1,46 +1,27 @@
-import React, {Component, setState, useState} from 'react';
-import {
-  Button,
-  Dimensions,
-  FlatList,
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import React, {Component} from 'react';
+import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
 import {Avatar} from 'react-native-paper';
 import SideNavbar from '../components/SideNavbar';
 import AppButton from '../components/Button_main';
-// import DashboardForm from '../components/Charts/DashboardForm';
-import DashboardForm from '../components/DashboardForm';
-import makeAnimated from 'react-select/animated';
-import MultiSelect from 'react-select';
+import DashboardForm from '../components/Dashboards/DashboardForm';
+import ChartTypeConnections from '../components/DefinedCharts/ChartTypeConnections';
+import DefaultDashboardComponent from '../components/DefinedCharts/DefaultDashboardComponent';
 import HorizontalScroll from '../components/HorizontalScroll';
-import DefaultDashboardComponent from './Dashboards/DefaultDashboardComponent';
 export default class DashboardsWebScreen extends Component {
   constructor(props) {
     super(props);
+    // TODO:
+    // dashboards_data should be downloaded from database
+    // for now has to be mocked this way
+    const dashboards_buttons = require('../data/dashboards.json');
     this.state = {
       props: props,
-      buttons: [
-        {key: 1, name: 'Moisture', screen_name: 'DefaultDashboard'},
-        {key: 2, name: 'Temperature', screen_name: 'DefaultDashboard'},
-        {key: 3, name: 'Light', screen_name: 'DefaultDashboard'},
-        {key: 4, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 5, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 6, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 7, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 8, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 9, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 10, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 11, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 12, name: 'Default', screen_name: 'DefaultDashboard'},
-      ],
+      buttons: dashboards_buttons,
       selected: false,
       numOfColumns: 3,
       modalOpen: false,
+      DashboardComponent: DefaultDashboardComponent,
     };
   }
   _navigate_to(item) {
@@ -54,7 +35,22 @@ export default class DashboardsWebScreen extends Component {
     this.setState({
       buttons: [...this.state.buttons, dashboard],
     });
+
     this._hide_modal();
+
+    // TODO:
+    // buttons state should be now sent to API
+    // temporary half-working solution:
+    const blob = new Blob([JSON.stringify(this.state.buttons, null, 2)], {
+      type: 'application/json',
+    });
+    const a = document.createElement('a');
+    a.download = 'buttons.json';
+    a.href = URL.createObjectURL(blob);
+    a.addEventListener('click', e => {
+      setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+    });
+    a.click();
   };
 
   _show_modal() {
@@ -69,95 +65,100 @@ export default class DashboardsWebScreen extends Component {
     });
   }
 
-  _formatData(data, numColumns) {
-    data = data.filter(d => d.empty !== true);
-    if (!data[0]._addButton) {
-      let item = {key: 0, _addButton: true};
-      data.splice(0, 0, item);
-    }
-    const numberOfFullRows = Math.floor(data.length / numColumns);
-    let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
-    while (
-      numberOfElementsLastRow !== numColumns &&
-      numberOfElementsLastRow !== 0
-    ) {
-      data.push({key: numberOfElementsLastRow, empty: true});
-      numberOfElementsLastRow++;
-    }
-
-    return data;
-  }
-
-  renderItem = (item, index) => {
-    return (
-      <View
-        style={{
-          ...styles.item,
-          borderWidth: 5,
-          borderColor: '#FF0000',
-          backgroundColor: '#800ff0',
-          margin: 10,
-          height: 150,
-          width: 150,
-        }}>
-        <TouchableOpacity
-          key={item.name}
-          style={{height: '100%', weight: '100%'}}
-          onPress={() => {
-            this._navigate_to(item);
-          }}>
-          <Text style={styles.itemText}>{item.name}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   _setSelected(item) {
     if (item !== this.state.selected) {
-      this.setState({selected: false}, () => this.setState({selected: item}));
+      this.setState({selected: false}, () => {
+        this.setState({selected: item});
+        let ds = ChartTypeConnections.componentConnections[item.component_name];
+        this.setState({
+          DashboardComponent: ds,
+        });
+      });
     }
   }
 
   render() {
+    const Dashboard = this.state.DashboardComponent;
+    let dd = [];
+    if (this.state.selected) {
+      let DATA = require('../data/UserData.json');
+      let UserDevices = require('../data/UserDevices.json');
+
+      let sensor_data = this.state.selected.sensor_types.map(sensor_ => {
+        return DATA.sensor_data.find(
+          sensor => sensor.sensorID == sensor_.value.sensorID,
+        );
+      });
+
+      dd = sensor_data.map(sensorData => {
+        let data = sensorData.data.map(sd => sd.value);
+        let times = sensorData.data.map(sd => sd.time);
+        let device = UserDevices.devices.find(
+          device => device.deviceID == sensorData.deviceID,
+        );
+        return {
+          __id: sensorData.sensorID,
+          x: times,
+          y: data,
+          name: device.deviceName + '-' + sensorData.type,
+          mode: 'markers',
+          type: 'scattergl',
+          dataType: sensorData.type,
+        };
+      });
+    }
     return (
       <View style={styles.background}>
         <View style={styles.main}>
-          <Modal visible={this.state.modalOpen} animationType="slide">
-            <DashboardForm additionalFunction={this._addDashboard} />
-
-            <View>
-              <AppButton
-                title="close"
-                onPress={() => {
-                  this._hide_modal();
-                }}
-              />
+          <Modal
+            visible={this.state.modalOpen}
+            animationType="slide"
+            transparent={true}>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.modalView}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'rgba(255, 75, 75, 1)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 100,
+                    position: 'absolute',
+                    top: 10,
+                    left: 10,
+                    width: '1.5vw',
+                    height: '1.5vw',
+                    margin: '.7vw',
+                    zIndex: 1,
+                  }}
+                  onPress={() => {
+                    this._hide_modal();
+                  }}>
+                  {/* <Text style={styles.itemText}>X</Text> */}
+                </TouchableOpacity>
+                <Text style={styles.modalText}>Create new dashboard</Text>
+                <DashboardForm additionalFunction={this._addDashboard} />
+              </View>
             </View>
           </Modal>
           <View></View>
           <View
             style={{
               ...styles.buttonsContainer,
-              width: Dimensions.get('window').width * 0.8,
+              width: '80vw',
             }}>
             <HorizontalScroll
               items={this.state.buttons}
-              extra={this.state.props}
               onItemClick={item => this._setSelected(item)}
             />
           </View>
           <AppButton
-            style={styles.addButton}
             title="Add dashboard"
-            onPress={() => this._show_modal()}>
-            {/* <Text style={styles.addButtonText}>+</Text> */}
-          </AppButton>
+            onPress={() => this._show_modal()}></AppButton>
         </View>
 
-        <View>
+        <View style={{alignSelf: 'flex-start', marginLeft: 20}}>
           {this.state.selected ? (
-            <DefaultDashboardComponent
-              item={this.state.selected}></DefaultDashboardComponent>
+            <Dashboard data={dd} name={this.state.selected.name}></Dashboard>
           ) : (
             <></>
           )}
@@ -173,21 +174,21 @@ const styles = StyleSheet.create({
   },
   main: {
     backgroundColor: 'white',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
+    // marginTop: 50,
+    margin: 50,
   },
   text: {
     margin: 100,
   },
   addButton: {
     position: 'absolute',
-    backgroundColor: '#30Cf50',
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    width: 50,
+    width: '10vw',
     top: 160,
     right: 100,
   },
@@ -214,5 +215,28 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  modalView: {
+    marginTop: 100,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    height: '45vw',
+    width: '90vw',
+    shadowOpacity: 1,
+    shadowRadius: 10000,
+    // elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: '2vw',
   },
 });

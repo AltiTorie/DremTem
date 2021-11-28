@@ -7,26 +7,26 @@ export default class HorizontalScroll extends React.Component {
     super(props);
     this.state = {
       props: props,
-      items: props.items.map(item => ({...item, id: item.key})),
+      items: props.items,
       selected: [],
       onItemClick: props.onItemClick,
     };
   }
 
-  LeftArrow() {
-    const {isFirstItemVisible, scrollPrev} =
-      React.useContext(VisibilityContext);
+  // LeftArrow() {
+  //   const {isFirstItemVisible, scrollPrev} =
+  //     React.useContext(VisibilityContext);
 
-    return (
-      <Button disabled={isFirstItemVisible} onPress={() => scrollPrev()} />
-    );
-  }
+  //   return (
+  //     <Button disabled={isFirstItemVisible} onPress={() => scrollPrev()} />
+  //   );
+  // }
 
-  RightArrow() {
-    const {isLastItemVisible, scrollNext} = React.useContext(VisibilityContext);
+  // RightArrow() {
+  //   const {isLastItemVisible, scrollNext} = React.useContext(VisibilityContext);
 
-    return <Button disabled={isLastItemVisible} onPress={() => scrollNext()} />;
-  }
+  //   return <Button disabled={isLastItemVisible} onPress={() => scrollNext()} />;
+  // }
 
   isItemSelected = id => !!this.state.selected.find(el => el === id);
   handleClick =
@@ -40,54 +40,20 @@ export default class HorizontalScroll extends React.Component {
           : state.selected.concat(id),
       );
     };
-
-  renderItem(item, onClickItem) {
-    return (
-      <View
-        style={{
-          ...styles.item,
-          borderColor: 'rgba(200, 220, 150, 0.2)',
-          borderWidth: 3,
-          backgroundColor: 'rgba(255, 184, 92, 0.8)',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 25,
-          margin: 10,
-          height: 150,
-          width: 150,
-        }}>
-        <TouchableOpacity
-          key={item.name}
-          style={{
-            ...styles.item,
-            height: '100%',
-            weight: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => {
-            onClickItem(item);
-          }}>
-          <Text style={styles.itemText}>{item.name}</Text>
-        </TouchableOpacity>
-      </View>
-    );
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.setState({items: nextProps.items});
   }
 
   render() {
     return (
-      <ScrollMenu
-        // LeftArrow={this.LeftArrow}
-        // RightArrow={this.RightArrow}
-        onWheel={onWheel}>
+      <ScrollMenu onWheel={onWheel}>
         {this.state.items.map(item => (
           <Card
-            itemId={item.id} // NOTE: itemId is required for track items
-            key={item.id}
-            onClick={this.handleClick(item.id)}
+            itemId={item.key} // NOTE: itemId is required for track items
+            key={item.key}
+            onClick={this.handleClick(item.key)}
             item={item}
-            selected={this.isItemSelected(item.id)}
-            renderItem={this.renderItem}
+            selected={this.isItemSelected(item.key)}
             onItemClick={this.state.onItemClick}
           />
         ))}
@@ -109,23 +75,28 @@ function onWheel(apiObj, ev) {
   }
 }
 
-function Card({onClick, selected, item, itemId, renderItem, onItemClick}) {
+function Card({onClick, selected, item, onItemClick}) {
   const visibility = React.useContext(VisibilityContext);
   return (
-    <div
-      onClick={() => {
-        onItemClick(item);
-        // nav.navigate(item.screen_name, {
-        //   item: item,
-        // });
-        onClick(visibility);
-      }}
+    <TouchableOpacity
+      key={item.name}
       style={{
-        width: '160px',
+        ...styles.item,
+        borderColor: 'rgba(200, 220, 150, 0.2)',
+        borderWidth: 3,
+        backgroundColor: '#4a67a1',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        width: '15vw',
+        height: '9vw',
+        margin: '.7vw',
       }}
-      tabIndex={0}>
-      {renderItem(item, onItemClick)}
-    </div>
+      onPress={() => {
+        onItemClick(item);
+      }}>
+      <Text style={styles.itemText}>{item.name}</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -135,15 +106,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  itemInvisible: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-  },
   itemText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: '100%',
     fontWeight: 'bold',
   },
 });
-
-// export default HScroll;

@@ -1,38 +1,15 @@
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
-import Globals from '../../../components/Globals';
 
-export default class DefaultDashboardComponent extends React.Component {
+export default class MoistureDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props');
-    console.log(props);
-    let labels = Globals.TEST_LABELS;
-    let data = Globals.TEST_DATA;
-    let data2 = Globals.TEST_DATA_2;
     this.state = {
       props: props,
-      data: {
-        __id: '1',
-        x: labels,
-        y: data,
-        mode: 'lines+markers',
-        line: {shape: 'spline'},
-        type: 'scattergl',
-        marker: {
-          symbol: '132',
-        },
-      },
-      data2: {
-        __id: '2',
-        x: labels,
-        y: data2,
-        mode: 'markers',
-        type: 'scattergl',
-      },
+      dashboard_data: props.data,
       layout: {
-        title: props.item.name,
+        title: props.name,
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -43,6 +20,10 @@ export default class DefaultDashboardComponent extends React.Component {
             yaxis: {rangemode: 'auto'},
           },
         },
+        yaxis: {
+          ticksuffix: '%',
+        },
+        hovermode: 'x unified',
         width: Dimensions.get('window').width * 0.95,
         height: Dimensions.get('window').height * 0.85,
       },
@@ -57,7 +38,7 @@ export default class DefaultDashboardComponent extends React.Component {
       <View>
         <View style={styles.container}>
           <Plot
-            data={[this.state.data, this.state.data2]}
+            data={this.state.dashboard_data}
             layout={this.state.layout}
             update={this.update}
             onLoad={() => console.log('loaded')}
@@ -101,10 +82,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   container: {
-    width: Dimensions.get('window').width * 0.8,
+    width: '100%',
     height: '100%',
     backgroundColor: '#fff',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   addButton: {

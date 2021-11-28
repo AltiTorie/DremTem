@@ -3,7 +3,7 @@ export default {
     {id: 1, name: 'Temperature', abbr: 'TEMP', unit: '°C'},
     {id: 2, name: 'Moisture', abbr: 'MOIST', unit: '%'},
     {id: 3, name: 'Humidity', abbr: 'HUMID', unit: '%'},
-    {id: 4, name: 'Light', abbr: 'LIGHT', unti: 'lm'},
+    {id: 4, name: 'Light', abbr: 'LIGHT', unit: 'lm'},
   ],
   definedCharts: [
     {
@@ -1230,4 +1230,62 @@ export default {
     '2021-11-20T21:39:31Z',
     '2021-11-20T21:40:31Z',
   ],
+  API_devices: [
+    {
+      id: 1,
+      sensors: [
+        {
+          id: 123,
+          name: 'Sensor_1',
+          sensor_type: {
+            id: 42,
+            type: 'temp',
+            _links: {
+              self: {
+                href: 'http://sensor_types/42',
+              },
+            },
+          },
+          _links: {
+            self: {
+              href: 'http://devices/1/sensors/42',
+            },
+            data: {
+              href: 'http://devices/1/sensors/42/data',
+            },
+          },
+        },
+      ],
+      _links: {
+        self: {
+          href: 'http://devices/1',
+        },
+      },
+    },
+  ],
+  API_devices_sensors_42_data: {
+    sensor: {
+      id: 42,
+      device_id: 1,
+      type: 'temp',
+    },
+    data: [
+      {
+        time: '2021-11-20T05:01:30Z',
+        value: 21.4,
+      },
+      {
+        time: '2021-11-20T06:01:30Z',
+        value: 21.0,
+      },
+      {
+        time: '2021-11-20T07:01:30Z',
+        value: 20.6,
+      },
+      {
+        time: '2021-11-20T08:01:30Z',
+        value: 19.7,
+      },
+    ],
+  },
 };

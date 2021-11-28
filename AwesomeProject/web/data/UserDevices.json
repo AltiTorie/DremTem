@@ -1,0 +1,61 @@
+{ 
+    "devices":
+    [
+      {
+        "deviceID": 1,
+        "deviceName": "ArduinoUno",
+        "sensors":
+        [
+            {
+                "sensorID": 1,
+                "type": "moist",
+                "unit": "%"
+            },
+            {
+                "sensorID":2,
+                "type": "light",
+                "unit": "lm"
+            }
+        ]
+      },
+      {
+        "deviceID": 2,
+        "deviceName": "RaspberryPi",
+        "sensors":
+        [
+            {
+                "sensorID": 3,
+                "type": "humid",
+                "unit": "%"
+            },
+            {
+                "sensorID":4,
+                "type": "temp",
+                "unit": "°C"
+            },
+            {
+                "sensorID":5,
+                "type": "light",
+                "unit": "lm"
+            }
+        ]
+      },
+      {
+        "deviceID": 3,
+        "deviceName": "Unknown",
+        "sensors":
+        [
+            {
+                "sensorID": 6,
+                "type": "temp",
+                "unit": "°C"
+            },
+            {
+                "sensorID":7,
+                "type": "light",
+                "unit":"lm"
+            }
+        ]
+      }
+    ]
+}

@@ -1,50 +1,32 @@
-import moment from 'moment';
 import React from 'react';
-import {
-  Dimensions,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
-import Globals from '../../../components/Globals';
-import SideNavbar from '../../components/SideNavbar';
-import Icon from 'react-native-vector-icons';
 
-// FIXME: Probably to be deleted
-export default class DefaultDashboardScreen extends React.Component {
+export default class DefaultDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props');
-    console.log(props);
-    // let dashboard_options = props.route.params.item;
-    let labels = Globals.TEST_LABELS;
-    let data = Globals.TEST_DATA;
-    let data2 = Globals.TEST_DATA_2;
+    let scaled_data = props.data.map(item => {
+      let max = Math.max(...item.y);
+      let min = Math.min(...item.y);
+      let scaledY = item.y.map(Y => ((Y - min) / (max - min)).toFixed(2) * 100);
+      min = min.toFixed(2);
+      max = max.toFixed(2);
+      max = max > 0 ? max : '(' + max + ')';
+      hovertemplate = '<i>%{x}</i>: <b>%{text:.2f}</b>';
+
+      return {
+        ...item,
+        y: scaledY,
+        hovertemplate: hovertemplate,
+        text: item.y,
+        name: item.name + ' (' + min + ' - ' + max + ')',
+      };
+    });
     this.state = {
       props: props,
-      data: {
-        __id: '1',
-        x: labels,
-        y: data,
-        mode: 'lines+markers',
-        line: {shape: 'spline'},
-        type: 'scattergl',
-        marker: {
-          symbol: '132',
-        },
-      },
-      data2: {
-        __id: '2',
-        x: labels,
-        y: data2,
-        mode: 'markers',
-        type: 'scattergl',
-      },
+      dashboard_data: scaled_data,
       layout: {
-        title: 'Default',
+        title: props.name,
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -55,6 +37,8 @@ export default class DefaultDashboardScreen extends React.Component {
             yaxis: {rangemode: 'auto'},
           },
         },
+        hovermode: 'x unified',
+        legend: {orientation: 'h', y: -0.2},
         width: Dimensions.get('window').width * 0.95,
         height: Dimensions.get('window').height * 0.85,
       },
@@ -67,20 +51,13 @@ export default class DefaultDashboardScreen extends React.Component {
   render() {
     return (
       <View>
-        <View style={{height: '3.3vw', backgroundColor: '#FFF'}}>
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => this.props.navigation.goBack()}></TouchableOpacity>
-        </View>
         <View style={styles.container}>
           <Plot
-            data={[this.state.data, this.state.data2]}
+            data={this.state.dashboard_data}
             layout={this.state.layout}
             update={this.update}
             onLoad={() => console.log('loaded')}
             debug
-            // TODO: Delete saving as picture
-            // TODO: Delete unnecesary 'select' options
             config={{
               displaylogo: false,
               responsive: true,
