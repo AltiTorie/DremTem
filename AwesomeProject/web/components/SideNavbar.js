@@ -28,7 +28,7 @@ const SideNavbar = () => {
 
       <View style={styles.navRight}>
         {/* <AppLink title="Sign out" screen="SignOut" /> */}
-        <SecondButton
+        <SideButton
           title="Sign out"
           onPress={() => {
             signOut();
@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     position: 'fixed',
     backgroundColor: '#FFC163',
     height: '100vh',
+    width: 280,
     alignItems: 'center',
     justifyContent: 'space-between',
     borderTopRightRadius: 20,
