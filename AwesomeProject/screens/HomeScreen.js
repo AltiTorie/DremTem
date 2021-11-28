@@ -21,6 +21,12 @@ const HomeScreen = props => {
         }}
       />
       <AppButton
+        title="Add device"
+        onPress={() => {
+          props.navigation.navigate('AddDevice');
+        }}
+      />
+      <AppButton
         title="Configure devices"
         onPress={() => {
           props.navigation.navigate('ConfigureDevices');
