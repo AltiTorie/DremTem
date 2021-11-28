@@ -11,7 +11,6 @@ const AppButton = ({onPress, title}) => (
 
 const styles = StyleSheet.create({
   appButtonContainer: {
-    elevation: 8,
     backgroundColor: '#FFC163',
     borderRadius: 22,
     paddingVertical: 10,
@@ -19,6 +18,13 @@ const styles = StyleSheet.create({
     width: 272,
     heigh: 51,
     margin: 10,
+    shadowColor: 'grey',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowRadius: 4,
+    shadowOpacity: 1.0,
   },
   appButtonText: {
     fontSize: 18,

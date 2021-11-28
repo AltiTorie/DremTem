@@ -11,7 +11,7 @@ import {
   Image,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
-import Navbar from '../components/Navbar';
+import SideNavbar from '../components/SideNavbar';
 import AppButton from '../components/Button_main';
 // import DashboardForm from '../components/Charts/DashboardForm';
 import DashboardForm from '../components/DashboardForm';
@@ -121,9 +121,6 @@ export default class DashboardsWebScreen extends Component {
   render() {
     return (
       <View style={styles.background}>
-        <View style={styles.navbar}>
-          <Navbar />
-        </View>
         <View style={styles.main}>
           <Modal visible={this.state.modalOpen} animationType="slide">
             <DashboardForm additionalFunction={this._addDashboard} />
@@ -173,19 +170,15 @@ export default class DashboardsWebScreen extends Component {
 const styles = StyleSheet.create({
   background: {
     backgroundColor: '#FFFFFF',
-    height: '100%',
   },
-  navbar: {
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
+  main: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 50,
   },
   text: {
     margin: 100,
-  },
-  container: {
-    backgroundColor: '#919191',
   },
   addButton: {
     position: 'absolute',
@@ -203,13 +196,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-  main: {
-    width: '100%',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 50,
-  },
+
   buttonsContainer: {
     borderWidth: 10,
     borderColor: '#FF00FF',

@@ -4,33 +4,44 @@ import React from 'react';
 import {View, Button, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {Link} from '@react-navigation/native';
 
-const AppLink = ({screen, title}) => (
-  <View style={styles.appButtonContainer}>
+const SideButton = ({onPress, title, icon, screen}) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={styles.appButtonContainer}
+    icon={icon}>
+    {/* <Link style={}>{title}/> */}
     <Link to={{screen: screen}} style={styles.appButtonText}>
       {title}
     </Link>
-  </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   appButtonContainer: {
     backgroundColor: '#FFC163',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    width: 152,
-    height: 53,
+    // borderRadius: 22,
+    // paddingVertical: 10,
+    // paddingHorizontal: 12,
+    width: 275,
+    height: 50,
     margin: 10,
-    textAlign: 'center',
+    // shadowColor: 'grey',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    shadowRadius: 4,
+    shadowOpacity: 1.0,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   appButtonText: {
     fontSize: 18,
     color: 'black',
     fontWeight: '500',
-    alignItems: 'center',
+    alignSelf: 'center',
     textTransform: 'uppercase',
-    textAlign: 'center',
   },
 });
 
-export default AppLink;
+export default SideButton;

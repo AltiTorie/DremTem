@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
-import Navbar from '../../components/Navbar';
+import SideNavbar from '../../components/SideNavbar';
 import ScreenTitle from '../../components/ScreenTitle';
 
 var mockedData = [
@@ -71,11 +71,8 @@ const DevicesPanelScreen = props => {
   };
 
   return (
-    <View>
-      <View style={styles.navbar}>
-        <Navbar />
-      </View>
-      <View style={styles.cat}>
+    <View style={{backgroundColor: '#fff'}}>
+      <View style={styles.title_box}>
         <ScreenTitle title="Devices Panel"></ScreenTitle>
       </View>
       <View style={styles.flatListView}>
@@ -91,16 +88,9 @@ const DevicesPanelScreen = props => {
 };
 
 const styles = StyleSheet.create({
-  navbar: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-  },
-  cat: {
-    alignItems: 'center',
-    margin: 80,
+  title_box: {
+    marginLeft: 170,
+    marginTop: 50,
   },
   text: {
     margin: 100,
@@ -146,7 +136,7 @@ const styles = StyleSheet.create({
   },
   flatListView: {
     marginLeft: 150,
-    marginRight: 150,
+    marginRight: 100,
   },
 });
 

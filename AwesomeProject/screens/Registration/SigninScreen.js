@@ -6,25 +6,14 @@ import {
   TextInput,
   Platform,
   StyleSheet,
-  StatusBar,
   Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {
-  User,
-  Hide,
-  Show,
-  Lock,
-  Password,
-  TickSquare,
-} from 'react-native-iconly';
+import {User, Hide, Show, Lock, TickSquare} from 'react-native-iconly';
 import AppButton from '../../components/Button_main';
 import SecondButton from '../../components/Button_second';
 import {AuthContext} from '../../components/context';
 import Users from '../../model/users';
-
-import SignUpScreen from './SignupScreen';
-import DrawerNavigator from '../../navigation/DrawerNavigator';
 
 const SigninScreen = props => {
   const [data, setData] = useState({
