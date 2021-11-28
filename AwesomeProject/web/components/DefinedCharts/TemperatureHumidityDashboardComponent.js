@@ -3,11 +3,9 @@ import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
 import Globals from '../../../components/Globals';
 
-export default class DefaultDashboardComponent extends React.Component {
+export default class TemperatureHumidityDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props');
-    console.log(props);
     let labels = Globals.TEST_LABELS;
     let data = Globals.TEST_DATA;
     let data2 = Globals.TEST_DATA_2;
@@ -17,6 +15,7 @@ export default class DefaultDashboardComponent extends React.Component {
         __id: '1',
         x: labels,
         y: data,
+        name: 'Garden',
         mode: 'lines+markers',
         line: {shape: 'spline'},
         type: 'scattergl',
@@ -26,13 +25,14 @@ export default class DefaultDashboardComponent extends React.Component {
       },
       data2: {
         __id: '2',
+        name: 'Basement',
         x: labels,
         y: data2,
         mode: 'markers',
         type: 'scattergl',
       },
       layout: {
-        title: props.item.name,
+        title: 'TemperatreHumidityDashboard',
         autozise: true,
         font: {size: 18},
         xaxis: {

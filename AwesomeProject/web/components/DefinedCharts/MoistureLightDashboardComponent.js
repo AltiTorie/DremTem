@@ -1,25 +1,11 @@
-import moment from 'moment';
 import React from 'react';
-import {
-  Dimensions,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
 import Globals from '../../../components/Globals';
-import Navbar from '../../components/Navbar';
-import Icon from 'react-native-vector-icons';
 
-// FIXME: Probably to be deleted
-export default class DefaultDashboardScreen extends React.Component {
+export default class MoistureLightDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props');
-    console.log(props);
-    // let dashboard_options = props.route.params.item;
     let labels = Globals.TEST_LABELS;
     let data = Globals.TEST_DATA;
     let data2 = Globals.TEST_DATA_2;
@@ -29,6 +15,7 @@ export default class DefaultDashboardScreen extends React.Component {
         __id: '1',
         x: labels,
         y: data,
+        name: 'Garden',
         mode: 'lines+markers',
         line: {shape: 'spline'},
         type: 'scattergl',
@@ -38,13 +25,14 @@ export default class DefaultDashboardScreen extends React.Component {
       },
       data2: {
         __id: '2',
+        name: 'Basement',
         x: labels,
         y: data2,
         mode: 'markers',
         type: 'scattergl',
       },
       layout: {
-        title: 'Default',
+        title: 'MoistureLightDashboard',
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -67,12 +55,6 @@ export default class DefaultDashboardScreen extends React.Component {
   render() {
     return (
       <View>
-        <Navbar />
-        <View style={{height: '3.3vw', backgroundColor: '#FFF'}}>
-          <TouchableOpacity
-            style={styles.addButton}
-            onPress={() => this.props.navigation.goBack()}></TouchableOpacity>
-        </View>
         <View style={styles.container}>
           <Plot
             data={[this.state.data, this.state.data2]}
@@ -80,8 +62,6 @@ export default class DefaultDashboardScreen extends React.Component {
             update={this.update}
             onLoad={() => console.log('loaded')}
             debug
-            // TODO: Delete saving as picture
-            // TODO: Delete unnecesary 'select' options
             config={{
               displaylogo: false,
               responsive: true,

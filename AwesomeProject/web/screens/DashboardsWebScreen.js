@@ -1,43 +1,20 @@
-import React, {Component, setState, useState} from 'react';
-import {
-  Button,
-  Dimensions,
-  FlatList,
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from 'react-native';
-import {Avatar} from 'react-native-paper';
-import Navbar from '../components/Navbar';
+import React, {Component} from 'react';
+import {Dimensions, Modal, StyleSheet, View} from 'react-native';
 import AppButton from '../components/Button_main';
-// import DashboardForm from '../components/Charts/DashboardForm';
-import DashboardForm from '../components/DashboardForm';
-import makeAnimated from 'react-select/animated';
-import MultiSelect from 'react-select';
+import DashboardForm from '../components/Dashboards/DashboardForm';
 import HorizontalScroll from '../components/HorizontalScroll';
-import DefaultDashboardComponent from './Dashboards/DefaultDashboardComponent';
+import Navbar from '../components/Navbar';
+import DefaultDashboardComponent from '../components/DefinedCharts/DefaultDashboardComponent';
 export default class DashboardsWebScreen extends Component {
   constructor(props) {
     super(props);
+    // TODO:
+    // dashboards_data should be downloaded from database
+    // for now has to be mocked this way
+    const dashboards_data = require('../data/dashboards.json');
     this.state = {
       props: props,
-      buttons: [
-        {key: 1, name: 'Moisture', screen_name: 'DefaultDashboard'},
-        {key: 2, name: 'Temperature', screen_name: 'DefaultDashboard'},
-        {key: 3, name: 'Light', screen_name: 'DefaultDashboard'},
-        {key: 4, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 5, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 6, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 7, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 8, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 9, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 10, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 11, name: 'Default', screen_name: 'DefaultDashboard'},
-        {key: 12, name: 'Default', screen_name: 'DefaultDashboard'},
-      ],
+      buttons: dashboards_data.buttons,
       selected: false,
       numOfColumns: 3,
       modalOpen: false,
@@ -54,7 +31,25 @@ export default class DashboardsWebScreen extends Component {
     this.setState({
       buttons: [...this.state.buttons, dashboard],
     });
+    console.log(this.state.buttons);
+
+    // TODO:
+    // buttons state should be now sent to API
     this._hide_modal();
+
+    //delete this
+    const obj = {hello: 'world'};
+    const blob = new Blob([JSON.stringify(this.state.buttons, null, 2)], {
+      type: 'application/json',
+    });
+
+    const a = document.createElement('a');
+    a.download = 'buttons.json';
+    a.href = URL.createObjectURL(blob);
+    a.addEventListener('click', e => {
+      setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+    });
+    a.click();
   };
 
   _show_modal() {
@@ -69,50 +64,9 @@ export default class DashboardsWebScreen extends Component {
     });
   }
 
-  _formatData(data, numColumns) {
-    data = data.filter(d => d.empty !== true);
-    if (!data[0]._addButton) {
-      let item = {key: 0, _addButton: true};
-      data.splice(0, 0, item);
-    }
-    const numberOfFullRows = Math.floor(data.length / numColumns);
-    let numberOfElementsLastRow = data.length - numberOfFullRows * numColumns;
-    while (
-      numberOfElementsLastRow !== numColumns &&
-      numberOfElementsLastRow !== 0
-    ) {
-      data.push({key: numberOfElementsLastRow, empty: true});
-      numberOfElementsLastRow++;
-    }
-
-    return data;
-  }
-
-  renderItem = (item, index) => {
-    return (
-      <View
-        style={{
-          ...styles.item,
-          borderWidth: 5,
-          borderColor: '#FF0000',
-          backgroundColor: '#800ff0',
-          margin: 10,
-          height: 150,
-          width: 150,
-        }}>
-        <TouchableOpacity
-          key={item.name}
-          style={{height: '100%', weight: '100%'}}
-          onPress={() => {
-            this._navigate_to(item);
-          }}>
-          <Text style={styles.itemText}>{item.name}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   _setSelected(item) {
+    console.log('item');
+    console.log(item);
     if (item !== this.state.selected) {
       this.setState({selected: false}, () => this.setState({selected: item}));
     }
@@ -141,20 +95,17 @@ export default class DashboardsWebScreen extends Component {
           <View
             style={{
               ...styles.buttonsContainer,
-              width: Dimensions.get('window').width * 0.8,
+              width: '90vw',
             }}>
             <HorizontalScroll
               items={this.state.buttons}
-              extra={this.state.props}
               onItemClick={item => this._setSelected(item)}
             />
           </View>
           <AppButton
             style={styles.addButton}
             title="Add dashboard"
-            onPress={() => this._show_modal()}>
-            {/* <Text style={styles.addButtonText}>+</Text> */}
-          </AppButton>
+            onPress={() => this._show_modal()}></AppButton>
         </View>
 
         <View>
@@ -189,12 +140,11 @@ const styles = StyleSheet.create({
   },
   addButton: {
     position: 'absolute',
-    backgroundColor: '#30Cf50',
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
-    width: 50,
+    width: '10vw',
     top: 160,
     right: 100,
   },

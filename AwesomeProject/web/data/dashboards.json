@@ -1,0 +1,134 @@
+{ "buttons":
+  [
+    {
+      "key": 1,
+      "name": "Moisture",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 2,
+      "name": "Temperature",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 3,
+      "name": "Light",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 4,
+      "name": "MyPlants",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 5,
+      "name": "Garden",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 6,
+      "name": "House",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 7,
+      "name": "Yard",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 8,
+      "name": "Front",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 9,
+      "name": "Back",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 10,
+      "name": "123_457",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 11,
+      "name": "Temp_Humid",
+      "screen_name": "DefaultDashboard"
+    },
+    {
+      "key": 12,
+      "name": "Something",
+      "screen_name": "DefaultDashboard",
+      "sensor_types": [
+        {
+          "value": {
+            "id": 4,
+            "name": "Light",
+            "abbr": "LIGHT",
+            "unit": "lm"
+          },
+          "label": "Light"
+        }
+      ]
+    },
+    {
+      "name": "New_dashboard",
+      "screen_name": "DefaultDashboard",
+      "sensor_types": [
+        {
+          "value": {
+            "id": 2,
+            "name": "Moisture",
+            "abbr": "MOIST",
+            "unit": "%"
+          },
+          "label": "Moisture"
+        }
+      ],
+      "key": "55963204785"
+    },
+    {
+      "name": "New_dashboard1",
+      "screen_name": "DefaultDashboard",
+      "sensor_types": [
+        {
+          "value": {
+            "id": 1,
+            "name": "Temperature",
+            "abbr": "TEMP",
+            "unit": "°C"
+          },
+          "label": "Temperature"
+        },
+        {
+          "value": {
+            "id": 2,
+            "name": "Moisture",
+            "abbr": "MOIST",
+            "unit": "%"
+          },
+          "label": "Moisture"
+        },
+        {
+          "value": {
+            "id": 3,
+            "name": "Humidity",
+            "abbr": "HUMID",
+            "unit": "%"
+          },
+          "label": "Humidity"
+        },
+        {
+          "value": {
+            "id": 4,
+            "name": "Light",
+            "abbr": "LIGHT",
+            "unti": "lm"
+          },
+          "label": "Light"
+        }
+      ],
+      "key": "10429902228"
+    }
+  ]
+}
