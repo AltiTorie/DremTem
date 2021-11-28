@@ -15,10 +15,9 @@ const Navbar = () => (
         style={styles.logo}
       />
       <AppLink title="Home" screen="Home" />
-      {/* <AppLink title="Produkty" screen="Products" />
-      <AppLink title="About" screen="About" /> */}
       {/* <AppLink title="Dashboards" screen="Dashboards" />
-      <AppLink title="Devices Panel" screen="DevicesPanel" /> */}
+      <AppLink title="Devices Panel" screen="DevicesPanel" />
+      <AppLink title="Upload Csv" screen="UploadCsv" />  */}
     </View>
 
     <View style={styles.navRight}>

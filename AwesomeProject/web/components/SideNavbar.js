@@ -24,6 +24,7 @@ const SideNavbar = () => {
         <AppLink title="Home" screen="Main" />
         <AppLink title="Dashboards" screen="Dashboards" />
         <AppLink title="Devices Panel" screen="DevicesPanel" />
+        <AppLink title="UploadCsv" screen="UploadCsv" />
       </View>
 
       <View style={styles.navRight}>

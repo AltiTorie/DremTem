@@ -1,27 +1,13 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {Link} from '@react-navigation/native';
-import HomeScreen from '../screens/HomeScreen';
-import ProductsScreen from '../screens/ProductsScreen';
-import AboutScreen from '../screens/AboutScreen';
-import UsersMainScreen from '../screens/User/UsersMainScreen';
-import {Home} from 'react-native-iconly';
-import LogInScreen from '../screens/Registration/LoginScreen';
-import SignUpScreen from '../screens/Registration/SignupScreen';
-
-import DashboardsWebScreen from '../screens/DashboardsWebScreen';
-import DefaultDashboardScreen from '../screens/Dashboards/DefaultDashboardScreen';
-import DevicesPanelScreen from '../screens/Devices/DevicesPanelScreen';
-import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import SideWebStackNavigator from './SideNavigation';
-
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
 import {ActivityIndicator, View} from 'react-native';
-
 import {AuthContext} from '../components/context';
+import HomeScreen from '../screens/HomeScreen';
+import LogInScreen from '../screens/Registration/LoginScreen';
+import SignUpScreen from '../screens/Registration/SignupScreen';
+import SideWebStackNavigator from './SideNavigation';
 
 const RootStackWeb = createNativeStackNavigator();
 
@@ -38,6 +24,7 @@ const linking = {
       Dashboards: '/Dashboards',
       DevicesPanel: '/DevicesPanel',
       DevicePanel: '/DevicePanel',
+      UploadCsv: '/UploadCsv',
     },
   },
 };

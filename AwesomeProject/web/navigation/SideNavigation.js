@@ -16,6 +16,7 @@ import DefaultDashboardScreen from '../screens/Dashboards/DefaultDashboardScreen
 import DevicesPanelScreen from '../screens/Devices/DevicesPanelScreen';
 import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
 import SideNavbar from '../components/SideNavbar';
+import UploadCsvScreen from '../screens/Devices/UploadCsvScreen';
 const SideStackWeb = createNativeStackNavigator();
 
 const linking = {
@@ -59,6 +60,7 @@ const SideWebStackNavigator = () => {
             component={DevicesPanelScreen}
           />
           <SideStackWeb.Screen name="Device" component={DevicePanelScreen} />
+          <SideStackWeb.Screen name="UploadCsv" component={UploadCsvScreen} />
         </SideStackWeb.Navigator>
       </View>
     </View>
