@@ -7,7 +7,7 @@ import ProductsScreen from './ProductsScreen';
 
 const HomeScreen = props => {
   return (
-    <View>
+    <View style={{backgroundColor: '#fff'}}>
       <View style={styles.navbar}>
         <Navbar />
       </View>

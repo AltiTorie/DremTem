@@ -96,10 +96,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   container: {
-    width: '100%',
+    width: Dimensions.get('window').width * 0.8,
     height: '100%',
     backgroundColor: '#fff',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
   },
   addButton: {

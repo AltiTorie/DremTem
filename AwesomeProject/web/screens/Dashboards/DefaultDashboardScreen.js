@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Plot from 'react-plotly.js';
 import Globals from '../../../components/Globals';
-import Navbar from '../../components/Navbar';
+import SideNavbar from '../../components/SideNavbar';
 import Icon from 'react-native-vector-icons';
 
 // FIXME: Probably to be deleted
@@ -67,7 +67,6 @@ export default class DefaultDashboardScreen extends React.Component {
   render() {
     return (
       <View>
-        <Navbar />
         <View style={{height: '3.3vw', backgroundColor: '#FFF'}}>
           <TouchableOpacity
             style={styles.addButton}

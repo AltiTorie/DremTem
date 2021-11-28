@@ -21,6 +21,7 @@ const ScreenTitle = props => {
 const styles = StyleSheet.create({
   screenTitleContainer: {
     marginBottom: 30,
+    alignItems: 'flex-start',
   },
 });
 
