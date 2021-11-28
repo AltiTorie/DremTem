@@ -101,7 +101,7 @@ export default class DashboardsWebScreen extends Component {
           x: times,
           y: data,
           name: device.deviceName + '-' + sensorData.type,
-          mode: 'lines+markers',
+          mode: 'markers',
           type: 'scattergl',
           dataType: sensorData.type,
         };
@@ -144,7 +144,7 @@ export default class DashboardsWebScreen extends Component {
           <View
             style={{
               ...styles.buttonsContainer,
-              width: '90vw',
+              width: '80vw',
             }}>
             <HorizontalScroll
               items={this.state.buttons}
@@ -156,7 +156,7 @@ export default class DashboardsWebScreen extends Component {
             onPress={() => this._show_modal()}></AppButton>
         </View>
 
-        <View>
+        <View style={{alignSelf: 'flex-start', marginLeft: 20}}>
           {this.state.selected ? (
             <Dashboard data={dd} name={this.state.selected.name}></Dashboard>
           ) : (
@@ -174,9 +174,10 @@ const styles = StyleSheet.create({
   },
   main: {
     backgroundColor: 'white',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
+    // marginTop: 50,
+    margin: 50,
   },
   text: {
     margin: 100,

@@ -40,7 +40,7 @@ const SideWebStackNavigator = () => {
           flex: 1,
           zIndex: 100,
           height: '100vh',
-          alignItems: 'center',
+          // alignItems: 'center',
         }}>
         <SideNavbar />
       </View>
