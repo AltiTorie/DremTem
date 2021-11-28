@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
+import {Avatar} from 'react-native-paper';
+import SideNavbar from '../components/SideNavbar';
 import AppButton from '../components/Button_main';
 import DashboardForm from '../components/Dashboards/DashboardForm';
 import ChartTypeConnections from '../components/DefinedCharts/ChartTypeConnections';
