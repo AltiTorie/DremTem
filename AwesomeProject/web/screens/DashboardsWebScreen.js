@@ -1,23 +1,34 @@
 import React, {Component} from 'react';
-import {Dimensions, Modal, StyleSheet, View} from 'react-native';
+import {
+  Dimensions,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Button,
+  Text,
+} from 'react-native';
 import AppButton from '../components/Button_main';
 import DashboardForm from '../components/Dashboards/DashboardForm';
 import HorizontalScroll from '../components/HorizontalScroll';
 import Navbar from '../components/Navbar';
 import DefaultDashboardComponent from '../components/DefinedCharts/DefaultDashboardComponent';
+import ChartTypeConnections from '../components/DefinedCharts/ChartTypeConnections';
+// import {Button} from 'react-native-paper';
 export default class DashboardsWebScreen extends Component {
   constructor(props) {
     super(props);
     // TODO:
     // dashboards_data should be downloaded from database
     // for now has to be mocked this way
-    const dashboards_data = require('../data/dashboards.json');
+    const dashboards_buttons = require('../data/dashboards.json');
     this.state = {
       props: props,
-      buttons: dashboards_data.buttons,
+      buttons: dashboards_buttons,
       selected: false,
       numOfColumns: 3,
       modalOpen: false,
+      DashboardComponent: DefaultDashboardComponent,
     };
   }
   _navigate_to(item) {
@@ -31,18 +42,15 @@ export default class DashboardsWebScreen extends Component {
     this.setState({
       buttons: [...this.state.buttons, dashboard],
     });
-    console.log(this.state.buttons);
+
+    this._hide_modal();
 
     // TODO:
     // buttons state should be now sent to API
-    this._hide_modal();
-
-    //delete this
-    const obj = {hello: 'world'};
+    // temporary half-working solution:
     const blob = new Blob([JSON.stringify(this.state.buttons, null, 2)], {
       type: 'application/json',
     });
-
     const a = document.createElement('a');
     a.download = 'buttons.json';
     a.href = URL.createObjectURL(blob);
@@ -65,30 +73,81 @@ export default class DashboardsWebScreen extends Component {
   }
 
   _setSelected(item) {
-    console.log('item');
-    console.log(item);
     if (item !== this.state.selected) {
-      this.setState({selected: false}, () => this.setState({selected: item}));
+      this.setState({selected: false}, () => {
+        this.setState({selected: item});
+        let ds = ChartTypeConnections.componentConnections[item.component_name];
+        this.setState({
+          DashboardComponent: ds,
+        });
+      });
     }
   }
 
   render() {
+    const Dashboard = this.state.DashboardComponent;
+    let dd = [];
+    if (this.state.selected) {
+      let DATA = require('../data/UserData.json');
+      let UserDevices = require('../data/UserDevices.json');
+
+      let sensor_data = this.state.selected.sensor_types.map(sensor_ => {
+        return DATA.sensor_data.find(
+          sensor => sensor.sensorID == sensor_.value.sensorID,
+        );
+      });
+
+      dd = sensor_data.map(sensorData => {
+        let data = sensorData.data.map(sd => sd.value);
+        let times = sensorData.data.map(sd => sd.time);
+        let device = UserDevices.devices.find(
+          device => device.deviceID == sensorData.deviceID,
+        );
+        return {
+          __id: sensorData.sensorID,
+          x: times,
+          y: data,
+          name: device.deviceName + '-' + sensorData.type,
+          mode: 'lines+markers',
+          type: 'scattergl',
+          dataType: sensorData.type,
+        };
+      });
+    }
     return (
       <View style={styles.background}>
         <View style={styles.navbar}>
           <Navbar />
         </View>
         <View style={styles.main}>
-          <Modal visible={this.state.modalOpen} animationType="slide">
-            <DashboardForm additionalFunction={this._addDashboard} />
-
-            <View>
-              <AppButton
-                title="close"
-                onPress={() => {
-                  this._hide_modal();
-                }}
-              />
+          <Modal
+            visible={this.state.modalOpen}
+            animationType="slide"
+            transparent={true}>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.modalView}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: 'rgba(255, 75, 75, 1)',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 100,
+                    position: 'absolute',
+                    top: 10,
+                    left: 10,
+                    width: '1.5vw',
+                    height: '1.5vw',
+                    margin: '.7vw',
+                    zIndex: 1,
+                  }}
+                  onPress={() => {
+                    this._hide_modal();
+                  }}>
+                  {/* <Text style={styles.itemText}>X</Text> */}
+                </TouchableOpacity>
+                <Text style={styles.modalText}>Create new dashboard</Text>
+                <DashboardForm additionalFunction={this._addDashboard} />
+              </View>
             </View>
           </Modal>
           <View></View>
@@ -103,15 +162,13 @@ export default class DashboardsWebScreen extends Component {
             />
           </View>
           <AppButton
-            style={styles.addButton}
             title="Add dashboard"
             onPress={() => this._show_modal()}></AppButton>
         </View>
 
         <View>
           {this.state.selected ? (
-            <DefaultDashboardComponent
-              item={this.state.selected}></DefaultDashboardComponent>
+            <Dashboard data={dd} name={this.state.selected.name}></Dashboard>
           ) : (
             <></>
           )}
@@ -177,5 +234,28 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  modalView: {
+    marginTop: 100,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 25,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    height: '45vw',
+    width: '90vw',
+    shadowOpacity: 1,
+    shadowRadius: 10000,
+    // elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+    fontSize: '2vw',
   },
 });

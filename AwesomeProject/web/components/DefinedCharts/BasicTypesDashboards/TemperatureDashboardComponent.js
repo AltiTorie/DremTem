@@ -2,7 +2,7 @@ import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
 
-export default class MoistureDashboardComponent extends React.Component {
+export default class TemperatureDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +21,7 @@ export default class MoistureDashboardComponent extends React.Component {
           },
         },
         yaxis: {
-          ticksuffix: '%',
+          ticksuffix: '°C',
         },
         hovermode: 'x unified',
         width: Dimensions.get('window').width * 0.95,
@@ -47,6 +47,7 @@ export default class MoistureDashboardComponent extends React.Component {
               displaylogo: false,
               responsive: true,
               autosize: true,
+              editable: true,
             }}
           />
         </View>

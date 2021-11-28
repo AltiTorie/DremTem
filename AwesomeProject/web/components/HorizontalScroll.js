@@ -40,39 +40,6 @@ export default class HorizontalScroll extends React.Component {
           : state.selected.concat(id),
       );
     };
-
-  renderItem(item, onClickItem) {
-    return (
-      <View
-        style={{
-          ...styles.item,
-          borderColor: 'rgba(200, 220, 150, 0.2)',
-          borderWidth: 3,
-          backgroundColor: 'rgba(255, 184, 92, 0.8)',
-          alignItems: 'center',
-          justifyContent: 'center',
-          borderRadius: 25,
-          margin: 10,
-          height: 150,
-          width: 150,
-        }}>
-        <TouchableOpacity
-          key={item.name}
-          style={{
-            ...styles.item,
-            height: '100%',
-            weight: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-          onPress={() => {
-            onClickItem(item);
-          }}>
-          <Text style={styles.itemText}>{item.name}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({items: nextProps.items});
   }
@@ -87,7 +54,6 @@ export default class HorizontalScroll extends React.Component {
             onClick={this.handleClick(item.key)}
             item={item}
             selected={this.isItemSelected(item.key)}
-            renderItem={this.renderItem}
             onItemClick={this.state.onItemClick}
           />
         ))}
@@ -109,20 +75,28 @@ function onWheel(apiObj, ev) {
   }
 }
 
-function Card({onClick, selected, item, renderItem, onItemClick}) {
+function Card({onClick, selected, item, onItemClick}) {
   const visibility = React.useContext(VisibilityContext);
   return (
-    <div
-      onClick={() => {
-        onItemClick(item);
-        onClick(visibility);
-      }}
+    <TouchableOpacity
+      key={item.name}
       style={{
-        width: '160px',
+        ...styles.item,
+        borderColor: 'rgba(200, 220, 150, 0.2)',
+        borderWidth: 3,
+        backgroundColor: '#4a67a1',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 25,
+        width: '15vw',
+        height: '9vw',
+        margin: '.7vw',
       }}
-      tabIndex={0}>
-      {renderItem(item, onItemClick)}
-    </div>
+      onPress={() => {
+        onItemClick(item);
+      }}>
+      <Text style={styles.itemText}>{item.name}</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -132,13 +106,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  itemInvisible: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-  },
   itemText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: '100%',
     fontWeight: 'bold',
   },
 });

@@ -1,38 +1,32 @@
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
-import Globals from '../../../components/Globals';
 
 export default class DefaultDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
-    let labels = Globals.TEST_LABELS;
-    let data = Globals.TEST_DATA;
-    let data2 = Globals.TEST_DATA_2;
+    let scaled_data = props.data.map(item => {
+      let max = Math.max(...item.y);
+      let min = Math.min(...item.y);
+      let scaledY = item.y.map(Y => ((Y - min) / (max - min)).toFixed(2) * 100);
+      min = min.toFixed(2);
+      max = max.toFixed(2);
+      max = max > 0 ? max : '(' + max + ')';
+      hovertemplate = '<i>%{x}</i>: <b>%{text:.2f}</b>';
+
+      return {
+        ...item,
+        y: scaledY,
+        hovertemplate: hovertemplate,
+        text: item.y,
+        name: item.name + ' (' + min + ' - ' + max + ')',
+      };
+    });
     this.state = {
       props: props,
-      data: {
-        __id: '1',
-        x: labels,
-        y: data,
-        name: 'Garden',
-        mode: 'lines+markers',
-        line: {shape: 'spline'},
-        type: 'scattergl',
-        marker: {
-          symbol: '132',
-        },
-      },
-      data2: {
-        __id: '2',
-        name: 'Basement',
-        x: labels,
-        y: data2,
-        mode: 'markers',
-        type: 'scattergl',
-      },
+      dashboard_data: scaled_data,
       layout: {
-        title: props.item.name,
+        title: props.name,
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -43,6 +37,8 @@ export default class DefaultDashboardComponent extends React.Component {
             yaxis: {rangemode: 'auto'},
           },
         },
+        hovermode: 'x unified',
+        legend: {orientation: 'h', y: -0.2},
         width: Dimensions.get('window').width * 0.95,
         height: Dimensions.get('window').height * 0.85,
       },
@@ -57,7 +53,7 @@ export default class DefaultDashboardComponent extends React.Component {
       <View>
         <View style={styles.container}>
           <Plot
-            data={[this.state.data, this.state.data2]}
+            data={this.state.dashboard_data}
             layout={this.state.layout}
             update={this.update}
             onLoad={() => console.log('loaded')}

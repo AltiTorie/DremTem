@@ -1,21 +1,15 @@
+import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-  Dimensions,
-  TextInput,
-  View,
-  Text,
   FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import makeAnimated from 'react-select/animated';
 import MultiSelect from 'react-select';
-import {Formik, Field} from 'formik';
-// import AppButton from '../Button_main';
-import MultiSelectChart from './MultiSelectChart';
-import Globals from '../../../components/Globals';
-import AppButton from '../Button_main';
+import makeAnimated from 'react-select/animated';
 import ChartTypeConnections from '../DefinedCharts/ChartTypeConnections';
 
 export default function DashboardForm({additionalFunction}) {
@@ -37,22 +31,34 @@ export default function DashboardForm({additionalFunction}) {
   };
 
   const setDashboardTypes = function (props, selectedTypes) {
-    console.log('selectedTypes');
-    console.log(selectedTypes);
     setSelectedFromSuggested([]);
     if (selectedTypes.length > 0) {
-      // types is wrong now
       let types = [];
-      selectedTypes.forEach(item => types.push(item.abbr));
-
-      let q = Globals.definedCharts.find(
-        chart =>
-          chart.required_types.length == types.length &&
-          chart.required_types.every(rt => types.includes(rt)),
-      );
+      selectedTypes.forEach(item => types.push(item.value.type));
+      let definedCharts = [
+        ChartTypeConnections.definedSimpleCharts,
+        ChartTypeConnections.definedComplexCharts,
+      ].flat();
+      // check if all types are the same
+      let check = types.every(type => type === types[0]);
+      let q = [];
+      if (check) {
+        q = ChartTypeConnections.definedSimpleCharts.find(
+          chart => chart.required_types[0] === types[0],
+        );
+      } else {
+        q = definedCharts.find(
+          chart =>
+            chart.required_types.length == types.length &&
+            chart.required_types.every(rt => types.includes(rt)),
+        );
+      }
       props.setFieldValue('sensor_types', selectedTypes);
-      let chart_link = q ? q.chart_link : 'DefaultDashboard';
-      props.setFieldValue('screen_name', chart_link);
+      let chart_link = q ? q.chart_component : 'DefaultDashboardComponent';
+      props.setFieldValue('component_name', chart_link);
+    } else {
+      props.setFieldValue('sensor_types', []);
+      props.setFieldValue('component_name', '');
     }
   };
 
@@ -61,18 +67,21 @@ export default function DashboardForm({additionalFunction}) {
       <Formik
         initialValues={{
           name: 'New_dashboard',
-          screen_name: '',
+          component_name: '',
           sensor_types: [],
         }}
         onSubmit={(values, actions) => {
-          additionalFunction(values);
+          if (values.sensor_types.length == 0) {
+            alert('Please choose sensors!');
+          } else {
+            additionalFunction(values);
+          }
           actions.resetForm();
         }}>
         {props => {
           const selectTypes = selectedTypes =>
             setDashboardTypes(props, selectedTypes);
-          const user_devices = require('../MockedData/UserDevices.json');
-
+          const user_devices = require('../../data/UserDevices.json');
           let device_mapped = user_devices.devices.map(device => {
             return device.sensors.map(sensor => ({
               value: sensor,
@@ -87,30 +96,51 @@ export default function DashboardForm({additionalFunction}) {
               return <View style={[styles.item, styles.itemInvisible]} />;
             }
             return (
-              <View style={styles.item}>
-                <TouchableOpacity
-                  onPress={() => {
-                    console.log(item);
-                    // setSelectedSensors(item);
-                    let sensorTypes = item.sensors.map(sensor => ({
-                      value: sensor,
-                      label: item.device.device.deviceName + '-' + sensor.type,
-                    }));
-                    props.setFieldValue('sensor_types', sensorTypes);
-                    setSelectedFromSuggested(item);
-                    // let chart_link = q ? q.chart_link : 'DefaultDashboard';
-                    // TODO: change screen name to appropriate Dashboard
-                    props.setFieldValue('screen_name', 'DefaultDashboard');
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#4a67a1',
+                  borderColor: '#fff',
+                  borderRadius: 20,
+                  borderWidth: 3,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '15vw',
+                  height: '10vw',
+                  margin: '.7vw',
+                  zIndex: 1,
+                }}
+                onPress={() => {
+                  let sensorTypes = item.sensors.map(sensor => ({
+                    value: sensor,
+                    label: item.device.device.deviceName + '-' + sensor.type,
+                  }));
+                  props.setFieldValue('sensor_types', sensorTypes);
+                  setSelectedFromSuggested(item);
+                  props.setFieldValue(
+                    'component_name',
+                    item.chart.chart_component,
+                  );
+                }}>
+                <Text
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontSize: '1.3vw',
+                    fontWeight: 'bold',
+                    padding: '0.5vw',
                   }}>
-                  <Text style={styles.itemText}>{item.label}</Text>
-                </TouchableOpacity>
-              </View>
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
             );
           };
-          let suggested = suggest_dashboards();
           return (
             <>
               <View>
+                <Text style={{fontSize: 20, paddingBottom: 10}}>
+                  Dashboard Name
+                </Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Screen name"
@@ -151,7 +181,22 @@ export default function DashboardForm({additionalFunction}) {
                   renderItem={renderItem}
                   numColumns={5}
                 />
-                <AppButton title="submit" onPress={props.handleSubmit} />
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: '#FFC163',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    alignSelf: 'center',
+                    borderRadius: 20,
+                    bottom: '-7vw',
+                    width: '30vw',
+                    height: '3vw',
+                    margin: '.7vw',
+                    zIndex: 1,
+                  }}
+                  onPress={props.handleSubmit}>
+                  <Text style={styles.itemText}>Submit</Text>
+                </TouchableOpacity>
               </View>
             </>
           );
@@ -161,14 +206,8 @@ export default function DashboardForm({additionalFunction}) {
   );
 }
 
-// Get user devices from API
-// fetch(api).then(devices=>DO_STUFF).error(e=>console.log(e))
-// Sort devices
-// Device A has: Temperature, Humidity, Moisture
-// Device B has: Light, Moisture
-// () => [TemperatureHumidityDashboard, LightMoistureDashboard]
 const suggest_dashboards = () => {
-  const user_devices = require('../MockedData/UserDevices.json');
+  const user_devices = require('../../data/UserDevices.json');
   let device_mapped = user_devices.devices.map(device => {
     let device_sensor_types = device.sensors.map(sensor => sensor.type);
     return {
@@ -178,7 +217,7 @@ const suggest_dashboards = () => {
   });
   let charts = [];
   device_mapped.forEach(mapped_device => {
-    let q = ChartTypeConnections.definedCharts.find(chart =>
+    let q = ChartTypeConnections.definedComplexCharts.find(chart =>
       chart.required_types.every(rt => mapped_device.types.includes(rt)),
     );
 
@@ -234,7 +273,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   itemText: {
-    color: '#fff',
+    color: 'black',
     fontSize: '1.3vw',
     fontWeight: 'bold',
   },

@@ -1,38 +1,21 @@
 import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
-import Globals from '../../../components/Globals';
 
 export default class MoistureLightDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
-    let labels = Globals.TEST_LABELS;
-    let data = Globals.TEST_DATA;
-    let data2 = Globals.TEST_DATA_2;
+    let withAxisData = props.data.map(data => {
+      return {
+        ...data,
+        yaxis: data.dataType == 'light' ? 'y2' : '',
+      };
+    });
     this.state = {
       props: props,
-      data: {
-        __id: '1',
-        x: labels,
-        y: data,
-        name: 'Garden',
-        mode: 'lines+markers',
-        line: {shape: 'spline'},
-        type: 'scattergl',
-        marker: {
-          symbol: '132',
-        },
-      },
-      data2: {
-        __id: '2',
-        name: 'Basement',
-        x: labels,
-        y: data2,
-        mode: 'markers',
-        type: 'scattergl',
-      },
+      dashboard_data: withAxisData,
       layout: {
-        title: 'MoistureLightDashboard',
+        title: props.name,
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -43,6 +26,17 @@ export default class MoistureLightDashboardComponent extends React.Component {
             yaxis: {rangemode: 'auto'},
           },
         },
+        yaxis: {
+          title: 'Moisture',
+          ticksuffix: '%',
+        },
+        yaxis2: {
+          title: 'Light',
+          overlaying: 'y',
+          side: 'right',
+          ticksuffix: 'lm',
+        },
+        hovermode: 'x unified',
         width: Dimensions.get('window').width * 0.95,
         height: Dimensions.get('window').height * 0.85,
       },
@@ -57,11 +51,10 @@ export default class MoistureLightDashboardComponent extends React.Component {
       <View>
         <View style={styles.container}>
           <Plot
-            data={[this.state.data, this.state.data2]}
+            data={this.state.dashboard_data}
             layout={this.state.layout}
             update={this.update}
             onLoad={() => console.log('loaded')}
-            debug
             config={{
               displaylogo: false,
               responsive: true,
