@@ -3,7 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import DrawerHeader from '../components/Drawer_header';
+import AddDeviceParentScreen from '../screens/Devices/AddDeviceParent';
 import ConfigureDevicesParentScreen from '../screens/Devices/ConfigureDeviceParent';
+import DeviceAdditionScreen from '../screens/Devices/DeviceAdditionScreen';
 import DeviceConfigScreen from '../screens/Devices/DeviceConfigScreen';
 import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
 import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
@@ -46,6 +48,11 @@ const DeviceStackNavigator = props => {
       <DeviceStack.Screen
         name="ConfigureDevices"
         component={ConfigureDevicesParentScreen}
+      />
+      <DeviceStack.Screen name="AddDevice" component={AddDeviceParentScreen} />
+      <DeviceStack.Screen
+        name="DeviceAddition"
+        component={DeviceAdditionScreen}
       />
       <DeviceStack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
       <DeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />

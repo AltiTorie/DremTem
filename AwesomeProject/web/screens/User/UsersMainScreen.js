@@ -1,27 +1,16 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import {Avatar} from 'react-native-paper';
-import Navbar from '../components/Navbar';
-import AppLink from '../components/NavbarLink';
-import SideNavigator from '../components/SideNavbar';
-import ProductsScreen from './ProductsScreen';
+import Navbar from '../../components/Navbar';
+import AppLink from '../../components/NavbarLink';
+import SideNavbar from '../../components/SideNavbar';
+import ProductsScreen from '../ProductsScreen';
 
 const UsersMainScreen = props => {
-  return (
-    <View>
-      <SideNavigator />
-    </View>
-  );
+  return <View></View>;
 };
 
 const styles = StyleSheet.create({
-  navbar: {
-    position: 'fixed',
-    left: 0,
-    right: 0,
-    top: 0,
-    zIndex: 100,
-  },
   cat: {
     alignItems: 'center',
     margin: 80,

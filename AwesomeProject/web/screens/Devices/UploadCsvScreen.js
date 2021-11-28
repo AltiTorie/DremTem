@@ -36,9 +36,6 @@ const UploadCsvScreen = () => {
   };
   return (
     <View style={{height: '100%', alignItems: 'center'}}>
-      <View style={styles.navbar}>
-        <Navbar />
-      </View>
       <View style={styles.cat}>
         <ScreenTitle title="Upload data from device"></ScreenTitle>
       </View>
@@ -87,7 +84,11 @@ const UploadCsvScreen = () => {
       )}
 
       <Modal visible={modalOpen} animationType="slide" transparent={true}>
-        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            justifyContent: 'center',
+            // alignItems: 'center',
+          }}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
               {'This will upload all selected files. Proceed?'}
@@ -113,13 +114,6 @@ const UploadCsvScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  navbar: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
-  },
   cat: {
     alignItems: 'center',
     marginTop: 80,
@@ -138,10 +132,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 200,
+    marginLeft: 280,
     justifyContent: 'center',
     backgroundColor: 'white',
     borderRadius: 10,
-    padding: 35,
+    // padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

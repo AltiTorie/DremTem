@@ -1,20 +1,10 @@
 import React, {Component} from 'react';
-import {
-  Dimensions,
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Button,
-  Text,
-} from 'react-native';
+import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import AppButton from '../components/Button_main';
 import DashboardForm from '../components/Dashboards/DashboardForm';
-import HorizontalScroll from '../components/HorizontalScroll';
-import Navbar from '../components/Navbar';
-import DefaultDashboardComponent from '../components/DefinedCharts/DefaultDashboardComponent';
 import ChartTypeConnections from '../components/DefinedCharts/ChartTypeConnections';
-// import {Button} from 'react-native-paper';
+import DefaultDashboardComponent from '../components/DefinedCharts/DefaultDashboardComponent';
+import HorizontalScroll from '../components/HorizontalScroll';
 export default class DashboardsWebScreen extends Component {
   constructor(props) {
     super(props);
@@ -116,9 +106,6 @@ export default class DashboardsWebScreen extends Component {
     }
     return (
       <View style={styles.background}>
-        <View style={styles.navbar}>
-          <Navbar />
-        </View>
         <View style={styles.main}>
           <Modal
             visible={this.state.modalOpen}
@@ -181,19 +168,15 @@ export default class DashboardsWebScreen extends Component {
 const styles = StyleSheet.create({
   background: {
     backgroundColor: '#FFFFFF',
-    height: '100%',
   },
-  navbar: {
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 100,
+  main: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 50,
   },
   text: {
     margin: 100,
-  },
-  container: {
-    backgroundColor: '#919191',
   },
   addButton: {
     position: 'absolute',
@@ -210,13 +193,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-  main: {
-    width: '100%',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 50,
-  },
+
   buttonsContainer: {
     borderWidth: 10,
     borderColor: '#FF00FF',
