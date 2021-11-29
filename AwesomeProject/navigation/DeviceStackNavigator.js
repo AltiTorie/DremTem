@@ -46,7 +46,7 @@ const DeviceStackNavigator = props => {
       />
       <DeviceStack.Screen name="Device" component={DevicePanelScreen} />
       <DeviceStack.Screen
-        name="ConfigureDevices"
+        name="ManageDevices"
         component={ConfigureDevicesParentScreen}
       />
       <DeviceStack.Screen name="AddDevice" component={AddDeviceParentScreen} />
