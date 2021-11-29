@@ -220,11 +220,10 @@ export default class ConfigureDevicesScreen extends Component {
             console.log(dataFromDevice);
             let csvName = dataFromDevice.split('#')[0];
             csvName = csvName.split('.')[0];
+            csvName = `${csvName}_${moment()}.csv`;
             let csvContent = dataFromDevice.split('#')[1];
-            ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
-            const pathToWrite = `${
-              RNFetchBlob.fs.dirs.DownloadDir
-            }/dremtemfiles/${csvName}_${moment()}.csv`;
+            ToastAndroid.show(`Downloaded csv: ${csvName}`, ToastAndroid.SHORT);
+            const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/${csvName}`;
             console.log('pathToWrite', pathToWrite);
             RNFetchBlob.fs
               .writeFile(pathToWrite, csvContent, 'utf8')

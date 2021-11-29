@@ -211,25 +211,24 @@ export default class AddDeviceScreen extends Component {
             sensorsConfig: sensorsConfig,
             bt: this,
           });
+        } else {
+          // sensor csv
+          if (dataFromDevice.includes('EMPTY CSV')) {
+            console.log('EMPTY CSV');
+            ToastAndroid.show(`Empty csv`, ToastAndroid.SHORT);
+          } else {
+            console.log(dataFromDevice);
+            ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
+            const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/data.csv`;
+            console.log('pathToWrite', pathToWrite);
+            RNFetchBlob.fs
+              .writeFile(pathToWrite, dataFromDevice, 'utf8')
+              .then(() => {
+                console.log(`wrote file ${pathToWrite}`);
+              })
+              .catch(error => console.error(error));
+          }
         }
-        // else {
-        // // sensor csv
-        // if (dataFromDevice.includes('EMPTY CSV')) {
-        //   console.log('EMPTY CSV');
-        //   ToastAndroid.show(`Empty csv`, ToastAndroid.SHORT);
-        // } else {
-        //   console.log(dataFromDevice);
-        //   ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
-        //   const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/data.csv`;
-        //   console.log('pathToWrite', pathToWrite);
-        //   RNFetchBlob.fs
-        //     .writeFile(pathToWrite, dataFromDevice, 'utf8')
-        //     .then(() => {
-        //       console.log(`wrote file ${pathToWrite}`);
-        //     })
-        //     .catch(error => console.error(error));
-        // }
-        // }
       });
     });
   }
