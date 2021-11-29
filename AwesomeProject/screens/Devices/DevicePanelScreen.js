@@ -68,7 +68,7 @@ const DevicePanelScreen = props => {
           title="Check last data"
           onPress={() =>
             props.navigation.navigate('DefaultMobileDashboard', {
-              item: {types: ['one', 'two']},
+              item: props.route.params.device,
             })
           }
         />

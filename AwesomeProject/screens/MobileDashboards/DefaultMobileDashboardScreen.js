@@ -16,43 +16,63 @@ import Globals from '../../components/Globals';
 export default class DefaultMobileDashboardScreen extends React.Component {
   constructor(props) {
     super(props);
-    let dashboard_options = props.route.params;
-    console.log(dashboard_options);
-    let labels = Globals.TEST_LABELS.slice(-50);
-    let data = Globals.TEST_DATA.slice(-50);
-    let data2 = Globals.TEST_DATA_2.slice(-50);
+    let devices_mapping = {
+      A836b19g7: 1,
+      Cc83h2k5n: 2,
+      Ejs2354nn: 3,
+    };
+    let item = props.route.params.item;
+    let dd = [];
+    let DATA = require('../../web/data/UserData.json');
+    let UserDevices = require('../../web/data/UserDevices.json');
+    let device = UserDevices.devices.find(
+      userDevice => devices_mapping[item.deviceID] == userDevice.deviceID,
+    );
+
+    let sensor_data = device.sensors.map(sensor =>
+      DATA.sensor_data.find(sd => sd.sensorID == sensor.sensorID),
+    );
+    dd = sensor_data.map(sensorData => {
+      let data = sensorData.data.map(sd => sd.value).slice(-100);
+      let times = sensorData.data.map(sd => sd.time).slice(-100);
+      return {
+        __id: sensorData.sensorID,
+        x: times,
+        y: data,
+        name: device.deviceName + '-' + sensorData.type,
+        mode: 'markers',
+        type: 'scattergl',
+        dataType: sensorData.type,
+      };
+    });
+    let scaled_data = dd.map(item => {
+      let max = Math.max(...item.y);
+      let min = Math.min(...item.y);
+      let scaledY = item.y.map(Y => ((Y - min) / (max - min)).toFixed(2) * 100);
+      min = min.toFixed(2);
+      max = max.toFixed(2);
+      max = max > 0 ? max : '(' + max + ')';
+      let hovertemplate = '<i>%{x}</i>: <b>%{text:.2f}</b>';
+
+      return {
+        ...item,
+        y: scaledY,
+        hovertemplate: hovertemplate,
+        text: item.y,
+        name: item.name + ' (' + min + ' - ' + max + ')',
+      };
+    });
     this.state = {
       props: props,
-      data: {
-        __id: '1',
-        x: labels,
-        y: data,
-        mode: 'lines+markers',
-        line: {shape: 'spline'},
-        type: 'scatter',
-      },
-      data2: {
-        __id: '2',
-        x: labels,
-        y: data2,
-        yaxis: 'y2',
-        mode: 'markers',
-        type: 'scatter',
-      },
+      dashboard_data: scaled_data,
       layout: {
-        title: 'Default',
+        title: device.deviceName,
         autozise: true,
         font: {size: 18},
-        showlegend: false,
-        xaxis: {rangeslider: {}},
-        yaxis: {title: 'yaxis title'},
-        yaxis2: {
-          title: 'yaxis2 title',
-          // titlefont: {color: 'rgb(148, 103, 189)'},
-          tickfont: {color: 'rgb(148, 103, 189)'},
-          overlaying: 'y',
-          side: 'right',
-        },
+        showlegend: true,
+
+        hovermode: 'x unified',
+        legend: {orientation: 'h', y: -0.2},
       },
     };
   }
@@ -64,7 +84,7 @@ export default class DefaultMobileDashboardScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Plotly
-          data={[this.state.data, this.state.data2]}
+          data={this.state.dashboard_data}
           layout={this.state.layout}
           style={styles.chart}
           update={this.update}
