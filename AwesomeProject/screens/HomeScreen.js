@@ -38,12 +38,12 @@ const HomeScreen = props => {
           props.navigation.navigate('DevicesCsv');
         }}
       />
-      <AppButton
+      {/* <AppButton
         title="Dashboards"
         onPress={() => {
           props.navigation.navigate('Dashboards');
         }}
-      />
+      /> */}
     </View>
   );
 };

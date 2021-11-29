@@ -3,11 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {useTheme} from '@react-navigation/native';
 import DrawerHeader from '../components/Drawer_header';
-import DefaultDashboardScreen from '../screens/Dashboards/DefaultDashboardScreen';
-import LightDashboardScreen from '../screens/Dashboards/LightDashboardScreen';
-import MoistureDashboardScreen from '../screens/Dashboards/MoistureDashboardScreen';
-import TemperatureDashboardScreen from '../screens/Dashboards/TemperatureDashboardScreen';
-import TemperatureMoistureDashboardScreen from '../screens/Dashboards/TemperatureMoistureDashboardScreen';
+
 import DashboardScreen from '../screens/Dashboards';
 
 const DashboardStack = createStackNavigator();
@@ -41,7 +37,7 @@ const DashboardStackNavigator = props => {
           ),
         }}
       />
-      <DashboardStack.Screen
+      {/* <DashboardStack.Screen
         name="DefaultDashboard"
         component={DefaultDashboardScreen}
       />
@@ -60,7 +56,7 @@ const DashboardStackNavigator = props => {
       <DashboardStack.Screen
         name="TemperatureMoistureDashboard"
         component={TemperatureMoistureDashboardScreen}
-      />
+      /> */}
     </DashboardStack.Navigator>
   );
 };
