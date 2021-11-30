@@ -83,7 +83,7 @@ const DevicePanelScreen = props => {
                   _hide_modal();
                   _delete_device_data();
                   props.route.params.onGoBack(props.route.params.device);
-                  props.navigation.goBack();
+                  props.navigation.pop();
                 }}
               />
               <SecondButton

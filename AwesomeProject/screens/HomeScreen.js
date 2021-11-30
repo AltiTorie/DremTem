@@ -14,8 +14,8 @@ const HomeScreen = props => {
       <View>
         <AppTitle title="HOME" />
       </View>
-      <AppButton
-        title="Devices Panel"
+      {/* <AppButton
+        title="Devices"
         onPress={() => {
           props.navigation.navigate('Devices');
         }}
@@ -37,7 +37,7 @@ const HomeScreen = props => {
         onPress={() => {
           props.navigation.navigate('DevicesCsv');
         }}
-      />
+      /> */}
       {/* <AppButton
         title="Dashboards"
         onPress={() => {

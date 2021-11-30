@@ -1,11 +1,7 @@
-import React, {useState} from 'react';
-import AppButton from '../../components/Button_main';
-import SelectDropdown from 'react-native-select-dropdown';
-import {TextInput, View, StyleSheet, ToastAndroid, Text} from 'react-native';
-import SecondButton from '../../components/Button_second';
-import DrawerHeader from '../../components/Drawer_header';
 import {useTheme} from '@react-navigation/native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TextInput, ToastAndroid, View} from 'react-native';
+import AppButton from '../../components/Button_main';
 
 const DeviceAdditionScreen = props => {
   const {colors} = useTheme();
@@ -61,6 +57,7 @@ const DeviceAdditionScreen = props => {
           title="Add this device to system"
           onPress={() => {
             addDeviceToSystem();
+            props.navigation.pop();
           }}></AppButton>
       </View>
     </View>
