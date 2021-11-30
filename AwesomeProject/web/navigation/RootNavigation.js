@@ -129,19 +129,6 @@ const RootWebStackNavigator = () => {
             <RootStackWeb.Screen name="Home" component={HomeScreen} />
             <RootStackWeb.Screen name="LogIn" component={LogInScreen} />
             <RootStackWeb.Screen name="SignUp" component={SignUpScreen} />
-            {/* <RootStackWeb.Screen
-                name="Dashboards"
-                component={DashboardsWebScreen}
-              />
-              <RootStackWeb.Screen
-                name="DefaultDashboard"
-                component={DefaultDashboardScreen}
-              />
-              <RootStackWeb.Screen
-                name="DevicesPanel"
-                component={DevicesPanelScreen}
-              />
-              <RootStackWeb.Screen name="Device" component={DevicePanelScreen} /> */}
           </RootStackWeb.Navigator>
         )}
       </NavigationContainer>

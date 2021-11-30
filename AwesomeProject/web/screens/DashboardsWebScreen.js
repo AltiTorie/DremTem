@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-
-import {Avatar} from 'react-native-paper';
-import SideNavbar from '../components/SideNavbar';
 import AppButton from '../components/Button_main';
 import DashboardForm from '../components/Dashboards/DashboardForm';
 import ChartTypeConnections from '../components/DefinedCharts/ChartTypeConnections';
 import DefaultDashboardComponent from '../components/DefinedCharts/DefaultDashboardComponent';
 import HorizontalScroll from '../components/HorizontalScroll';
+
 export default class DashboardsWebScreen extends Component {
   constructor(props) {
     super(props);
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
   },
   main: {
     backgroundColor: 'white',
-    // alignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     // marginTop: 50,
     margin: 50,

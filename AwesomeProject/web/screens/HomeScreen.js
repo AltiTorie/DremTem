@@ -1,9 +1,7 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {Avatar} from 'react-native-paper';
 import Navbar from '../components/Navbar';
-import AppLink from '../components/NavbarLink';
-import ProductsScreen from './ProductsScreen';
 
 const HomeScreen = props => {
   return (

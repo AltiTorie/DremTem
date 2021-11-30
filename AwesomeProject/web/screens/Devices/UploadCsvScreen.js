@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Modal} from 'react-native';
-import Navbar from '../../components/Navbar';
 import Dropzone from 'react-dropzone';
-import ScreenTitle from '../../components/ScreenTitle';
+import {Modal, StyleSheet, Text, View} from 'react-native';
+import {FlatList} from 'react-native-gesture-handler';
+import AccentButton from '../../components/Button_accent';
+import AcceptedButton from '../../components/Button_accept';
 import AppButton from '../../components/Button_main';
 import SecondButton from '../../components/Button_second';
-import {FlatList} from 'react-native-gesture-handler';
+import ScreenTitle from '../../components/ScreenTitle';
 
 const UploadCsvScreen = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -87,21 +88,21 @@ const UploadCsvScreen = () => {
         <View
           style={{
             justifyContent: 'center',
-            // alignItems: 'center',
+            alignItems: 'center',
           }}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>
               {'This will upload all selected files. Proceed?'}
             </Text>
-            <AppButton
+            <AcceptedButton
               title="Yes, upload data"
               onPress={() => {
                 _hide_modal();
                 _upload_files();
               }}
             />
-            <SecondButton
-              title="No"
+            <AccentButton
+              title="Cancel"
               onPress={() => {
                 _hide_modal();
               }}
@@ -132,11 +133,11 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 200,
-    marginLeft: 280,
+    marginLeft: '13%',
     justifyContent: 'center',
     backgroundColor: 'white',
     borderRadius: 10,
-    // padding: 35,
+    padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -146,13 +147,12 @@ const styles = StyleSheet.create({
     height: '15vw',
     width: '35vw',
     shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowRadius: 20,
   },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-    fontSize: '1vw',
+    fontSize: '1.5vw',
   },
   bottom: {
     position: 'absolute',

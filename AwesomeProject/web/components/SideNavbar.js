@@ -1,12 +1,9 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Avatar} from 'react-native-paper';
-import AppLink from './NavbarLink';
 import {AuthContext} from './context';
+import AppLink from './NavbarLink';
 import SideButton from './Sidebar_button';
-import AppButton from './Button_main';
-import SecondButton from './Button_second';
-import {Danger, Home, Logout, Setting, User} from 'react-native-iconly';
 
 const SideNavbar = () => {
   const {signOut} = React.useContext(AuthContext);
@@ -21,10 +18,10 @@ const SideNavbar = () => {
           paddingLeft={10}
           style={styles.logo}
         />
-        <AppLink title="Home" screen="Main" />
-        <AppLink title="Dashboards" screen="Dashboards" />
-        <AppLink title="Devices Panel" screen="DevicesPanel" />
-        <AppLink title="UploadCsv" screen="UploadCsv" />
+        <SideButton title="Home" screen="Main" />
+        <SideButton title="Dashboards" screen="Dashboards" />
+        <SideButton title="Devices" screen="DevicesPanel" />
+        <SideButton title="Upload CSV" screen="UploadCsv" />
       </View>
 
       <View style={styles.navRight}>
@@ -45,8 +42,9 @@ const styles = StyleSheet.create({
     position: 'fixed',
     backgroundColor: '#FFC163',
     height: '100vh',
-    width: 280,
+    width: '13%',
     alignItems: 'center',
+    alignSelf: 'stretch',
     justifyContent: 'space-between',
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
@@ -59,16 +57,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
   },
   logo: {
-    // margin: 13,
+    marginVertical: 40,
   },
   navLeft: {
     display: 'flex',
     justifyContent: 'flex-start',
-    // marginVertical: 6,
   },
   navRight: {
     display: 'flex',
     justifyContent: 'flex-end',
+    marginBottom: 30,
   },
 });
 

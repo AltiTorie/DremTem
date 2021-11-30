@@ -15,9 +15,6 @@ const Navbar = () => (
         style={styles.logo}
       />
       <AppLink title="Home" screen="Home" />
-      {/* <AppLink title="Dashboards" screen="Dashboards" />
-      <AppLink title="Devices Panel" screen="DevicesPanel" />
-      <AppLink title="Upload Csv" screen="UploadCsv" />  */}
     </View>
 
     <View style={styles.navRight}>
@@ -31,7 +28,7 @@ const styles = StyleSheet.create({
   main: {
     backgroundColor: '#FFC163',
     width: '100%',
-    height: 70,
+    height: 71,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
