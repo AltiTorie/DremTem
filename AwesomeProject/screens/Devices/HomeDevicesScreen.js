@@ -1,20 +1,18 @@
 import React from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
-import AppButton from '../components/Button_main';
-import AppTitle from '../components/Title';
-import DrawerHeader from '../components/Drawer_header';
+import AppButton from '../../components/Button_main';
+import AppTitle from '../../components/Title';
+import DrawerHeader from '../../components/Drawer_header';
+import AddDeviceStackNavigator from '../../navigation/AddDeviceStackNavigator';
 
-const HomeScreen = props => {
+const HomeDevicesScreen = props => {
   return (
     <View style={styles.main}>
       <DrawerHeader
-        screen="Home"
+        screen="Devices"
         onPress={() => props.navigation.openDrawer()}
       />
-      <View>
-        <AppTitle title="HOME" />
-      </View>
-      {/* <AppButton
+      <AppButton
         title="Devices"
         onPress={() => {
           props.navigation.navigate('Devices');
@@ -23,7 +21,9 @@ const HomeScreen = props => {
       <AppButton
         title="Add device"
         onPress={() => {
-          props.navigation.navigate('AddDevice');
+          props.navigation.navigate('AddDeviceStackNavigator', {
+            screen: 'AddDevice',
+          });
         }}
       />
       <AppButton
@@ -37,13 +37,13 @@ const HomeScreen = props => {
         onPress={() => {
           props.navigation.navigate('DevicesCsv');
         }}
-      /> */}
-      {/* <AppButton
+      />
+      <AppButton
         title="Dashboards"
         onPress={() => {
           props.navigation.navigate('Dashboards');
         }}
-      /> */}
+      />
     </View>
   );
 };
@@ -63,4 +63,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HomeDevicesScreen;
