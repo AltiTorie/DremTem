@@ -211,7 +211,7 @@ export default class AddDeviceScreen extends Component {
           this.state.props.navigation.navigate('DeviceAddition', {
             deviceConfig: deviceConfig,
             sensorsConfig: sensorsConfig,
-            bt: this,
+            // bt: this,
           });
         } else {
           // sensor csv

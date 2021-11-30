@@ -16,7 +16,7 @@ const DevicePanelScreen = props => {
           onPress: () => {
             console.log('Yes');
             props.route.params.onGoBack();
-            props.navigation.goBack();
+            props.navigation.pop();
           },
         },
         {

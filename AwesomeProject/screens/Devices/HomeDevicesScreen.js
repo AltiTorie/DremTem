@@ -1,47 +1,32 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import AppButton from '../../components/Button_main';
-import AppTitle from '../../components/Title';
-import DrawerHeader from '../../components/Drawer_header';
-import AddDeviceStackNavigator from '../../navigation/AddDeviceStackNavigator';
 
 const HomeDevicesScreen = props => {
   return (
     <View style={styles.main}>
-      <DrawerHeader
-        screen="Devices"
-        onPress={() => props.navigation.openDrawer()}
-      />
       <AppButton
         title="Devices"
         onPress={() => {
-          props.navigation.navigate('Devices');
+          props.navigation.push('DevicesPanel');
         }}
       />
       <AppButton
         title="Add device"
         onPress={() => {
-          props.navigation.navigate('AddDeviceStackNavigator', {
-            screen: 'AddDevice',
-          });
+          props.navigation.push('AddDevice');
         }}
       />
       <AppButton
         title="Configure devices"
         onPress={() => {
-          props.navigation.navigate('ConfigureDevices');
+          props.navigation.push('ConfigureDevices');
         }}
       />
       <AppButton
         title="Devices Csv"
         onPress={() => {
-          props.navigation.navigate('DevicesCsv');
-        }}
-      />
-      <AppButton
-        title="Dashboards"
-        onPress={() => {
-          props.navigation.navigate('Dashboards');
+          props.navigation.push('DevicesCsv');
         }}
       />
     </View>

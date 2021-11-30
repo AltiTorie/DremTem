@@ -2,27 +2,20 @@ import {useTheme} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import DrawerHeader from '../components/Drawer_header';
-import AddDeviceParentScreen from '../screens/Devices/AddDeviceParent';
-import ConfigureDevicesParentScreen from '../screens/Devices/ConfigureDeviceParent';
-import DeviceAdditionScreen from '../screens/Devices/DeviceAdditionScreen';
-import DeviceConfigScreen from '../screens/Devices/DeviceConfigScreen';
-import DevicePanelScreen from '../screens/Devices/DevicePanelScreen';
 import DevicesCsv from '../screens/Devices/DevicesCsvScreen';
-import DevicesPanel from '../screens/Devices/DevicesPanelScreen';
+import HomeDevicesScreen from '../screens/Devices/HomeDevicesScreen';
 import DefaultMobileDashboardScreen from '../screens/MobileDashboards/DefaultMobileDashboardScreen';
 import OfflineDataDashboardScreen from '../screens/MobileDashboards/OfflineDataDashboardScreen';
 import AddDeviceStackNavigator from './AddDeviceStackNavigator';
-import HomeDevicesScreen from '../screens/Devices/HomeDevicesScreen';
+import ConfigureDevicesStackNavigator from './ConfigureDevicesStackNavigator';
+import DevicesStackNavigator from './DevicesStackNavigator';
 
-const DeviceStack = createStackNavigator();
+const HomeDeviceStack = createStackNavigator();
 
-const ConfigureDeviceStack = createStackNavigator();
-const CSVDeviceStack = createStackNavigator();
-
-const DeviceStackNavigator = props => {
+const HomeDeviceStackNavigator = props => {
   const {colors} = useTheme();
   return (
-    <DeviceStack.Navigator
+    <HomeDeviceStack.Navigator
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.background,
@@ -37,7 +30,7 @@ const DeviceStackNavigator = props => {
         },
         headerTitleAlign: 'center',
       }}>
-      <DeviceStack.Screen
+      <HomeDeviceStack.Screen
         name="HomeDevices"
         component={HomeDevicesScreen}
         options={{
@@ -48,37 +41,29 @@ const DeviceStackNavigator = props => {
           ),
         }}
       />
-      <DeviceStack.Screen
+      <HomeDeviceStack.Screen
         name="DevicesPanel"
-        component={DevicesPanel}
-        options={{
-          headerLeft: () => (
-            <DrawerHeader
-              onPress={() => props.navigation.openDrawer()}
-              screen=""></DrawerHeader>
-          ),
-        }}
+        component={DevicesStackNavigator}
       />
-      <DeviceStack.Screen name="Device" component={DevicePanelScreen} />
-      <DeviceStack.Screen
+      <HomeDeviceStack.Screen
+        name="AddDevice"
+        component={AddDeviceStackNavigator}
+      />
+      <HomeDeviceStack.Screen
         name="ConfigureDevices"
-        component={ConfigureDevicesParentScreen}
+        component={ConfigureDevicesStackNavigator}
       />
-      {/* <DeviceStack.Screen */}
-      {/* name="DeviceAddition" component={DeviceAdditionScreen}
-      /> */}
-      <DeviceStack.Screen name="DeviceConfig" component={DeviceConfigScreen} />
-      <DeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />
-      <DeviceStack.Screen
+      <HomeDeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />
+      <HomeDeviceStack.Screen
         name="DefaultMobileDashboard"
         component={DefaultMobileDashboardScreen}
       />
-      <DeviceStack.Screen
+      <HomeDeviceStack.Screen
         name="OfflineDataDashboardScreen"
         component={OfflineDataDashboardScreen}
       />
-    </DeviceStack.Navigator>
+    </HomeDeviceStack.Navigator>
   );
 };
 
-export default DeviceStackNavigator;
+export default HomeDeviceStackNavigator;

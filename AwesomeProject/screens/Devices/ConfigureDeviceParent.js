@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
 import {useTheme} from '@react-navigation/native';
+import React from 'react';
 import ConfigureDevicesScreen from './ConfigureDevicesScreen';
 
 const ConfigureDevicesParentScreen = props => {
