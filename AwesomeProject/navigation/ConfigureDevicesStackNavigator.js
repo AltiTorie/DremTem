@@ -9,7 +9,7 @@ const ConfigureDevicesStackNavigator = () => {
   return (
     <ConfigureDevicesStack.Navigator screenOptions={{headerShown: false}}>
       <ConfigureDevicesStack.Screen
-        name="ConfigureDevices"
+        name="Manage devices"
         component={ConfigureDevicesParentScreen}
       />
 

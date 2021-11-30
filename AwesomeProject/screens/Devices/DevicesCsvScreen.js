@@ -63,6 +63,7 @@ export default class DevicesCsv extends React.Component {
                   sensor: splitted[1][2],
                   labels: tss,
                   data: readings,
+                  header: splitted[1][1] + '-' + splitted[1][2],
                 };
                 this.props.navigation.navigate('OfflineDataDashboardScreen', {
                   data: data,

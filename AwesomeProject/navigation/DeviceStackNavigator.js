@@ -31,7 +31,7 @@ const HomeDeviceStackNavigator = props => {
         headerTitleAlign: 'center',
       }}>
       <HomeDeviceStack.Screen
-        name="HomeDevices"
+        name="Home devices"
         component={HomeDevicesScreen}
         options={{
           headerLeft: () => (
@@ -42,18 +42,18 @@ const HomeDeviceStackNavigator = props => {
         }}
       />
       <HomeDeviceStack.Screen
-        name="DevicesPanel"
+        name="Devices panel"
         component={DevicesStackNavigator}
       />
       <HomeDeviceStack.Screen
-        name="AddDevice"
+        name="Add device"
         component={AddDeviceStackNavigator}
       />
       <HomeDeviceStack.Screen
-        name="ConfigureDevices"
+        name="Manage devices"
         component={ConfigureDevicesStackNavigator}
       />
-      <HomeDeviceStack.Screen name="DevicesCsv" component={DevicesCsv} />
+      <HomeDeviceStack.Screen name="Devices CSV" component={DevicesCsv} />
       <HomeDeviceStack.Screen
         name="DefaultMobileDashboard"
         component={DefaultMobileDashboardScreen}

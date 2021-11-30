@@ -8,25 +8,25 @@ const HomeDevicesScreen = props => {
       <AppButton
         title="Devices"
         onPress={() => {
-          props.navigation.push('DevicesPanel');
+          props.navigation.push('Devices panel');
         }}
       />
       <AppButton
         title="Add device"
         onPress={() => {
-          props.navigation.push('AddDevice');
+          props.navigation.push('Add device');
         }}
       />
       <AppButton
-        title="Configure devices"
+        title="Manage devices"
         onPress={() => {
-          props.navigation.push('ConfigureDevices');
+          props.navigation.push('Manage devices');
         }}
       />
       <AppButton
         title="Devices Csv"
         onPress={() => {
-          props.navigation.push('DevicesCsv');
+          props.navigation.push('Devices CSV');
         }}
       />
     </View>

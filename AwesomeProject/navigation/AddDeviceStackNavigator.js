@@ -9,7 +9,7 @@ const AddDeviceStackNavigator = () => {
   return (
     <AddDeviceStack.Navigator screenOptions={{headerShown: false}}>
       <AddDeviceStack.Screen
-        name="AddDevice"
+        name="Add device"
         component={AddDeviceParentScreen}
       />
 
