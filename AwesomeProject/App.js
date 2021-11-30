@@ -8,8 +8,11 @@ import {
   FlatList,
   TouchableOpacity,
   ToastAndroid,
+  LogBox,
 } from 'react-native';
 import AppStackNavigator from './navigation/AppNavigator';
+
+LogBox.ignoreAllLogs(); // Ignore all log notifications
 
 export default function App() {
   return <AppStackNavigator />;
