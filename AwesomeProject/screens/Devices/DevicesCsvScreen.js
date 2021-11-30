@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   bottom: {

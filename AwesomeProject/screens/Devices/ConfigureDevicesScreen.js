@@ -11,12 +11,9 @@ import {
   View,
 } from 'react-native';
 import BluetoothSerial from 'react-native-bluetooth-serial';
-import {NavigationContainer, useTheme} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import AppTitle from '../../components/Title';
 import AppButton from '../../components/Button_main';
-import DrawerHeader from '../../components/Drawer_header';
 import RNFetchBlob from 'rn-fetch-blob';
+import moment from 'moment';
 var _ = require('lodash');
 
 export default class ConfigureDevicesScreen extends Component {
@@ -195,6 +192,7 @@ export default class ConfigureDevicesScreen extends Component {
         },
       );
       BluetoothSerial.on('read', data => {
+        console.log('123');
         let dataFromDevice = data.data;
         dataFromDevice = dataFromDevice.split('START')[1];
         dataFromDevice = dataFromDevice.split('STOP')[0];
@@ -220,12 +218,15 @@ export default class ConfigureDevicesScreen extends Component {
             ToastAndroid.show(`Empty csv`, ToastAndroid.SHORT);
           } else {
             console.log(dataFromDevice);
-
-            ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
-            const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/data.csv`;
+            let csvName = dataFromDevice.split('#')[0];
+            csvName = csvName.split('.')[0];
+            csvName = `${csvName}_${moment()}.csv`;
+            let csvContent = dataFromDevice.split('#')[1];
+            ToastAndroid.show(`Downloaded csv: ${csvName}`, ToastAndroid.SHORT);
+            const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/${csvName}`;
             console.log('pathToWrite', pathToWrite);
             RNFetchBlob.fs
-              .writeFile(pathToWrite, dataFromDevice, 'utf8')
+              .writeFile(pathToWrite, csvContent, 'utf8')
               .then(() => {
                 console.log(`wrote file ${pathToWrite}`);
               })
@@ -236,13 +237,13 @@ export default class ConfigureDevicesScreen extends Component {
     });
   }
 
-  getSensorCsv = async sensorID => {
+  getSensorCsv = async (deviceID, sensorID) => {
     try {
       const granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        BluetoothSerial.write(sensorID + '.csv#')
+        BluetoothSerial.write(deviceID + '_' + sensorID + '.csv#')
           .then(res => {
             console.log(res);
             console.log('Successfuly wrote to device');
