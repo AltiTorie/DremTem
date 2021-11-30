@@ -23,7 +23,7 @@ export default class OfflineDataDashboardScreen extends React.Component {
           rangeslider: {
             borderwidth: 3,
             bordercolor: '#5080F0',
-            thickness: 0.1,
+            thickness: 0.07,
             yaxis: {rangemode: 'auto'},
           },
         },

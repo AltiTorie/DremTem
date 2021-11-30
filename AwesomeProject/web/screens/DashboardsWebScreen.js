@@ -104,6 +104,7 @@ export default class DashboardsWebScreen extends Component {
           mode: 'markers',
           type: 'scattergl',
           dataType: sensorData.type,
+          dataUnit: sensorData.unit,
         };
       });
     }

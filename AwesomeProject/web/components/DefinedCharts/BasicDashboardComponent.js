@@ -2,14 +2,41 @@ import React from 'react';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import Plot from 'react-plotly.js';
 
-export default class MoistureDashboardComponent extends React.Component {
+export default class BasicDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
+    var button_layer_2_height = 1.2;
+    var updatemenus = [
+      {
+        buttons: [
+          {
+            args: [{mode: 'markers'}],
+            label: 'Markers',
+            method: 'update',
+          },
+          {
+            args: [{mode: 'lines+markers'}],
+            label: 'Markers + lines',
+            method: 'update',
+          },
+        ],
+        direction: 'left',
+        pad: {r: 10, t: 10},
+        showactive: true,
+        type: 'buttons',
+        x: 0.1,
+        xanchor: 'left',
+        y: button_layer_2_height,
+        yanchor: 'top',
+      },
+    ];
     this.state = {
       props: props,
       dashboard_data: props.data,
       layout: {
         title: props.name,
+        updatemenus: updatemenus,
+
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -21,10 +48,10 @@ export default class MoistureDashboardComponent extends React.Component {
           },
         },
         yaxis: {
-          ticksuffix: '%',
+          ticksuffix: props.data[0].dataUnit,
         },
         hovermode: 'x unified',
-        width: Dimensions.get('window').width * 0.95,
+        width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').height * 0.85,
       },
     };

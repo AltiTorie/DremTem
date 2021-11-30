@@ -22,11 +22,38 @@ export default class DefaultDashboardComponent extends React.Component {
         name: item.name + ' (' + min + ' - ' + max + ')',
       };
     });
+    var button_layer_2_height = 1.2;
+    var updatemenus = [
+      {
+        buttons: [
+          {
+            args: [{mode: 'markers'}],
+            label: 'Markers',
+            method: 'update',
+          },
+          {
+            args: [{mode: 'lines+markers'}],
+            label: 'Markers + lines',
+            method: 'update',
+          },
+        ],
+        direction: 'left',
+        pad: {r: 10, t: 10},
+        showactive: true,
+        type: 'buttons',
+        x: 0.1,
+        xanchor: 'left',
+        y: button_layer_2_height,
+        yanchor: 'top',
+      },
+    ];
     this.state = {
       props: props,
       dashboard_data: scaled_data,
       layout: {
         title: props.name,
+        updatemenus: updatemenus,
+
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -39,7 +66,7 @@ export default class DefaultDashboardComponent extends React.Component {
         },
         hovermode: 'x unified',
         legend: {orientation: 'h', y: -0.2},
-        width: Dimensions.get('window').width * 0.95,
+        width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').height * 0.85,
       },
     };
