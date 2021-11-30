@@ -37,14 +37,14 @@ const SideWebStackNavigator = () => {
     <View style={{flexDirection: 'row'}}>
       <View
         style={{
-          flex: 1,
+          flex: 3,
           zIndex: 100,
           height: '100vh',
-          // alignItems: 'center',
+          width: '100%',
         }}>
         <SideNavbar />
       </View>
-      <View style={{flex: 6}}>
+      <View style={{flex: 20}}>
         <SideStackWeb.Navigator screenOptions={{headerShown: false}}>
           <SideStackWeb.Screen name="Main" component={UsersMainScreen} />
           <SideStackWeb.Screen

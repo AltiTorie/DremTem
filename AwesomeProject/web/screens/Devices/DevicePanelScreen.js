@@ -4,7 +4,9 @@ import SideNavbar from '../../components/SideNavbar';
 
 import AppButton from '../../components/Button_main';
 import SecondButton from '../../components/Button_second';
+import AccentButton from '../../components/Button_accent';
 import {useTheme} from '@react-navigation/native';
+import DeclineButton from '../../components/Button_decline';
 
 const DevicePanelScreen = props => {
   const {colors} = useTheme();
@@ -26,11 +28,12 @@ const DevicePanelScreen = props => {
   return (
     <View
       style={{
-        width: '100%',
+        // width: '100%',
+        flex: 1,
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.background,
+        backgroundColor: '#fff',
       }}>
       <View style={{alignItems: 'center', paddingTop: 80}}>
         <Text style={{fontSize: 40, color: colors.text}}>
@@ -77,7 +80,7 @@ const DevicePanelScreen = props => {
               <Text style={styles.modalText}>
                 {'Are your sure?\nThis will delete all your device data.'}
               </Text>
-              <AppButton
+              <DeclineButton
                 title="Yes, delete device data"
                 onPress={() => {
                   _hide_modal();
@@ -86,8 +89,8 @@ const DevicePanelScreen = props => {
                   props.navigation.pop();
                 }}
               />
-              <SecondButton
-                title="No"
+              <AccentButton
+                title="Cancel"
                 onPress={() => {
                   _hide_modal();
                 }}
@@ -114,6 +117,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 200,
+    marginLeft: '13%',
     justifyContent: 'center',
     backgroundColor: 'white',
     borderRadius: 10,
@@ -124,16 +128,15 @@ const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    height: '15vw',
+    height: '16vw',
     width: '35vw',
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
   },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-    fontSize: '1vw',
+    fontSize: '1.5vw',
   },
 });
 

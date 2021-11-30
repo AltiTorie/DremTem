@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
     // borderRadius: 22,
     // paddingVertical: 10,
     // paddingHorizontal: 12,
-    width: 275,
+    width: '100%',
     height: 50,
-    margin: 10,
+    // margin: 10,
     // shadowColor: 'grey',
     // shadowOffset: {
     //   width: 0,
@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOpacity: 1.0,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   appButtonText: {
     fontSize: 18,
