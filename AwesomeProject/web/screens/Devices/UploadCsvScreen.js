@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-    fontSize: '1vw',
+    fontSize: '1.5vw',
   },
   bottom: {
     position: 'absolute',

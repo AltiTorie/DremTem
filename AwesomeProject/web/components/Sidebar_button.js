@@ -19,9 +19,8 @@ const styles = StyleSheet.create({
   appButtonContainer: {
     backgroundColor: '#FFC163',
     width: '100%',
-    height: 50,
-    // alignItems: 'center',
     justifyContent: 'center',
+    marginVertical: 20,
   },
   appButtonText: {
     fontSize: 20,

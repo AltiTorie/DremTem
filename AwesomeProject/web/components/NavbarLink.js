@@ -16,13 +16,14 @@ const styles = StyleSheet.create({
   appButtonContainer: {
     backgroundColor: '#FFC163',
     width: '100%',
-    marginBottom: 44,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   appButtonText: {
     fontSize: 20,
     color: 'black',
     fontWeight: '500',
+    alignItems: 'center',
     textAlign: 'left',
   },
 });

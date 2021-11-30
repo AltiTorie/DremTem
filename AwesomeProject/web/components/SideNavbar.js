@@ -18,10 +18,10 @@ const SideNavbar = () => {
           paddingLeft={10}
           style={styles.logo}
         />
-        <AppLink title="Home" screen="Main" />
-        <AppLink title="Dashboards" screen="Dashboards" />
-        <AppLink title="Devices" screen="DevicesPanel" />
-        <AppLink title="Upload CSV" screen="UploadCsv" />
+        <SideButton title="Home" screen="Main" />
+        <SideButton title="Dashboards" screen="Dashboards" />
+        <SideButton title="Devices" screen="DevicesPanel" />
+        <SideButton title="Upload CSV" screen="UploadCsv" />
       </View>
 
       <View style={styles.navRight}>
