@@ -28,7 +28,7 @@ export default class DefaultMobileDashboardScreen extends React.Component {
     let device = UserDevices.devices.find(
       userDevice => devices_mapping[item.deviceID] == userDevice.deviceID,
     );
-
+    props.navigation.setOptions({title: 'Last data from ' + device.deviceName});
     let sensor_data = device.sensors.map(sensor =>
       DATA.sensor_data.find(sd => sd.sensorID == sensor.sensorID),
     );

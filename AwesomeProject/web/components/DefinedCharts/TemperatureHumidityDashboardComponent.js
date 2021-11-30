@@ -12,6 +12,32 @@ export default class TemperatureHumidityDashboardComponent extends React.Compone
         yaxis: data.dataType == 'humid' ? 'y2' : 'y',
       };
     });
+    var button_layer_2_height = 1.2;
+    var updatemenus = [
+      {
+        buttons: [
+          {
+            args: [{mode: 'markers'}],
+            label: 'Markers',
+            method: 'update',
+          },
+          {
+            args: [{mode: 'lines+markers'}],
+            label: 'Markers + lines',
+            method: 'update',
+          },
+        ],
+        direction: 'left',
+        pad: {r: 10, t: 10},
+        showactive: true,
+        type: 'buttons',
+        x: 0.1,
+        xanchor: 'left',
+        y: button_layer_2_height,
+        yanchor: 'top',
+      },
+    ];
+
     this.state = {
       props: props,
       dashboard_data: withAxisData,
@@ -19,6 +45,7 @@ export default class TemperatureHumidityDashboardComponent extends React.Compone
         title: props.name,
         autozise: true,
         font: {size: 18},
+        updatemenus: updatemenus,
         xaxis: {
           rangeslider: {
             borderwidth: 3,
@@ -38,7 +65,7 @@ export default class TemperatureHumidityDashboardComponent extends React.Compone
           ticksuffix: '%',
         },
         hovermode: 'x unified',
-        width: Dimensions.get('window').width * 0.95,
+        width: Dimensions.get('window').width * 0.8,
         height: Dimensions.get('window').height * 0.85,
       },
     };

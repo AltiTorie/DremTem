@@ -204,10 +204,8 @@ export default class AddDeviceScreen extends Component {
           let sensorsConfigString = dataFromDevice.split('#')[1];
           deviceConfigString = deviceConfigString.replace(/^\n|\n$/g, '');
           sensorsConfigString = sensorsConfigString.replace(/^\n|\n$/g, '');
-
           let deviceConfig = JSON.parse(deviceConfigString);
           let sensorsConfig = JSON.parse(sensorsConfigString);
-
           this.state.props.navigation.navigate('DeviceAddition', {
             deviceConfig: deviceConfig,
             sensorsConfig: sensorsConfig,
@@ -220,7 +218,6 @@ export default class AddDeviceScreen extends Component {
             ToastAndroid.show(`Empty csv`, ToastAndroid.SHORT);
           } else {
             console.log(dataFromDevice);
-
             ToastAndroid.show(`Downloaded csv`, ToastAndroid.SHORT);
             const pathToWrite = `${RNFetchBlob.fs.dirs.DownloadDir}/dremtemfiles/data.csv`;
             console.log('pathToWrite', pathToWrite);
