@@ -1,8 +1,8 @@
 TouchableOpacity.defaultProps = {activeOpacity: 0.8};
 
-import React from 'react';
-import {View, Button, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {Link} from '@react-navigation/native';
+import React from 'react';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 
 const AppLink = ({screen, title}) => (
   <View style={styles.appButtonContainer}>
@@ -15,21 +15,15 @@ const AppLink = ({screen, title}) => (
 const styles = StyleSheet.create({
   appButtonContainer: {
     backgroundColor: '#FFC163',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    width: 152,
-    height: 53,
-    margin: 10,
-    textAlign: 'center',
+    width: '100%',
+    marginBottom: 44,
     justifyContent: 'center',
   },
   appButtonText: {
-    fontSize: 18,
+    fontSize: 20,
     color: 'black',
     fontWeight: '500',
-    alignItems: 'center',
-    textTransform: 'uppercase',
-    textAlign: 'center',
+    textAlign: 'left',
   },
 });
 

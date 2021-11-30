@@ -1,7 +1,7 @@
 TouchableOpacity.defaultProps = {activeOpacity: 0.8};
 
 import React from 'react';
-import {View, Button, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 const AccentButton = ({onPress, title}) => (
   <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>

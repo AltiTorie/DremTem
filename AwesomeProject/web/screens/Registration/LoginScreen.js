@@ -1,19 +1,18 @@
+import {Link} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Platform,
-  StyleSheet,
   Alert,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import {User, Hide, Show, Lock, TickSquare} from 'react-native-iconly';
-import {Link} from '@react-navigation/native';
+import {Hide, Lock, Show, TickSquare, User} from 'react-native-iconly';
 import AppButton from '../../components/Button_main';
+import {AuthContext} from '../../components/context';
 import Navbar from '../../components/Navbar';
 import Users from '../../model/users';
-import {AuthContext} from '../../components/context';
 
 const LogInScreen = props => {
   const [data, setData] = useState({

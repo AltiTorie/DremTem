@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
-import {Text, View, Modal, StyleSheet} from 'react-native';
-import SideNavbar from '../../components/SideNavbar';
-
-import AppButton from '../../components/Button_main';
-import SecondButton from '../../components/Button_second';
-import AccentButton from '../../components/Button_accent';
 import {useTheme} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {Modal, StyleSheet, Text, View} from 'react-native';
+import AccentButton from '../../components/Button_accent';
 import DeclineButton from '../../components/Button_decline';
+import AppButton from '../../components/Button_main';
 
 const DevicePanelScreen = props => {
   const {colors} = useTheme();
