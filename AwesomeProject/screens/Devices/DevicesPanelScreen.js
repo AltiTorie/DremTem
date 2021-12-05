@@ -10,18 +10,17 @@ import {
 import DrawerHeader from '../../components/Drawer_header';
 
 var mockedData = [
-  {deviceID: 'A836b19g7', name: 'My device 1', online: true},
+  {deviceID: 'A836b19g7', name: 'My device', online: true},
   {deviceID: 'Cc83h2k5n', name: 'Device in forest', online: false},
-  {deviceID: 'Ejs2354nn', name: 'Ejs2354nn', online: true},
-  // {deviceID: 'F234hh23i', name: 'F234hh23i', online: true},
-  // {deviceID: 'Gkk35n46n', name: 'Gkk35n46n', online: true},
-  // {deviceID: 'B83b154hb', name: 'Device in kitchen', online: true},
-  // {deviceID: 'H187345gh', name: 'H187345gh', online: false},
-  // {deviceID: 'I2j2j35hh', name: 'I2j2j35hh', online: false},
-  // {deviceID: 'Jwsehjhrw', name: 'Jwsehjhrw', online: false},
-  // {deviceID: 'D21jh6456', name: 'My favourite device', online: false},
+  {deviceID: 'Ejs2354nn', name: "Kevins' device", online: true},
+  {deviceID: 'F234hh23i', name: 'New device', online: true},
+  {deviceID: 'Gkk35n46n', name: 'Bedroom', online: true},
+  {deviceID: 'B83b154hb', name: 'Device in kitchen', online: true},
+  {deviceID: 'H187345gh', name: 'Garden', online: false},
+  {deviceID: 'I2j2j35hh', name: 'Temperature measuring', online: false},
+  {deviceID: 'Jwsehjhrw', name: 'Living room', online: false},
+  {deviceID: 'D21jh6456', name: 'My favourite device', online: false},
 ];
-
 const formatData = (data, numColumns) => {
   const numberOfFullRows = Math.floor(data.length / numColumns);
 
