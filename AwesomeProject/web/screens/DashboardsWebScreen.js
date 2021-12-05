@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import DeclineButton from '../components/Button_decline';
 import AppButton from '../components/Button_main';
 import DashboardForm from '../components/Dashboards/DashboardForm';
 import ChartTypeConnections from '../components/DefinedCharts/ChartTypeConnections';
 import DefaultDashboardComponent from '../components/DefinedCharts/DefaultDashboardComponent';
 import HorizontalScroll from '../components/HorizontalScroll';
+import AccentButton from '../components/Button_accent';
 
 export default class DashboardsWebScreen extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ export default class DashboardsWebScreen extends Component {
       selected: false,
       numOfColumns: 3,
       modalOpen: false,
+      dashboardDeleteModalOpen: false,
       DashboardComponent: DefaultDashboardComponent,
     };
   }
@@ -139,7 +142,39 @@ export default class DashboardsWebScreen extends Component {
               </View>
             </View>
           </Modal>
-          <View></View>
+          <Modal
+            visible={this.state.dashboardDeleteModalOpen}
+            animationType="slide"
+            transparent={true}>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>
+                  {
+                    'Are you sure?\nThis will delete permanently delete your dashboard'
+                  }
+                </Text>
+                <DeclineButton
+                  title="Yes, delete dashboard"
+                  onPress={() => {
+                    this.setState({
+                      dashboardDeleteModalOpen: false,
+                      buttons: this.state.buttons.filter(
+                        button => button.key !== this.state.selected.key,
+                      ),
+                      selected: false,
+                    });
+                    // TODO: Update API
+                  }}
+                />
+                <AccentButton
+                  title="Cancel"
+                  onPress={() => {
+                    this.setState({dashboardDeleteModalOpen: false});
+                  }}
+                />
+              </View>
+            </View>
+          </Modal>
           <View
             style={{
               ...styles.buttonsContainer,
@@ -157,7 +192,17 @@ export default class DashboardsWebScreen extends Component {
 
         <View style={{alignSelf: 'flex-start', marginLeft: 20}}>
           {this.state.selected ? (
-            <Dashboard data={dd} name={this.state.selected.name}></Dashboard>
+            <View>
+              <Dashboard data={dd} name={this.state.selected.name}></Dashboard>
+              <View style={{justifyContent: 'flex-end'}}>
+                <DeclineButton
+                  title="Delete dashboard"
+                  onPress={() => {
+                    this.setState({dashboardDeleteModalOpen: true});
+                  }}
+                />
+              </View>
+            </View>
           ) : (
             <></>
           )}
