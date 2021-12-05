@@ -43,6 +43,7 @@ export default class DefaultMobileDashboardScreen extends React.Component {
         mode: 'markers',
         type: 'scattergl',
         dataType: sensorData.type,
+        unit: sensorData.unit,
       };
     });
     let scaled_data = dd.map(item => {
@@ -51,8 +52,9 @@ export default class DefaultMobileDashboardScreen extends React.Component {
       let scaledY = item.y.map(Y => ((Y - min) / (max - min)).toFixed(2) * 100);
       min = min.toFixed(2);
       max = max.toFixed(2);
+      let unit = item.unit;
       max = max > 0 ? max : '(' + max + ')';
-      let hovertemplate = '<i>%{x}</i>: <b>%{text:.2f}</b>';
+      let hovertemplate = '%{text:.2f}' + unit + '<extra></extra>';
 
       return {
         ...item,
