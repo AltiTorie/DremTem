@@ -12,8 +12,8 @@ export default class DefaultDashboardComponent extends React.Component {
       min = min.toFixed(2);
       max = max.toFixed(2);
       max = max > 0 ? max : '(' + max + ')';
-      hovertemplate = '<i>%{x}</i>: <b>%{text:.2f}</b>';
-
+      let hovertemplate =
+        '%{data.name}: %{y:.2f}' + item.dataUnit + '<extra></extra>';
       return {
         ...item,
         y: scaledY,
@@ -87,6 +87,7 @@ export default class DefaultDashboardComponent extends React.Component {
             debug
             config={{
               displaylogo: false,
+              editable: true,
               responsive: true,
               autosize: true,
             }}

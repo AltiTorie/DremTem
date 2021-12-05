@@ -10,6 +10,8 @@ export default class TemperatureHumidityDashboardComponent extends React.Compone
       return {
         ...data,
         yaxis: data.dataType == 'humid' ? 'y2' : 'y',
+        hovertemplate:
+          '%{data.name}: %{y:.2f}' + data.dataUnit + '<extra></extra>',
       };
     });
     var button_layer_2_height = 1.2;
@@ -86,6 +88,7 @@ export default class TemperatureHumidityDashboardComponent extends React.Compone
             debug
             config={{
               displaylogo: false,
+              editable: true,
               responsive: true,
               autosize: true,
             }}

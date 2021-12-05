@@ -5,10 +5,13 @@ import Plot from 'react-plotly.js';
 export default class MoistureLightDashboardComponent extends React.Component {
   constructor(props) {
     super(props);
+
     let withAxisData = props.data.map(data => {
       return {
         ...data,
         yaxis: data.dataType == 'light' ? 'y2' : '',
+        hovertemplate:
+          '%{data.name}: %{y:.2f}' + data.dataUnit + '<extra></extra>',
       };
     });
     var button_layer_2_height = 1.2;
@@ -42,7 +45,6 @@ export default class MoistureLightDashboardComponent extends React.Component {
       layout: {
         title: props.name,
         updatemenus: updatemenus,
-
         autozise: true,
         font: {size: 18},
         xaxis: {
@@ -84,6 +86,7 @@ export default class MoistureLightDashboardComponent extends React.Component {
             onLoad={() => console.log('loaded')}
             config={{
               displaylogo: false,
+              editable: true,
               responsive: true,
               autosize: true,
             }}
