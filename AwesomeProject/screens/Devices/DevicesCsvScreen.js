@@ -26,7 +26,7 @@ const formatData = (data, numColumns) => {
   return data;
 };
 
-const numColumns = 2;
+const numColumns = 1;
 
 export default class DevicesCsv extends React.Component {
   constructor(props) {
@@ -51,19 +51,23 @@ export default class DevicesCsv extends React.Component {
                 let splitted = v
                   .split(/(\s+)/)
                   .map(s => s.split(','))
-                  .filter(f => f.length > 2);
+                  .filter(f => f.length > 1);
+                let splitted_name = item.path
+                  .split('/')
+                  .slice(-1)[0]
+                  .split('_');
                 let tss = [];
                 let readings = [];
                 splitted.slice(1).forEach(element => {
                   tss.push(element[0]);
-                  readings.push(element[3]);
+                  readings.push(element[1]);
                 });
                 let data = {
-                  device: splitted[1][1],
-                  sensor: splitted[1][2],
+                  device: splitted_name[0],
+                  sensor: splitted_name[1],
                   labels: tss,
                   data: readings,
-                  header: splitted[1][1] + '-' + splitted[1][2],
+                  header: splitted_name[0] + '-' + splitted_name[1],
                 };
                 this.props.navigation.navigate('OfflineDataDashboardScreen', {
                   data: data,
@@ -163,9 +167,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
+    // flex: 1,
     margin: 8,
-    height: Dimensions.get('window').width / (1.5 * numColumns), // approximate a square
+    height: Dimensions.get('window').width * 0.3,
   },
   itemInvisible: {
     backgroundColor: 'transparent',
@@ -173,7 +177,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: 'bold',
   },
   bottom: {
