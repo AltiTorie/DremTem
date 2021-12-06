@@ -79,6 +79,28 @@ const SignunScreen = props => {
     });
   };
 
+  const signUpAPI = async () => {
+    if (data.email === '') {
+      return;
+    }
+    const response = await fetch(
+      'https://c6140c902ac7.sn.mynetname.net:8081/api/v1/auth/signup',
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          // Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      },
+    );
+    console.log(response.json());
+  };
+
   return (
     <View style={styles.container}>
       {/* <StatusBar barStyle="dark-content" /> */}
@@ -86,7 +108,7 @@ const SignunScreen = props => {
         <Text style={styles.text_header}> Join us! </Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}> Username </Text>
+        <Text style={styles.text_footer}> E-mail </Text>
         <View style={styles.action}>
           <User set="curved" color="#05375a" size={25} />
           <TextInput
@@ -141,7 +163,12 @@ const SignunScreen = props => {
           </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <AppButton title="Sign up" onPress={() => {}} />
+          <AppButton
+            title="Sign up"
+            onPress={() => {
+              signUpAPI();
+            }}
+          />
           <SecondButton
             title="Sign in"
             onPress={() => {
