@@ -10,14 +10,14 @@ const SideNavbar = () => {
   return (
     <View style={styles.main}>
       <View style={styles.navLeft}>
-        <Avatar.Image
+        {/* <Avatar.Image
           source={{
             uri: 'https://www.logoground.com/uploads6/dv6y2020448282020-01-224858473catwithfish.jpg',
           }}
           size={45}
           paddingLeft={10}
           style={styles.logo}
-        />
+        /> */}
         <SideButton title="Home" screen="Main" />
         <SideButton title="Dashboards" screen="Dashboards" />
         <SideButton title="Devices" screen="DevicesPanel" />
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   navLeft: {
     display: 'flex',
     justifyContent: 'flex-start',
+    marginTop: 30,
   },
   navRight: {
     display: 'flex',
