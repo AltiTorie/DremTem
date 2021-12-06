@@ -30,9 +30,16 @@ export default class BasicDashboardComponent extends React.Component {
         yanchor: 'top',
       },
     ];
+    let withHover = props.data.map(data => {
+      return {
+        ...data,
+        hovertemplate:
+          '%{data.name}: %{y:.2f}' + data.dataUnit + '<extra></extra>',
+      };
+    });
     this.state = {
       props: props,
-      dashboard_data: props.data,
+      dashboard_data: withHover,
       layout: {
         title: props.name,
         updatemenus: updatemenus,
@@ -72,6 +79,7 @@ export default class BasicDashboardComponent extends React.Component {
             debug
             config={{
               displaylogo: false,
+              editable: true,
               responsive: true,
               autosize: true,
             }}

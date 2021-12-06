@@ -5,7 +5,7 @@ export default class OfflineDataDashboardScreen extends React.Component {
   constructor(props) {
     super(props);
     let opts = props.route.params.data;
-    props.navigation.setOptions({title: 'Offline sensor data'});
+    props.navigation.setOptions({title: 'Data from csv'});
     this.state = {
       props: props,
       data: {
