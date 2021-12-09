@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,73 +9,152 @@ import {
   StatusBar,
   Alert,
 } from 'react-native';
-import {User, Hide, Show, Lock, Password} from 'react-native-iconly';
+import * as Animatable from 'react-native-animatable';
+import {
+  User,
+  Hide,
+  Show,
+  Lock,
+  Password,
+  TickSquare,
+} from 'react-native-iconly';
 import AppButton from '../../components/Button_main';
 import SecondButton from '../../components/Button_second';
+import {AuthContext} from '../../components/context';
 
-const SignUpScreen = props => {
+import SignUpScreen from './SignupScreen';
+import DrawerNavigator from '../../navigation/DrawerNavigator';
+
+const SignunScreen = props => {
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+    confirm_password: '',
+    chceck_textInputChange: false,
+    secureTextEntry: true,
+    confirm_secureTextEntry: true,
+  });
+
+  const textInputChange = value => {
+    if (value.length > 0) {
+      setData({
+        ...data,
+        email: value,
+        chceck_textInputChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        email: value,
+        chceck_textInputChange: false,
+      });
+    }
+  };
+
+  const handlePasswordChange = value => {
+    setData({
+      ...data,
+      password: value,
+    });
+  };
+
+  const handleConfirmPasswordChange = value => {
+    setData({
+      ...data,
+      confirm_password: value,
+    });
+  };
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry,
+    });
+  };
+
+  const updateConfirmSecureTextEntry = () => {
+    setData({
+      ...data,
+      confirm_secureTextEntry: !data.confirm_secureTextEntry,
+    });
+  };
+
   return (
     <View style={styles.container}>
+      {/* <StatusBar barStyle="dark-content" /> */}
       <View style={styles.header}>
-        <Text style={styles.text_header}> Hello! </Text>
+        <Text style={styles.text_header}> Join us! </Text>
       </View>
-      <View style={styles.footer}>
-        <Text style={styles.text_footer}> E-mail </Text>
+      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+        <Text style={styles.text_footer}> Username </Text>
         <View style={styles.action}>
-          <User set="curved" color="#05375a" size={20} />
+          <User set="curved" color="#05375a" size={25} />
           <TextInput
-            placeholder="Your mail"
+            placeholder="Your username"
             style={styles.textInput}
             autoCapitalize="none"
+            onChangeText={value => textInputChange(value)}
           />
+          {data.chceck_textInputChange ? (
+            <Animatable.View animation="bounceIn">
+              <TickSquare set="curved" color="#05375a" size={25} />
+            </Animatable.View>
+          ) : null}
         </View>
 
-        <Text style={[styles.text_footer, {marginTop: 35}]}> Password </Text>
+        <Text style={[styles.text_footer, {marginTop: 25}]}> Password </Text>
         <View style={styles.action}>
-          <Lock set="light" color="#05375a" size={20} />
+          <Lock set="light" color="#05375a" size={25} />
           <TextInput
             placeholder="Your password"
-            secureTextEntry={true}
+            secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
+            onChangeText={value => handlePasswordChange(value)}
           />
-          <Hide set="curved" color="#05375a" size={20} />
+          <TouchableOpacity onPress={updateSecureTextEntry}>
+            {data.secureTextEntry ? (
+              <Hide set="curved" color="#05375a" size={25} />
+            ) : (
+              <Show set="curved" color="#05375a" size={25} />
+            )}
+          </TouchableOpacity>
         </View>
-
-        <Text style={[styles.text_footer, {marginTop: 35}]}>
-          {' '}
+        <Text style={[styles.text_footer, {marginTop: 25}]}>
           Confirm password{' '}
         </Text>
         <View style={styles.action}>
-          <Lock set="light" color="#05375a" size={20} />
+          <Lock set="light" color="#05375a" size={25} />
           <TextInput
-            placeholder="Your password"
-            secureTextEntry={true}
+            placeholder="Confirm your password"
+            secureTextEntry={data.confirm_secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
+            onChangeText={value => handleConfirmPasswordChange(value)}
           />
-          <Hide set="curved" color="#05375a" size={20} />
+          <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+            {data.secureTextEntry ? (
+              <Hide set="curved" color="#05375a" size={25} />
+            ) : (
+              <Show set="curved" color="#05375a" size={25} />
+            )}
+          </TouchableOpacity>
         </View>
-        <View style={styles.buttonContainer}>
-          <AppButton
-            title="Log in"
+        <View style={styles.button}>
+          <AppButton title="Sign up" onPress={() => {}} />
+          <SecondButton
+            title="Sign in"
             onPress={() => {
               props.navigation.goBack();
             }}
           />
-          <SecondButton
-            title="Sign up"
-            onPress={() => {
-              props.navigation.navigate('Home');
-            }}
-          />
         </View>
-      </View>
+      </Animatable.View>
     </View>
   );
 };
 
-export default SignUpScreen;
+export default SignunScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -90,7 +169,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   footer: {
-    flex: 3,
+    flex: 4,
     backgroundColor: '#fff',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -133,7 +212,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 20,
   },
   signIn: {
     width: '100%',
@@ -145,9 +224,5 @@ const styles = StyleSheet.create({
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  buttonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

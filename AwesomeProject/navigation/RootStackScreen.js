@@ -1,28 +1,16 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {IconlyProvider, Home, Notification} from 'react-native-iconly';
-import {createStackNavigator} from '@react-navigation/stack';
-
-import TabNavigator from './TabNavigator';
-import DrawerNavigator from './DrawerNavigator';
-
-import SignUpScreen from '../screens/Registration/SignupScreen';
+import React from 'react';
 import SigninScreen from '../screens/Registration/SigninScreen';
-import AppStackNavigator from './AppNavigator';
+import SignUpScreen from '../screens/Registration/SignupScreen';
 
-// const RootStack = createNativeStackNavigator();
-const Stack = createStackNavigator();
+const RootStack = createNativeStackNavigator();
 
-const RootStackNavigator = ({navigation}) => {
+const RootStackNavigator = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="SignIn" component={SigninScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Home" component={AppStackNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <RootStack.Navigator screenOptions={{headerShown: false}}>
+      <RootStack.Screen name="SignIn" component={SigninScreen} />
+      <RootStack.Screen name="SignUp" component={SignUpScreen} />
+    </RootStack.Navigator>
   );
 };
 

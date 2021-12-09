@@ -8,19 +8,14 @@ import {
   FlatList,
   TouchableOpacity,
   ToastAndroid,
+  LogBox,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createStackNavigator} from '@react-navigation/stack';
 import AppStackNavigator from './navigation/AppNavigator';
-import RootStackNavigator from './navigation/RootStackScreen';
 
-import SigninScreen from './screens/Registration/SigninScreen';
+LogBox.ignoreAllLogs(); // Ignore all log notifications
 
 export default function App() {
-  // const Stack = createNativeStackNavigator();
-
-  return <RootStackNavigator />;
+  return <AppStackNavigator />;
 }
 
 const styles = StyleSheet.create({

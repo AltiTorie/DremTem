@@ -1,0 +1,143 @@
+import React from 'react';
+import {Dimensions, StyleSheet, View} from 'react-native';
+import Plot from 'react-plotly.js';
+
+export default class BasicDashboardComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    var button_layer_2_height = 1.2;
+    var updatemenus = [
+      {
+        buttons: [
+          {
+            args: [{mode: 'markers'}],
+            label: 'Markers',
+            method: 'update',
+          },
+          {
+            args: [{mode: 'lines+markers'}],
+            label: 'Markers + lines',
+            method: 'update',
+          },
+        ],
+        direction: 'left',
+        pad: {r: 10, t: 10},
+        showactive: true,
+        type: 'buttons',
+        x: 0.1,
+        xanchor: 'left',
+        y: button_layer_2_height,
+        yanchor: 'top',
+      },
+    ];
+    let withHover = props.data.map(data => {
+      return {
+        ...data,
+        hovertemplate:
+          '%{data.name}: %{y:.2f}' + data.dataUnit + '<extra></extra>',
+      };
+    });
+    this.state = {
+      props: props,
+      dashboard_data: withHover,
+      layout: {
+        title: props.name,
+        updatemenus: updatemenus,
+
+        autozise: true,
+        font: {size: 18},
+        xaxis: {
+          rangeslider: {
+            borderwidth: 3,
+            bordercolor: '#5080F0',
+            thickness: 0.05,
+            yaxis: {rangemode: 'auto'},
+          },
+        },
+        yaxis: {
+          ticksuffix: props.data[0].dataUnit,
+        },
+        hovermode: 'x unified',
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').height * 0.85,
+      },
+    };
+  }
+  update = (_, {data, layout, config}, plotly) => {
+    plotly.react(data, layout, config);
+  };
+
+  render() {
+    return (
+      <View>
+        <View style={styles.container}>
+          <Plot
+            data={this.state.dashboard_data}
+            layout={this.state.layout}
+            update={this.update}
+            onLoad={() => console.log('loaded')}
+            debug
+            config={{
+              displaylogo: false,
+              editable: true,
+              responsive: true,
+              autosize: true,
+            }}
+          />
+        </View>
+      </View>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoContainer: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+  },
+  logoText: {
+    fontSize: 20,
+  },
+  text: {},
+  playground: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+  },
+  addDashboard: {
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+  },
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addButton: {
+    position: 'absolute',
+    backgroundColor: '#F5D500',
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: 50,
+    top: 10,
+    left: 50,
+    z: 0,
+  },
+  addButtonText: {
+    fontSize: 50,
+    fontWeight: 'bold',
+    color: '#f7e6b5',
+  },
+});

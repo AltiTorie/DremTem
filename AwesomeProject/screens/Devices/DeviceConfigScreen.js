@@ -1,7 +1,16 @@
 import React, {useState} from 'react';
 import AppButton from '../../components/Button_main';
 import SelectDropdown from 'react-native-select-dropdown';
-import {Text, View, StyleSheet, Switch, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Switch,
+  TextInput,
+  ToastAndroid,
+} from 'react-native';
+import SecondButton from '../../components/Button_second';
+import {useTheme} from '@react-navigation/native';
 
 const DeviceConfigScreen = props => {
   const getSensorsNamesList = sensorsData => {
@@ -29,18 +38,37 @@ const DeviceConfigScreen = props => {
   const [interval, setInterval] = useState();
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+  const renderElement = () => {
+    if (props.route.params.deviceConfig.online == false)
+      return (
+        <SecondButton
+          title="Get sensor csv"
+          onPress={() => {
+            if (!dropdownValue) {
+              ToastAndroid.show(`Select sensor`, ToastAndroid.SHORT);
+            } else {
+              props.route.params.bt.getSensorCsv(
+                props.route.params.deviceConfig.deviceID,
+                dropdownValue,
+              );
+              ToastAndroid.show(`Downloading csv`, ToastAndroid.SHORT);
+            }
+          }}
+        />
+      );
+    return null;
+  };
+  const {colors} = useTheme();
   return (
     <View style={styles.main}>
       <View style={{alignItems: 'center'}}>
-        <Text style={styles.textHeader}>Device:</Text>
-        <Text style={styles.textHeader}>
+        <Text style={{fontSize: 40, color: colors.text}}>
           {props.route.params.deviceConfig.deviceID}
         </Text>
-        <Text style={styles.text}>
-          {'\nWorking as online device: ' +
-            props.route.params.deviceConfig.online}
+        <Text
+          style={{fontSize: 20, justifyContent: 'center', color: colors.text}}>
+          {'\nSensor:'}
         </Text>
-        <Text style={styles.text}>{'\nSensor:'}</Text>
         <SelectDropdown
           defaultButtonText="Select sensor"
           data={getSensorsNamesList(props.route.params.deviceConfig.sensors)}
@@ -56,7 +84,10 @@ const DeviceConfigScreen = props => {
           }}
         />
 
-        <Text style={styles.text}>{'Sensor interval (in seconds):'}</Text>
+        <Text
+          style={{fontSize: 20, justifyContent: 'center', color: colors.text}}>
+          {'Sensor interval (in seconds):'}
+        </Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -64,7 +95,10 @@ const DeviceConfigScreen = props => {
           value={interval}
           maxLength={3}
         />
-        <Text style={styles.text}>{'Sensor state:'}</Text>
+        <Text
+          style={{fontSize: 20, justifyContent: 'center', color: colors.text}}>
+          {'Sensor state:'}
+        </Text>
         <Switch
           trackColor={{false: '#767577', true: '#767577'}}
           thumbColor={isEnabled ? '#FFC163' : '#f4f3f4'}
@@ -83,7 +117,7 @@ const DeviceConfigScreen = props => {
               if (interval != '' && !isNaN(+interval)) {
                 props.route.params.sensorsConfig[dropdownValue + 'SensorOn'] =
                   isEnabled;
-                let state = isEnabled ? 'ON' : 'OFF';
+                let state = isEnabled ? '1' : '0';
                 props.route.params.bt.sendStateConfig(dropdownValue, state);
                 let intervalInMicroSec = interval * 1000;
                 props.route.params.sensorsConfig[
@@ -103,6 +137,7 @@ const DeviceConfigScreen = props => {
             }
           }}
         />
+        {renderElement()}
       </View>
     </View>
   );
@@ -113,15 +148,10 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    backgroundColor: 'white',
     alignItems: 'center',
   },
   textHeader: {
     fontSize: 40,
-  },
-  text: {
-    fontSize: 20,
-    justifyContent: 'center',
   },
   bottom: {
     position: 'absolute',

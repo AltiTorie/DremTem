@@ -1,12 +1,15 @@
 import React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import AppTitle from '../components/Title';
+import DrawerHeader from '../components/Drawer_header';
 
 const AboutScreen = props => {
   return (
     <View style={styles.main}>
+      <DrawerHeader
+        screen="Daschboards"
+        onPress={() => props.navigation.openDrawer()}
+      />
       <View>
         <AppTitle title="ABOUT" />
       </View>
@@ -30,7 +33,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,36 +1,33 @@
-import moment from 'moment';
 import React from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
+import {Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Plotly from 'react-native-plotly';
-import {SafeAreaView} from 'react-native-safe-area-context';
-
-export default class LightDashboardScreen extends React.Component {
+export default class OfflineDataDashboardScreen extends React.Component {
   constructor(props) {
     super(props);
-    let m = props.route.params.labels.map(el =>
-      moment(el, 'YYYY.MM.DD - hh:mm:ss').toISOString(),
-    );
+    let opts = props.route.params.data;
+    props.navigation.setOptions({title: 'Data from csv'});
     this.state = {
       props: props,
-      data1: {
+      data: {
         __id: '1',
-        x: m,
-        y: props.route.params.data[0],
+        x: opts.labels,
+        y: opts.data,
         mode: 'lines+markers',
-        type: 'scatter',
-      },
-      data2: {
-        __id: '2',
-        x: m,
-        y: props.route.params.data[1],
-        mode: 'lines+markers',
+        line: {shape: 'spline'},
         type: 'scatter',
       },
       layout: {
-        title: 'Plotly.js running in React Native!',
+        title: opts.device + ' - ' + opts.sensor,
         autozise: true,
         font: {size: 18},
-        xaxis: {rangeslider: {}},
+        xaxis: {
+          rangeslider: {
+            borderwidth: 3,
+            bordercolor: '#5080F0',
+            thickness: 0.07,
+            yaxis: {rangemode: 'auto'},
+          },
+        },
       },
     };
   }
@@ -40,24 +37,21 @@ export default class LightDashboardScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Plotly
-          data={[this.state.data1, this.state.data2]}
+          data={[this.state.data]}
           layout={this.state.layout}
           style={styles.chart}
           update={this.update}
           onLoad={() => console.log('loaded')}
           debug
-          // TODO: Delete saving as picture
-          // TODO: Delete unnecesary 'select' options
-          // TODO: Rotate x axis
           config={{
             displaylogo: false,
             responsive: true,
             autosize: true,
           }}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

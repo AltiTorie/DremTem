@@ -1,10 +1,15 @@
 import React from 'react';
 import {Text, View, Button, StyleSheet} from 'react-native';
 import AppTitle from '../components/Title';
+import DrawerHeader from '../components/Drawer_header';
 
 const SupportScreen = props => {
   return (
     <View style={styles.main}>
+      <DrawerHeader
+        screen="Support"
+        onPress={() => props.navigation.openDrawer()}
+      />
       <View>
         <AppTitle title="Support" />
       </View>
@@ -20,7 +25,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
