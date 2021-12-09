@@ -13,7 +13,7 @@ export default class DefaultDashboardComponent extends React.Component {
       max = max.toFixed(2);
       max = max > 0 ? max : '(' + max + ')';
       let hovertemplate =
-        '%{data.name}: %{y:.2f}' + item.dataUnit + '<extra></extra>';
+        '%{data.name}: %{text:.2f}' + item.dataUnit + '<extra></extra>';
       return {
         ...item,
         y: scaledY,
