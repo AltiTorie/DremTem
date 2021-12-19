@@ -20,8 +20,83 @@ import {
 import {Link} from '@react-navigation/native';
 import AppButton from '../../components/Button_main';
 import Navbar from '../../components/Navbar';
+import {AuthContext} from '../../components/context';
 
 const SignUpScreen = props => {
+  const [data, setData] = useState({
+    email: '',
+    password: '',
+    confirm_password: '',
+    chceck_textInputChange: false,
+    secureTextEntry: true,
+    confirm_secureTextEntry: true,
+  });
+
+  const textInputChange = value => {
+    if (value.length > 0) {
+      setData({
+        ...data,
+        email: value,
+        chceck_textInputChange: true,
+      });
+    } else {
+      setData({
+        ...data,
+        email: value,
+        chceck_textInputChange: false,
+      });
+    }
+  };
+
+  const handlePasswordChange = value => {
+    setData({
+      ...data,
+      password: value,
+    });
+  };
+
+  const handleConfirmPasswordChange = value => {
+    setData({
+      ...data,
+      confirm_password: value,
+    });
+  };
+
+  const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry,
+    });
+  };
+
+  const updateConfirmSecureTextEntry = () => {
+    setData({
+      ...data,
+      confirm_secureTextEntry: !data.confirm_secureTextEntry,
+    });
+  };
+
+  const signUpAPI = async () => {
+    if (data.email === '') {
+      return;
+    }
+    const response = await fetch(
+      'http://c6140c902ac7.sn.mynetname.net:8080/api/v1/auth/signup',
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      },
+    );
+    console.log(response.json());
+  };
   return (
     <View>
       <View style={styles.navbar}>
@@ -36,13 +111,41 @@ const SignUpScreen = props => {
             <Text style={styles.text_footer}> Username </Text>
             <View style={styles.action}>
               <User set="curved" color="#05375a" size={25} />
-              <TextInput placeholder="Your username" style={styles.textInput} />
+              <TextInput
+                placeholder="Your username"
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={value => textInputChange(value)}
+              />
+              {data.chceck_textInputChange ? (
+                <TickSquare set="curved" color="#639E6C" size={25} />
+              ) : null}
             </View>
+            {data.isValidUser ? null : (
+              <View>
+                <Text style={styles.errorMsg}>
+                  Username must be 4 chcaracters long
+                </Text>
+              </View>
+            )}
 
             <Text style={[styles.text_footer, {marginTop: 20}]}>Password</Text>
             <View style={styles.action}>
               <Lock set="light" color="#05375a" size={25} />
-              <TextInput placeholder="Your password" style={styles.textInput} />
+              <TextInput
+                placeholder="Your password"
+                secureTextEntry={data.secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={value => handlePasswordChange(value)}
+              />
+              <TouchableOpacity onPress={updateSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Hide set="curved" color="#05375a" size={25} />
+                ) : (
+                  <Show set="curved" color="#05375a" size={25} />
+                )}
+              </TouchableOpacity>
             </View>
 
             <Text style={[styles.text_footer, {marginTop: 20}]}>
@@ -50,15 +153,27 @@ const SignUpScreen = props => {
             </Text>
             <View style={styles.action}>
               <Lock set="light" color="#05375a" size={25} />
-              <TextInput placeholder="Your password" style={styles.textInput} />
+              <TextInput
+                placeholder="Confirm your password"
+                secureTextEntry={data.confirm_secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                onChangeText={value => handleConfirmPasswordChange(value)}
+              />
+              <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+                {data.secureTextEntry ? (
+                  <Hide set="curved" color="#05375a" size={25} />
+                ) : (
+                  <Show set="curved" color="#05375a" size={25} />
+                )}
+              </TouchableOpacity>
             </View>
 
             <View style={styles.button}>
               <AppButton
                 title="Sign up"
                 onPress={() => {
-                  console.log('clicked');
-                  // loginHandle(data.username, data.password);
+                  signUpAPI();
                 }}
               />
             </View>
@@ -73,6 +188,84 @@ const SignUpScreen = props => {
       </View>
     </View>
   );
+
+  //   <View style={styles.container}>
+  //     {/* <StatusBar barStyle="dark-content" /> */}
+  //     <View style={styles.header}>
+  //       <Text style={styles.text_header}> Join us! </Text>
+  //     </View>
+  //     <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+  //       <Text style={styles.text_footer}> E-mail </Text>
+  //       <View style={styles.action}>
+  //         <User set="curved" color="#05375a" size={25} />
+  //         <TextInput
+  //           placeholder="Your username"
+  //           style={styles.textInput}
+  //           autoCapitalize="none"
+  //           onChangeText={value => textInputChange(value)}
+  //         />
+  //         {data.chceck_textInputChange ? (
+  //           <Animatable.View animation="bounceIn">
+  //             <TickSquare set="curved" color="#05375a" size={25} />
+  //           </Animatable.View>
+  //         ) : null}
+  //       </View>
+
+  //       <Text style={[styles.text_footer, {marginTop: 25}]}> Password </Text>
+  //       <View style={styles.action}>
+  //         <Lock set="light" color="#05375a" size={25} />
+  //         <TextInput
+  //           placeholder="Your password"
+  //           secureTextEntry={data.secureTextEntry ? true : false}
+  //           style={styles.textInput}
+  //           autoCapitalize="none"
+  //           onChangeText={value => handlePasswordChange(value)}
+  //         />
+  //         <TouchableOpacity onPress={updateSecureTextEntry}>
+  //           {data.secureTextEntry ? (
+  //             <Hide set="curved" color="#05375a" size={25} />
+  //           ) : (
+  //             <Show set="curved" color="#05375a" size={25} />
+  //           )}
+  //         </TouchableOpacity>
+  //       </View>
+  //       <Text style={[styles.text_footer, {marginTop: 25}]}>
+  //         Confirm password{' '}
+  //       </Text>
+  //       <View style={styles.action}>
+  //         <Lock set="light" color="#05375a" size={25} />
+  //         <TextInput
+  //           placeholder="Confirm your password"
+  //           secureTextEntry={data.confirm_secureTextEntry ? true : false}
+  //           style={styles.textInput}
+  //           autoCapitalize="none"
+  //           onChangeText={value => handleConfirmPasswordChange(value)}
+  //         />
+  //         <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+  //           {data.secureTextEntry ? (
+  //             <Hide set="curved" color="#05375a" size={25} />
+  //           ) : (
+  //             <Show set="curved" color="#05375a" size={25} />
+  //           )}
+  //         </TouchableOpacity>
+  //       </View>
+  //       <View style={styles.button}>
+  //         <AppButton
+  //           title="Sign up"
+  //           onPress={() => {
+  //             signUpAPI();
+  //           }}
+  //         />
+  //         <SecondButton
+  //           title="Sign in"
+  //           onPress={() => {
+  //             props.navigation.goBack();
+  //           }}
+  //         />
+  //       </View>
+  //     </Animatable.View>
+  //   </View>
+  // );
 };
 
 export default SignUpScreen;

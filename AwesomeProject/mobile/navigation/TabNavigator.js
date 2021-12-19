@@ -9,11 +9,9 @@ import HomeScreen from '../screens/HomeScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 
 const Tab = createMaterialBottomTabNavigator();
-
 const TabNavigator = () => {
   const paperTheme = useTheme();
   const {colors} = useTheme();
-
   return (
     <Tab.Navigator
       initialRouteName="Home"

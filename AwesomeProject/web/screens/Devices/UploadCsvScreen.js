@@ -36,7 +36,8 @@ const UploadCsvScreen = () => {
     setSelectedFiles(selectedFiles => [...selectedFiles, ...names]);
   };
   return (
-    <View style={{height: '100%', alignItems: 'center'}}>
+    <View
+      style={{height: '100%', alignItems: 'center', backgroundColor: 'white'}}>
       <View style={styles.cat}>
         <ScreenTitle title="Upload data from device"></ScreenTitle>
       </View>

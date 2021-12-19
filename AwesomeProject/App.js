@@ -10,7 +10,7 @@ import {
   ToastAndroid,
   LogBox,
 } from 'react-native';
-import AppStackNavigator from './navigation/AppNavigator';
+import AppStackNavigator from './mobile/navigation/AppNavigator';
 
 LogBox.ignoreAllLogs(); // Ignore all log notifications
 
