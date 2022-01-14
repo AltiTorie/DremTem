@@ -8,9 +8,9 @@ export default Users = [
   },
   {
     id: 2,
-    email: 'user2@email.com',
-    username: 'user2',
-    password: 'user2pass',
+    email: '246716@student.pwr.edu.pl',
+    username: '246716@student.pwr.edu.pl',
+    password: '246716Pass_',
     userToken: 'token12345',
   },
   {

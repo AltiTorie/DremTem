@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from '@react-navigation/native';
 import {
   View,
   Text,
@@ -112,11 +113,11 @@ const SigninScreen = props => {
         <Text style={styles.text_header}> Hello! </Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}> Username </Text>
+        <Text style={styles.text_footer}> E-mail </Text>
         <View style={styles.action}>
           <User set="curved" color="#05375a" size={25} />
           <TextInput
-            placeholder="Your username"
+            placeholder="Your e-mail"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={value => textInputChange(value)}
@@ -167,18 +168,33 @@ const SigninScreen = props => {
         </TouchableOpacity>
         <View style={styles.button}>
           <AppButton
-            title="Sign in"
+            title="Log in"
             onPress={() => {
               console.log('clicked');
               loginHandle(data.username, data.password);
             }}
           />
-          <SecondButton
+          {/* <SecondButton
             title="Sign up"
             onPress={() => {
               props.navigation.navigate('SignUp');
             }}
-          />
+          /> */}
+          <View
+            style={{
+              flexDirection: 'row',
+              // marginBottom: '5%',
+              marginTop: 25,
+            }}>
+            <Text style={{fontSize: 18, color: 'black'}}>
+              Don't have an account?{' '}
+            </Text>
+            <Link
+              to={{screen: 'SignUp'}}
+              style={{color: '#FFC163', fontSize: 20}}>
+              Join us!
+            </Link>
+          </View>
         </View>
       </Animatable.View>
     </View>
@@ -190,7 +206,8 @@ export default SigninScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFDC84',
+    // backgroundColor: '#FFDC84',
+    backgroundColor: '#FFC163',
   },
   header: {
     flex: 1,
@@ -214,7 +231,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text_footer: {
-    color: '#05375a',
+    // color: '#05375a',
+    color: 'black',
     fontSize: 18,
   },
   action: {
@@ -243,7 +261,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 60,
   },
   signIn: {
     width: '100%',

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from '@react-navigation/native';
 import {
   View,
   Text,
@@ -86,11 +87,11 @@ const SignunScreen = props => {
         <Text style={styles.text_header}> Join us! </Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.text_footer}> Username </Text>
+        <Text style={styles.text_footer}> E-mail </Text>
         <View style={styles.action}>
           <User set="curved" color="#05375a" size={25} />
           <TextInput
-            placeholder="Your username"
+            placeholder="Your e-mail"
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={value => textInputChange(value)}
@@ -142,12 +143,23 @@ const SignunScreen = props => {
         </View>
         <View style={styles.button}>
           <AppButton title="Sign up" onPress={() => {}} />
-          <SecondButton
+          {/* <SecondButton
             title="Sign in"
             onPress={() => {
               props.navigation.goBack();
             }}
-          />
+          /> */}
+
+          <View style={{flexDirection: 'row', marginTop: 25}}>
+            <Text style={{fontSize: 18, color: 'black'}}>
+              Already have an account?{' '}
+            </Text>
+            <Link
+              to={{screen: 'LogIn'}}
+              style={{color: '#FFC163', fontSize: 20}}>
+              Log in!
+            </Link>
+          </View>
         </View>
       </Animatable.View>
     </View>
@@ -159,7 +171,7 @@ export default SignunScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFDC84',
+    backgroundColor: '#FFC163',
   },
   header: {
     flex: 1,
@@ -212,7 +224,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 40,
   },
   signIn: {
     width: '100%',

@@ -36,15 +36,17 @@ const DrawerNavigator = props => {
           <View styel={styles.userInfoSection}>
             <View
               style={{flexDirection: 'row', marginTop: 15, paddingLeft: 10}}>
-              <Avatar.Image
+              {/* <Avatar.Image
                 source={{
                   uri: 'https://www.clipartmax.com/png/middle/72-722180_these-are-some-cats-avatar-i-drew-during-my-free-time-black.png',
                 }}
                 size={50}
-              />
+              /> */}
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
                 <Title style={styles.title}>Agata Kowalczyk</Title>
-                <Caption style={styles.caption}>@kowalczykAgata</Caption>
+                <Caption style={styles.caption}>
+                  246716@student.pwr.edu.pl
+                </Caption>
               </View>
             </View>
           </View>
@@ -104,7 +106,7 @@ const DrawerNavigator = props => {
             </TouchableRipple>
             <TouchableRipple onPress={() => toggleLanguageVersion()}>
               <View style={styles.preference}>
-                <Text>English</Text>
+                <Text>Polish</Text>
                 <View pointerEvents="none">
                   <Switch
                     trackColor={{true: '#FFC163', false: 'grey'}}
